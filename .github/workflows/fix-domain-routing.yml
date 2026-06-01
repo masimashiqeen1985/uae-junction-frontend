@@ -1,0 +1,77 @@
+name: Fix Domain Routing
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-routing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: Fix WordPress URLs and restart services
+        env:
+          VPS_PASSWORD: "@Ma03002141332"
+        run: |
+          sshpass -p "$VPS_PASSWORD" ssh -o StrictHostKeyChecking=no root@69.62.109.108 << 'ENDSSH'
+          echo "=== Step 1: List running containers ==="
+          docker ps --format "table {{.Names}}\t{{.Status}}"
+          
+          echo "=== Step 2: Find WordPress container name ==="
+          WP_CONTAINER=$(docker ps --format "{{.Names}}" | grep -i wordpress | head -1)
+          MYSQL_CONTAINER=$(docker ps --format "{{.Names}}" | grep -i mysql | head -1)
+          echo "WordPress container: $WP_CONTAINER"
+          echo "MySQL container: $MYSQL_CONTAINER"
+          
+          echo "=== Step 3: Check current wp_options siteurl and home ==="
+          docker exec $MYSQL_CONTAINER mysql -u root -pEhrkqkffZsL50U47Fsx0FXuLFDnt1oYR wordpress -e "SELECT option_name, option_value FROM wp_options WHERE option_name IN ('siteurl','home');"
+          
+          echo "=== Step 4: Update siteurl and home to cms.theuaejunction.cloud ==="
+          docker exec $MYSQL_CONTAINER mysql -u root -pEhrkqkffZsL50U47Fsx0FXuLFDnt1oYR wordpress -e "UPDATE wp_options SET option_value='https://cms.theuaejunction.cloud' WHERE option_name='siteurl';"
+          docker exec $MYSQL_CONTAINER mysql -u root -pEhrkqkffZsL50U47Fsx0FXuLFDnt1oYR wordpress -e "UPDATE wp_options SET option_value='https://cms.theuaejunction.cloud' WHERE option_name='home';"
+          
+          echo "=== Step 5: Verify update ==="
+          docker exec $MYSQL_CONTAINER mysql -u root -pEhrkqkffZsL50U47Fsx0FXuLFDnt1oYR wordpress -e "SELECT option_name, option_value FROM wp_options WHERE option_name IN ('siteurl','home');"
+          
+          echo "=== Step 6: Update any guid/content URLs that reference theuaejunction.cloud (not cms.) ==="
+          docker exec $MYSQL_CONTAINER mysql -u root -pEhrkqkffZsL50U47Fsx0FXuLFDnt1oYR wordpress -e "UPDATE wp_posts SET guid=REPLACE(guid,'https://theuaejunction.cloud','https://cms.theuaejunction.cloud') WHERE guid LIKE 'https://theuaejunction.cloud%';"
+          docker exec $MYSQL_CONTAINER mysql -u root -pEhrkqkffZsL50U47Fsx0FXuLFDnt1oYR wordpress -e "UPDATE wp_posts SET post_content=REPLACE(post_content,'https://theuaejunction.cloud','https://cms.theuaejunction.cloud') WHERE post_content LIKE '%https://theuaejunction.cloud%';"
+          
+          echo "=== Step 7: Fix wp_usermeta and wp_postmeta if needed ==="
+          docker exec $MYSQL_CONTAINER mysql -u root -pEhrkqkffZsL50U47Fsx0FXuLFDnt1oYR wordpress -e "UPDATE wp_options SET option_value=REPLACE(option_value,'https://theuaejunction.cloud','https://cms.theuaejunction.cloud') WHERE option_value LIKE '%https://theuaejunction.cloud%';"
+          
+          echo "=== Step 8: Restart WordPress container to clear object cache ==="
+          docker restart $WP_CONTAINER
+          sleep 5
+          
+          echo "=== Step 9: Check Next.js container ==="
+          NEXT_CONTAINER=$(docker ps --format "{{.Names}}" | grep -i "uae-junction-frontend" | head -1)
+          echo "Next.js container: $NEXT_CONTAINER"
+          if [ -z "$NEXT_CONTAINER" ]; then
+            echo "WARNING: Next.js container not found! Checking all containers:"
+            docker ps -a --format "table {{.Names}}\t{{.Status}}\t{{.Image}}"
+          else
+            docker logs $NEXT_CONTAINER --tail 20
+          fi
+          
+          echo "=== Step 10: Check Traefik container and its config ==="
+          docker exec $(docker ps --format "{{.Names}}" | grep -i traefik | head -1) traefik version 2>/dev/null || echo "Traefik check skipped"
+          
+          echo "=== DONE ==="
+          ENDSSH
+
+      - name: Trigger Next.js redeploy via Coolify API
+        run: |
+          curl -s -X POST "http://69.62.109.108:8000/api/v1/applications/g6fpdpcrhdp8fheuj6fefg41/start" \
+            -H "Authorization: Bearer 1|uQXI4jzEp6JTofncGGK2HOcRw0RO7cnCmUOehvIb53548b6e" \
+            -H "Content-Type: application/json" \
+            -d '{"force_rebuild": false}'
+          echo "Redeploy triggered"
+          sleep 30
+          
+      - name: Verify domains
+        run: |
+          echo "=== Verify theuaejunction.cloud ==="
+          curl -I -L --max-redirs 5 https://theuaejunction.cloud 2>&1 | head -30
+          echo "=== Verify cms.theuaejunction.cloud ==="
+          curl -I -L --max-redirs 5 https://cms.theuaejunction.cloud 2>&1 | head -20
