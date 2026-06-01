@@ -1,6 +1,8 @@
 FROM node:22-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
+# CRITICAL: force development mode so npm installs ALL deps including devDependencies
+ENV NODE_ENV=development
 COPY package.json ./
 RUN npm install --legacy-peer-deps
 
@@ -9,6 +11,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
 ENV NEXT_PUBLIC_GRAPHQL_ENDPOINT=https://cms.theuaejunction.cloud/graphql
 ENV NEXT_PUBLIC_SITE_URL=https://theuaejunction.cloud
 ENV NEXT_PUBLIC_WORDPRESS_URL=https://cms.theuaejunction.cloud
