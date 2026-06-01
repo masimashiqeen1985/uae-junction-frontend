@@ -1,0 +1,2 @@
+export const MEDIA_FIELDS=`sourceUrl altText mediaDetails{width height sizes{sourceUrl width height name}}`
+export const SEO_FIELDS=`title metaDesc opengraphTitle opengraphDescription opengraphImage{${MEDIA_FIELDS}}canonical`

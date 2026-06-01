@@ -1,0 +1,3 @@
+import type{MetadataRoute}from'next'
+const B='https://theuaejunction.cloud'
+export default function sitemap():MetadataRoute.Sitemap{return[{url:B,lastModified:new Date(),changeFrequency:'daily',priority:1},{url:B+'/theme-parks',lastModified:new Date(),changeFrequency:'weekly',priority:0.9},{url:B+'/water-parks',lastModified:new Date(),changeFrequency:'weekly',priority:0.9},{url:B+'/desert-safari',lastModified:new Date(),changeFrequency:'weekly',priority:0.9},{url:B+'/about-us',lastModified:new Date(),changeFrequency:'monthly',priority:0.8},{url:B+'/contact-us',lastModified:new Date(),changeFrequency:'monthly',priority:0.6},{url:B+'/blogs',lastModified:new Date(),changeFrequency:'daily',priority:0.7}]}

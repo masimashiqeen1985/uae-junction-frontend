@@ -1,0 +1,2 @@
+import{MEDIA_FIELDS}from'./fragments'
+export const GET_HOMEPAGE=`query GetHomepage{featuredProducts:products(first:8){nodes{id databaseId slug name image{${MEDIA_FIELDS}}regularPrice salePrice price onSale productFields{badgeText badgeActive}}}productCategories(first:20){nodes{id name slug count categoryFields{categoryIcon{${MEDIA_FIELDS}}categoryHeroImage{${MEDIA_FIELDS}}categorySubtitle}}}}`

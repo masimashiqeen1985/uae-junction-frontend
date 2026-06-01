@@ -1,0 +1,3 @@
+import type{Metadata}from'next'
+export const metadata:Metadata={title:'Dubai Dhow Cruise'}
+export default function Page(){return<div><div className="bg-secondary py-16 text-center text-white"><h1 className="font-display font-bold text-4xl mb-3">Dhow Cruise</h1><p className="text-white/80 text-lg">Sail the Waters of Dubai</p></div><div className="container-xl py-12"><p className="text-neutral-500 text-center">Packages loading from CMS...</p></div></div>}

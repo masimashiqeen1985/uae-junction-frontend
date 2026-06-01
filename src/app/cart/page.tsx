@@ -1,0 +1,3 @@
+import type{Metadata}from'next'
+export const metadata:Metadata={title:'Cart'}
+export default function CartPage(){return<div className="container-xl py-16"><h1 className="font-display font-bold text-3xl text-secondary mb-8">Your Cart</h1><div className="bg-white rounded-card shadow-card p-8 text-center"><p className="text-neutral-500 mb-4">Your cart is empty.</p><a href="/theme-parks" className="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-btn font-semibold transition-colors">Browse Packages</a></div></div>}

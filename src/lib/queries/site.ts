@@ -1,0 +1,2 @@
+import{MEDIA_FIELDS}from'./fragments'
+export const GET_SITE_OPTIONS=`query GetSiteOptions{siteOptions{siteLogo{${MEDIA_FIELDS}}whatsappNumber phoneNumber emailAddress socialLinks{platform url}footerTagline announcementBarText announcementBarOn navCtaText navCtaUrl}}`
