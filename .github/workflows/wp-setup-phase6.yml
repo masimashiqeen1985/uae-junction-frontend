@@ -1,0 +1,65 @@
+name: WP CLI Phase 6 Setup
+on:
+  workflow_dispatch:
+jobs:
+  wp-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: Phase 6 WordPress Headless Configuration
+        run: |
+          WP="sshpass -p '@Ma03002141332' ssh -o StrictHostKeyChecking=no root@69.62.109.108 docker exec wordpress-nec0n470y0eewe1y7flz126a wp"
+          SSH="sshpass -p '@Ma03002141332' ssh -o StrictHostKeyChecking=no root@69.62.109.108"
+
+          echo "=== PLUGINS BEFORE ==="
+          eval "$WP plugin list --format=table --allow-root"
+
+          echo "=== INSTALL WPGraphQL for ACF ==="
+          eval "$WP plugin install wpgraphql-for-advanced-custom-fields --activate --allow-root" || true
+
+          echo "=== INSTALL add-wpgraphql-seo ==="
+          eval "$WP plugin install add-wpgraphql-seo --activate --allow-root" || true
+
+          echo "=== INSTALL WooCommerce ==="
+          eval "$WP plugin install woocommerce --activate --allow-root" || true
+
+          echo "=== INSTALL WPGraphQL WooCommerce ==="
+          eval "$WP plugin install wp-graphql-woocommerce --activate --allow-root" || true
+
+          echo "=== CONFIGURE WPGraphQL ==="
+          eval "$WP option update graphql_general_settings '{\"public_introspection_enabled\":\"on\",\"graphql_endpoint\":\"graphql\"}' --format=json --allow-root" || true
+
+          echo "=== SET SITE OPTIONS ==="
+          eval "$WP option update blogname 'The UAE Junction CMS' --allow-root" || true
+          eval "$WP option update blogdescription 'Headless WordPress - UAE Travel Experiences' --allow-root" || true
+          eval "$WP option update default_comment_status closed --allow-root" || true
+
+          echo "=== SET PERMALINKS ==="
+          eval "$WP rewrite structure '/%postname%/' --allow-root" || true
+          eval "$WP rewrite flush --allow-root" || true
+
+          echo "=== CREATE SECURITY MU-PLUGIN ==="
+          $SSH "docker exec wordpress-nec0n470y0eewe1y7flz126a bash -c 'mkdir -p /var/www/html/wp-content/mu-plugins'"
+          $SSH "docker exec -i wordpress-nec0n470y0eewe1y7flz126a tee /var/www/html/wp-content/mu-plugins/uaej-security.php" << 'PHPEOF'
+<?php
+/* Plugin Name: UAE Junction Security Hardening */
+add_filter('xmlrpc_enabled', '__return_false');
+remove_action('wp_head', 'wp_generator');
+defined('DISALLOW_FILE_EDIT') || define('DISALLOW_FILE_EDIT', true);
+add_filter('rest_endpoints', function($e) {
+  unset($e['/wp/v2/users'], $e['/wp/v2/users/(?P<id>[\d]+)']);
+  return $e;
+});
+PHPEOF
+
+          echo "=== GRAPHQL TEST ==="
+          curl -s -X POST https://cms.theuaejunction.cloud/graphql \
+            -H "Content-Type: application/json" \
+            -d '{"query":"{ generalSettings { title url } posts { nodes { title slug } } }"}' | python3 -m json.tool || true
+
+          echo "=== PLUGINS AFTER ==="
+          eval "$WP plugin list --format=table --allow-root"
+
+          echo "=== PHASE 6 COMPLETE ==="
