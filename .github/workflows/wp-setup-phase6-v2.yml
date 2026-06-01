@@ -1,0 +1,64 @@
+name: WP-CLI Phase 6 WordPress Setup
+on:
+  push:
+    paths:
+      - .github/workflows/wp-setup-phase6-v2.yml
+  workflow_dispatch:
+jobs:
+  wp-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: Phase 6 WordPress Headless Config
+        run: |
+          SSH='sshpass -p @Ma03002141332 ssh -o StrictHostKeyChecking=no root@69.62.109.108'
+          WPC='docker exec wordpress-nec0n470y0eewe1y7flz126a wp --allow-root'
+
+          echo '=== PLUGINS BEFORE ==='
+          $SSH "$WPC plugin list --format=table"
+
+          echo '=== INSTALL WPGraphQL for ACF ==='
+          $SSH "$WPC plugin install wpgraphql-for-advanced-custom-fields --activate" || true
+
+          echo '=== INSTALL add-wpgraphql-seo ==='
+          $SSH "$WPC plugin install add-wpgraphql-seo --activate" || true
+
+          echo '=== INSTALL WooCommerce ==='
+          $SSH "$WPC plugin install woocommerce --activate" || true
+
+          echo '=== INSTALL WPGraphQL WooCommerce ==='
+          $SSH "$WPC plugin install wp-graphql-woocommerce --activate" || true
+
+          echo '=== SET SITE OPTIONS ==='
+          $SSH "$WPC option update blogname 'The UAE Junction CMS'"
+          $SSH "$WPC option update blogdescription 'Headless WordPress - UAE Travel Experiences'"
+          $SSH "$WPC option update default_comment_status closed"
+
+          echo '=== SET PERMALINKS ==='
+          $SSH "$WPC rewrite structure '/%postname%/'"
+          $SSH "$WPC rewrite flush"
+
+          echo '=== SECURITY MU-PLUGIN ==='
+          $SSH "docker exec wordpress-nec0n470y0eewe1y7flz126a mkdir -p /var/www/html/wp-content/mu-plugins"
+          $SSH "docker exec wordpress-nec0n470y0eewe1y7flz126a bash -c 'echo PHN' " || true
+          PHP_CODE=$(cat << 'HEREDOC'
+<?php
+/* Plugin Name: UAE Junction Security Hardening */
+add_filter('xmlrpc_enabled', '__return_false');
+remove_action('wp_head', 'wp_generator');
+defined('DISALLOW_FILE_EDIT') || define('DISALLOW_FILE_EDIT', true);
+HEREDOC
+          )
+          echo "$PHP_CODE" | $SSH "docker exec -i wordpress-nec0n470y0eewe1y7flz126a tee /var/www/html/wp-content/mu-plugins/uaej-security.php" || true
+
+          echo '=== GRAPHQL TEST ==='
+          curl -sf -X POST https://cms.theuaejunction.cloud/graphql \
+            -H "Content-Type: application/json" \
+            -d '{"query":"{ generalSettings { title url } }"}' && echo OK || echo FAIL
+
+          echo '=== PLUGINS AFTER ==='
+          $SSH "$WPC plugin list --format=table"
+
+          echo '=== PHASE 6 COMPLETE ==='
