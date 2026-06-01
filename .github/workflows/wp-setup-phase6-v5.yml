@@ -1,0 +1,19 @@
+name: WP Phase 6 Setup v5
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/wp-phase6-setup.sh'
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: Run setup script in WordPress container
+        env:
+          SSHPASS: "@Ma03002141332"
+        run: |
+          sshpass -e ssh -o StrictHostKeyChecking=no root@69.62.109.108 \
+            "docker exec wordpress-nec0n470y0eewe1y7flz126a bash -c \"curl -sL https://raw.githubusercontent.com/masimashiqeen1985/uae-junction-frontend/main/scripts/wp-phase6-setup.sh | bash\""
