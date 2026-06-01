@@ -1,0 +1,61 @@
+name: WP CLI Phase 6 Setup v3
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/wp-setup-phase6-v3.yml'
+jobs:
+  wp-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install tools
+        run: sudo apt-get install -y sshpass
+
+      - name: Run WP-CLI setup on VPS
+        env:
+          SSHPASS: "@Ma03002141332"
+        run: |
+          SSH="sshpass -e ssh -o StrictHostKeyChecking=no root@69.62.109.108"
+          WP="$SSH docker exec wordpress-nec0n470y0eewe1y7flz126a wp --allow-root"
+
+          echo "=== PLUGIN LIST BEFORE ==="
+          $WP plugin list --format=table
+
+          echo "=== INSTALL: WPGraphQL for ACF ==="
+          $WP plugin install wpgraphql-for-advanced-custom-fields --activate || true
+
+          echo "=== INSTALL: WPGraphQL SEO (RankMath) ==="
+          $WP plugin install add-wpgraphql-seo --activate || true
+
+          echo "=== INSTALL: WooCommerce ==="
+          $WP plugin install woocommerce --activate || true
+
+          echo "=== INSTALL: WPGraphQL WooCommerce ==="
+          $WP plugin install wp-graphql-woocommerce --activate || true
+
+          echo "=== CONFIGURE: WPGraphQL Settings ==="
+          $WP option update graphql_general_settings '{"public_introspection_enabled":"on","graphql_endpoint":"graphql"}' --format=json || true
+
+          echo "=== CONFIGURE: Site Options ==="
+          $WP option update blogname "The UAE Junction CMS"
+          $WP option update blogdescription "Headless WordPress - UAE Travel Experiences"
+          $WP option update default_comment_status closed
+
+          echo "=== CONFIGURE: Permalinks ==="
+          $WP rewrite structure "/%postname%/"
+          $WP rewrite flush
+
+          echo "=== SECURITY: Create MU-Plugin ==="
+          PHP_B64="PD9waHAKLyogUGx1Z2luIE5hbWU6IFVBRSBKdW5jdGlvbiBTZWN1cml0eSBIYXJkZW5pbmcgKi8KYWRkX2ZpbHRlcigneG1scnBjX2VuYWJsZWQnLCAnX19yZXR1cm5fZmFsc2UnKTsKcmVtb3ZlX2FjdGlvbignd3BfaGVhZCcsICd3cF9nZW5lcmF0b3InKTsKZGVmaW5lZCgnRElTQUxMT1dfRklMRV9FRElUJykgfHwgZGVmaW5lKCdESVNBTExPV19GSUxFX0VESVQnLCB0cnVlKTsKYWRkX2ZpbHRlcigncmVzdF9lbmRwb2ludHMnLCBmdW5jdGlvbigkZSkgewogIHVuc2V0KCRlWycvd3AvdjIvdXNlcnMnXSwgJGVbJy93cC92Mi91c2Vycy8oP1A8aWQ+W1xkXSspJ10pOwogIHJldHVybiAkZTsKfSk7Cg=="
+          $SSH "docker exec wordpress-nec0n470y0eewe1y7flz126a mkdir -p /var/www/html/wp-content/mu-plugins"
+          echo "$PHP_B64" | $SSH "docker exec -i wordpress-nec0n470y0eewe1y7flz126a bash -c 'base64 -d > /var/www/html/wp-content/mu-plugins/uaej-security.php'"
+
+          echo "=== TEST: GraphQL Endpoint ==="
+          curl -sf -X POST https://cms.theuaejunction.cloud/graphql \
+            -H "Content-Type: application/json" \
+            -d '{"query":"{ generalSettings { title url } }"}' && echo "GRAPHQL OK" || echo "GRAPHQL FAIL"
+
+          echo "=== PLUGIN LIST AFTER ==="
+          $WP plugin list --format=table
+
+          echo "=== PHASE 6 COMPLETE ==="
