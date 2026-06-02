@@ -2,17 +2,18 @@ import type{Metadata}from'next'
 import Link from'next/link'
 import{notFound}from'next/navigation'
 import{fetchGraphQL}from'@/lib/graphql-client'
-import{GET_POST}from'@/lib/queries/posts'
+import{GET_POST,GET_ALL_POST_SLUGS}from'@/lib/queries/posts'
 import{WPImage}from'@/components/ui/WPImage'
 import type{WPPost}from'@/types/wordpress'
 
 interface Props{params:Promise<{slug:string}>}
-// Rendered dynamically on purpose: the VPS mounts a persistent volume over Next's
-// route cache, which pinned a stale prerendered 404 for posts across redeploys and
-// resisted on-demand revalidation. force-dynamic bypasses that full-route cache so
-// every request renders fresh from WPGraphQL. Re-introduce ISR once the cache volume
-// is cleared/removed (see HANDOVER).
-export const dynamic='force-dynamic'
+// Build-time SSG + ISR. The blog LISTING (also build-time) successfully reads WPGraphQL,
+// but request-time fetches from inside the container do NOT reach the public CMS URL
+// (Docker hairpin/DNS). So posts are rendered at build and refreshed on each deploy /
+// via on-demand revalidate. dynamicParams=false: only known slugs render, so a missing
+// build-time fetch can never bake a per-request 404 for an unknown path.
+export const revalidate=3600
+export const dynamicParams=false
 
 function fmtDate(d:string){try{return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}catch{return''}}
 
@@ -23,16 +24,19 @@ async function getPost(slug:string):Promise<WPPost|null>{
   }catch{return null}
 }
 
+export async function generateStaticParams(){
+  try{
+    const d=await fetchGraphQL<{posts?:{nodes:{slug:string}[]}}>(GET_ALL_POST_SLUGS,undefined,3600)
+    return(d.posts?.nodes??[]).map(n=>({slug:n.slug}))
+  }catch{return[]}
+}
 
 export async function generateMetadata({params}:Props):Promise<Metadata>{
   const{slug}=await params
   const post=await getPost(slug)
   if(!post)return{title:'Article not found'}
   const desc=(post.excerpt??'').replace(/<[^>]+>/g,'').trim().slice(0,160)||undefined
-  return{
-    title:post.title,
-    description:desc,
-  }
+  return{title:post.title,description:desc}
 }
 
 export default async function BlogPostPage({params}:Props){
