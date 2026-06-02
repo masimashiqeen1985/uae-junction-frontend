@@ -23,12 +23,15 @@ async function getPost(slug:string):Promise<WPPost|null>{
   }catch{return null}
 }
 
-export async function generateStaticParams(){
-  try{
-    const d=await fetchGraphQL<{posts?:{nodes:{slug:string}[]}}>(GET_ALL_POST_SLUGS,undefined,3600)
-    return(d.posts?.nodes??[]).map(n=>({slug:n.slug}))
-  }catch{return[]}
-}
+// Intentionally pre-render NO posts at build. The Coolify build step does not have
+// reliable access to the CMS (NEXT_PUBLIC_GRAPHQL_ENDPOINT is a runtime env; the build
+// box also cannot always reach cms.theuaejunction.cloud). A failed build-time fetch
+// would bake a stale not-found page that dynamicParams can never replace. Instead every
+// post renders on-demand at request time (runtime CMS access IS reliable) and is then
+// cached via ISR (see `revalidate` above). SEO is unaffected: ISR serves fully
+// server-rendered HTML. GET_ALL_POST_SLUGS is kept imported for future sitemap use.
+export function generateStaticParams():{slug:string}[]{return[]}
+void GET_ALL_POST_SLUGS
 
 export async function generateMetadata({params}:Props):Promise<Metadata>{
   const{slug}=await params
