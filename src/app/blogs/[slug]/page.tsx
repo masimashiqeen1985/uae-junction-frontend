@@ -2,12 +2,17 @@ import type{Metadata}from'next'
 import Link from'next/link'
 import{notFound}from'next/navigation'
 import{fetchGraphQL}from'@/lib/graphql-client'
-import{GET_POST,GET_ALL_POST_SLUGS}from'@/lib/queries/posts'
+import{GET_POST}from'@/lib/queries/posts'
 import{WPImage}from'@/components/ui/WPImage'
 import type{WPPost}from'@/types/wordpress'
 
 interface Props{params:Promise<{slug:string}>}
-export const revalidate=3600
+// Rendered dynamically on purpose: the VPS mounts a persistent volume over Next's
+// route cache, which pinned a stale prerendered 404 for posts across redeploys and
+// resisted on-demand revalidation. force-dynamic bypasses that full-route cache so
+// every request renders fresh from WPGraphQL. Re-introduce ISR once the cache volume
+// is cleared/removed (see HANDOVER).
+export const dynamic='force-dynamic'
 
 function fmtDate(d:string){try{return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}catch{return''}}
 
@@ -18,12 +23,6 @@ async function getPost(slug:string):Promise<WPPost|null>{
   }catch{return null}
 }
 
-export async function generateStaticParams(){
-  try{
-    const d=await fetchGraphQL<{posts?:{nodes:{slug:string}[]}}>(GET_ALL_POST_SLUGS,undefined,3600)
-    return(d.posts?.nodes??[]).map(n=>({slug:n.slug}))
-  }catch{return[]}
-}
 
 export async function generateMetadata({params}:Props):Promise<Metadata>{
   const{slug}=await params
