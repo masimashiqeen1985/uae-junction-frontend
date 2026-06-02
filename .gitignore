@@ -8,6 +8,10 @@
 /out/
 /build
 
+# TypeScript / Next generated
+*.tsbuildinfo
+next-env.d.ts
+
 # Env files
 .env
 .env.local

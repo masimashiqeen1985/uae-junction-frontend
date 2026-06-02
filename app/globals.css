@@ -1,6 +1,4 @@
 @import "tailwindcss";
-/* ── Google Fonts (must precede all other rules per CSS spec) ─ */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
 
 @theme {
   /* ── Brand Colours ───────────────────────────────────────── */
@@ -18,8 +16,8 @@
   --color-border:      #E5E5E5;
 
   /* ── Typography ──────────────────────────────────────────── */
-  --font-display: 'Poppins', sans-serif;
-  --font-body:    'Inter', sans-serif;
+  --font-display: var(--font-poppins), sans-serif;
+  --font-body:    var(--font-inter), sans-serif;
 
   /* ── Spacing ─────────────────────────────────────────────── */
   --spacing-section: 80px;
