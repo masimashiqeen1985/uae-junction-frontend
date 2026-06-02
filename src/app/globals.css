@@ -7,4 +7,17 @@ h1,h2,h3,h4,h5,h6{font-family:'Poppins',sans-serif}
 html{scroll-behavior:smooth}
 .container-xl{max-width:1280px;margin:0 auto;padding:0 1rem}
 @media(min-width:640px){.container-xl{padding:0 1.5rem}}
-@media(min-width:1024px){.container-xl{padding:0 2rem}}
+@media(min-width:1024px){.container-xl{padding:0 2rem}}.blog-content{font-size:1.05rem}
+.blog-content p{margin:0 0 1.15rem}
+.blog-content h2{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.6rem;color:#1E7070;margin:2rem 0 .9rem}
+.blog-content h3{font-family:'Poppins',sans-serif;font-weight:600;font-size:1.3rem;color:#1A1A1A;margin:1.6rem 0 .7rem}
+.blog-content ul,.blog-content ol{margin:0 0 1.15rem 1.4rem}
+.blog-content li{margin:.35rem 0}
+.blog-content ul{list-style:disc}
+.blog-content ol{list-style:decimal}
+.blog-content a{color:#E09000;text-decoration:underline}
+.blog-content a:hover{color:#FFA500}
+.blog-content img{border-radius:12px;margin:1.5rem 0;max-width:100%;height:auto}
+.blog-content blockquote{border-left:4px solid #FFA500;padding-left:1rem;margin:1.5rem 0;color:#555;font-style:italic}
+.blog-content figure{margin:1.5rem 0}
+.blog-content figcaption{font-size:.85rem;color:#888;text-align:center;margin-top:.4rem}
