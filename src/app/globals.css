@@ -21,3 +21,42 @@ html{scroll-behavior:smooth}
 .blog-content blockquote{border-left:4px solid #FFA500;padding-left:1rem;margin:1.5rem 0;color:#555;font-style:italic}
 .blog-content figure{margin:1.5rem 0}
 .blog-content figcaption{font-size:.85rem;color:#888;text-align:center;margin-top:.4rem}
+
+/* ───────── Travel design-token layer (mirrors src/lib/design/tokens.ts) ───────── */
+:root{
+  --c-primary:#FFA500;--c-primary-dark:#E09000;--c-secondary:#2D9D9D;--c-secondary-dark:#1E7070;
+  --c-coral:#FF6B5E;--c-sand:#F6E7CE;--c-ink:#0E1726;
+  --g-sunset:linear-gradient(135deg,#FFB733 0%,#FF8A3D 45%,#FF6B5E 100%);
+  --g-lagoon:linear-gradient(135deg,#3BBABA 0%,#2D9D9D 50%,#1E7070 100%);
+  --g-heroSky:linear-gradient(180deg,#0B1E3A 0%,#1E7070 55%,#2D9D9D 100%);
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
+}
+/* gradient text + buttons */
+.text-gradient-sunset{background:var(--g-sunset);-webkit-background-clip:text;background-clip:text;color:transparent}
+.bg-sunset{background:var(--g-sunset)}
+.bg-lagoon{background:var(--g-lagoon)}
+.glass{background:rgba(255,255,255,.08);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14)}
+.glass-light{background:rgba(255,255,255,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+/* shimmer for skeletons / poster */
+@keyframes shimmer{0%{background-position:-468px 0}100%{background-position:468px 0}}
+.shimmer{background:linear-gradient(90deg,#eef2f6 0%,#f7fafc 20%,#eef2f6 40%);background-size:800px 100%;animation:shimmer 1.4s linear infinite}
+/* float + glow + drift for hero/decor */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.animate-float{animation:float 6s var(--ease-out) infinite}
+@keyframes glowPulse{0%,100%{opacity:.45}50%{opacity:.8}}
+.animate-glow{animation:glowPulse 5s ease-in-out infinite}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.animate-marquee{animation:marquee 28s linear infinite}
+.animate-marquee:hover{animation-play-state:paused}
+/* shine sweep on hover */
+.shine{position:relative;overflow:hidden}
+.shine::after{content:'';position:absolute;inset:0;transform:translateX(-130%);background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transition:transform .8s var(--ease-out)}
+.shine:hover::after{transform:translateX(130%)}
+/* accessible focus ring */
+.focus-ring:focus-visible{outline:3px solid #FFB733;outline-offset:2px;border-radius:8px}
+/* reduced motion: kill decorative animation + smooth scroll */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .animate-float,.animate-glow,.animate-marquee,.shimmer{animation:none!important}
+  .shine::after{transition:none}
+}

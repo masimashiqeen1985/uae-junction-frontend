@@ -1,5 +1,7 @@
 import { fetchGraphQL } from '@/lib/graphql-client'
-import { HeaderClient, type NavItem } from './HeaderClient'
+import { authProviderFlags } from '@/auth'
+import { HeaderClient } from './HeaderClient'
+import type { NavItem } from './nav-types'
 
 // Hardcoded fallback — used if WordPress / WPGraphQL is unreachable or returns no menu.
 const FALLBACK_NAV: NavItem[] = [
@@ -64,5 +66,11 @@ async function getNav(): Promise<NavItem[]> {
 
 export async function Header() {
   const nav = await getNav()
-  return <HeaderClient nav={nav} />
+  return (
+    <HeaderClient
+      nav={nav}
+      providers={{ google: authProviderFlags.google, facebook: authProviderFlags.facebook }}
+      authConfigured={authProviderFlags.configured}
+    />
+  )
 }
