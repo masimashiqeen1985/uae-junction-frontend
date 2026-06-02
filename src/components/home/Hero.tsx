@@ -6,7 +6,6 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { Search, Sparkles, ShieldCheck, BadgePercent, Headphones } from 'lucide-react'
 
 // 3D scene is loaded ONLY on the client, after paint, so it never blocks LCP.
-// The gradient poster + headline below are the LCP — not the canvas.
 const HeroScene = dynamic(() => import('./hero/HeroScene'), {
   ssr: false,
   loading: () => null,
@@ -50,13 +49,11 @@ export function Hero({ content }: { content?: HeroContent }) {
   const [mobile, setMobile] = useState(false)
 
   useEffect(() => {
-    // Decide device class + only mount WebGL when not reduced-motion.
     const mq = window.matchMedia('(max-width: 768px)')
     setMobile(mq.matches)
     const onChange = (e: MediaQueryListEvent) => setMobile(e.matches)
     mq.addEventListener('change', onChange)
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    // Defer mount to idle so it never competes with first paint.
     let idleId: number | undefined
     let timerId: ReturnType<typeof setTimeout> | undefined
     const w = window as unknown as {
@@ -86,63 +83,65 @@ export function Hero({ content }: { content?: HeroContent }) {
     <section className="relative flex min-h-[88vh] items-center overflow-hidden">
       {/* Poster / LCP background — always present, instant paint */}
       <div className="absolute inset-0" style={{ background: 'var(--g-heroSky, linear-gradient(180deg,#0B1E3A 0%,#1E7070 55%,#2D9D9D 100%))' }} />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,rgba(255,165,0,.28),transparent_55%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(59,186,186,.30),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_25%,rgba(255,165,0,.26),transparent_55%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_60%,rgba(59,186,186,.30),transparent_55%)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/40" />
 
-      {/* WebGL scene layered above poster (mounts after idle, client only) */}
-      {show3D && (
-        <div className="absolute inset-0 opacity-90 mix-blend-screen">
-          <HeroScene mobile={mobile} />
-        </div>
-      )}
-
-      {/* dark vignette for text contrast */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50" />
-
-      {/* Content */}
-      <div className="container-xl relative z-10 pt-28 pb-16 lg:pt-32">
-        <motion.div variants={parent} initial="hidden" animate="show" className="max-w-3xl">
-          <motion.span
-            variants={item}
-            className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white ring-1 ring-white/20 backdrop-blur"
-          >
-            <Sparkles className="h-3.5 w-3.5 text-[#FFB733]" /> {c.badge}
-          </motion.span>
-
-          <motion.h1 variants={item} className="font-display text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl lg:text-6xl">
-            {c.headline}{' '}
-            <span className="text-gradient-sunset">{c.highlight}</span>
-          </motion.h1>
-
-          <motion.p variants={item} className="mt-5 max-w-2xl text-base leading-relaxed text-neutral-100/90 sm:text-lg">
-            {c.subhead}
-          </motion.p>
-
-          {/* Search-style CTA */}
-          <motion.div variants={item} className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link
-              href={c.ctaHref}
-              className="shine inline-flex items-center justify-center gap-2 rounded-[10px] bg-[var(--c-primary)] px-7 py-3.5 font-semibold text-white shadow-xl shadow-amber-500/30 transition-transform hover:-translate-y-0.5"
+      {/* Two-column: text LEFT, contained 3D globe RIGHT (gap keeps them from overlapping; stacks on mobile) */}
+      <div className="container-xl relative z-10 w-full pt-28 pb-16 lg:pt-24">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
+          {/* LEFT — content */}
+          <motion.div variants={parent} initial="hidden" animate="show" className="max-w-xl">
+            <motion.span
+              variants={item}
+              className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white ring-1 ring-white/20 backdrop-blur"
             >
-              <Search className="h-4 w-4" /> {c.ctaLabel}
-            </Link>
-            <Link
-              href={c.secondaryHref}
-              className="inline-flex items-center justify-center rounded-[10px] border border-white/40 px-7 py-3.5 font-semibold text-white backdrop-blur transition-colors hover:bg-white hover:text-[var(--c-secondary-dark)]"
-            >
-              {c.secondaryLabel}
-            </Link>
+              <Sparkles className="h-3.5 w-3.5 text-[#FFB733]" /> {c.badge}
+            </motion.span>
+
+            <motion.h1 variants={item} className="font-display text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl lg:text-6xl">
+              {c.headline}{' '}
+              <span className="text-gradient-sunset">{c.highlight}</span>
+            </motion.h1>
+
+            <motion.p variants={item} className="mt-5 text-base leading-relaxed text-neutral-100/90 sm:text-lg">
+              {c.subhead}
+            </motion.p>
+
+            <motion.div variants={item} className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link
+                href={c.ctaHref}
+                className="shine inline-flex items-center justify-center gap-2 rounded-[10px] bg-[var(--c-primary)] px-7 py-3.5 font-semibold text-white shadow-xl shadow-amber-500/30 transition-transform hover:-translate-y-0.5"
+              >
+                <Search className="h-4 w-4" /> {c.ctaLabel}
+              </Link>
+              <Link
+                href={c.secondaryHref}
+                className="inline-flex items-center justify-center rounded-[10px] border border-white/40 px-7 py-3.5 font-semibold text-white backdrop-blur transition-colors hover:bg-white hover:text-[var(--c-secondary-dark)]"
+              >
+                {c.secondaryLabel}
+              </Link>
+            </motion.div>
+
+            <motion.ul variants={item} className="mt-9 flex flex-wrap gap-x-6 gap-y-3">
+              {TRUST.map((t) => (
+                <li key={t.label} className="inline-flex items-center gap-2 text-sm text-white/85">
+                  <t.icon className="h-4 w-4 text-[#FFB733]" /> {t.label}
+                </li>
+              ))}
+            </motion.ul>
           </motion.div>
 
-          {/* Trust badges */}
-          <motion.ul variants={item} className="mt-9 flex flex-wrap gap-x-6 gap-y-3">
-            {TRUST.map((t) => (
-              <li key={t.label} className="inline-flex items-center gap-2 text-sm text-white/85">
-                <t.icon className="h-4 w-4 text-[#FFB733]" /> {t.label}
-              </li>
-            ))}
-          </motion.ul>
-        </motion.div>
+          {/* RIGHT — contained 3D globe (own column; never overlaps the text) */}
+          <div className="relative h-[280px] sm:h-[380px] lg:h-[560px]">
+            {show3D && (
+              <div className="absolute inset-0 opacity-95 mix-blend-screen">
+                <HeroScene mobile={mobile} />
+              </div>
+            )}
+            <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(59,186,186,.25),transparent_60%)]" aria-hidden="true" />
+          </div>
+        </div>
       </div>
 
       {/* scroll cue */}
