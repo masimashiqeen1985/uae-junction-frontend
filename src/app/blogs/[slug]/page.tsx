@@ -29,9 +29,10 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
   const{slug}=await params
   const post=await getPost(slug)
   if(!post)return{title:'Article not found'}
+  const desc=(post.excerpt??'').replace(/<[^>]+>/g,'').trim().slice(0,160)||undefined
   return{
-    title:post.seo?.title??post.title,
-    description:post.seo?.metaDesc??undefined,
+    title:post.title,
+    description:desc,
   }
 }
 
