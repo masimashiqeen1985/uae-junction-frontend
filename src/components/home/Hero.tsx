@@ -57,14 +57,21 @@ export function Hero({ content }: { content?: HeroContent }) {
     mq.addEventListener('change', onChange)
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     // Defer mount to idle so it never competes with first paint.
-    let id: number | undefined
-    if (!reduced) {
-      const ric = (window as unknown as { requestIdleCallback?: (cb: () => void) => number })
-        .requestIdleCallback
-      if (ric) id = ric(() => setShow3D(true))
-      else id = window.setTimeout(() => setShow3D(true), 400) as unknown as number
+    let idleId: number | undefined
+    let timerId: ReturnType<typeof setTimeout> | undefined
+    const w = window as unknown as {
+      requestIdleCallback?: (cb: () => void) => number
+      cancelIdleCallback?: (id: number) => void
     }
-    return () => mq.removeEventListener('change', onChange)
+    if (!reduced) {
+      if (w.requestIdleCallback) idleId = w.requestIdleCallback(() => setShow3D(true))
+      else timerId = setTimeout(() => setShow3D(true), 400)
+    }
+    return () => {
+      mq.removeEventListener('change', onChange)
+      if (idleId !== undefined) w.cancelIdleCallback?.(idleId)
+      if (timerId !== undefined) clearTimeout(timerId)
+    }
   }, [])
 
   const parent = {
