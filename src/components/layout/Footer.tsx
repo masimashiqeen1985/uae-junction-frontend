@@ -1,6 +1,9 @@
 import Link from 'next/link'
+import { Phone, Mail, MapPin, MessageCircle, Facebook, Instagram, Youtube, Linkedin, Twitter, Music2 } from 'lucide-react'
 import { fetchGraphQL } from '@/lib/graphql-client'
 import { FOOTER_MENUS_QUERY, FOOTER_OPTIONS_QUERY } from '@/lib/queries/footer'
+import { Reveal } from '@/components/motion/Reveal'
+import { NewsletterForm } from './NewsletterForm'
 
 type FooterLink = { label: string; href: string; external?: boolean }
 
@@ -32,21 +35,20 @@ const FALLBACK_OPTIONS = {
   emailAddress: 'sales@theuaejunction.com',
   whatsappNumber: '971585898221',
   footerTagline:
-    'Your gateway to global exploration. 4% Cashback on all travel bookings.',
+    'Your gateway to global exploration. Earn 4% cashback on every flight, hotel, tour and ticket you book with us.',
   socialLinks: [
     { platform: 'Facebook', url: '#' },
+    { platform: 'Instagram', url: '#' },
     { platform: 'LinkedIn', url: '#' },
     { platform: 'YouTube', url: '#' },
-    { platform: 'TikTok', url: '#' },
   ] as { platform: string; url: string }[],
 }
 
-const SOCIAL_ABBR: Record<string, string> = {
-  facebook: 'f', linkedin: 'in', youtube: 'yt', tiktok: 'tt',
-  instagram: 'ig', twitter: 'x', x: 'x', whatsapp: 'wa',
+const SOCIAL_ICON: Record<string, typeof Facebook> = {
+  facebook: Facebook, instagram: Instagram, youtube: Youtube,
+  linkedin: Linkedin, twitter: Twitter, x: Twitter, tiktok: Music2,
 }
 
-// ---------- CMS fetch (best-effort, independent fallbacks) ----------
 type MenuNode = { name: string; menuItems: { nodes: { label: string; uri: string | null; target: string | null }[] } }
 type MenusResponse = { menus: { nodes: MenuNode[] } }
 type OptionsResponse = { siteOptions: typeof FALLBACK_OPTIONS | null }
@@ -64,8 +66,7 @@ async function getMenus() {
   try {
     const data = await fetchGraphQL<MenusResponse>(FOOTER_MENUS_QUERY)
     const nodes = data?.menus?.nodes ?? []
-    const find = (name: string) =>
-      nodes.find((n) => n.name?.trim().toLowerCase() === name)
+    const find = (name: string) => nodes.find((n) => n.name?.trim().toLowerCase() === name)
     return {
       quick: toLinks(find('footer quick links')) ?? FALLBACK_QUICK,
       packages: toLinks(find('footer packages')) ?? FALLBACK_PACKAGES,
@@ -95,18 +96,22 @@ async function getOptions() {
 
 function FooterLinks({ links }: { links: FooterLink[] }) {
   return (
-    <ul className="space-y-2">
-      {links.map((l) =>
-        l.external ? (
-          <li key={l.label + l.href}>
-            <a href={l.href} target="_blank" rel="noopener noreferrer" className="text-sm hover:text-primary transition-colors">{l.label}</a>
-          </li>
-        ) : (
-          <li key={l.label + l.href}>
-            <Link href={l.href} className="text-sm hover:text-primary transition-colors">{l.label}</Link>
-          </li>
-        )
-      )}
+    <ul className="space-y-2.5">
+      {links.map((l) => (
+        <li key={l.label + l.href}>
+          {l.external ? (
+            <a href={l.href} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center text-sm text-neutral-400 transition-colors hover:text-[var(--c-primary)]">
+              <span className="mr-0 h-px w-0 bg-[var(--c-primary)] transition-all duration-300 group-hover:mr-2 group-hover:w-3" />
+              {l.label}
+            </a>
+          ) : (
+            <Link href={l.href} className="group inline-flex items-center text-sm text-neutral-400 transition-colors hover:text-[var(--c-primary)]">
+              <span className="mr-0 h-px w-0 bg-[var(--c-primary)] transition-all duration-300 group-hover:mr-2 group-hover:w-3" />
+              {l.label}
+            </Link>
+          )}
+        </li>
+      ))}
     </ul>
   )
 }
@@ -117,50 +122,90 @@ export async function Footer() {
   const waDigits = opt.whatsappNumber.replace(/[^\d]/g, '')
 
   return (
-    <footer className="bg-neutral-900 text-neutral-300">
-      <div className="container-xl py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div>
-            <div className="font-display font-bold text-xl text-white mb-4">THE UAE <span className="text-primary">JUNCTION</span></div>
-            <p className="text-sm text-neutral-400 mb-6 leading-relaxed">{opt.footerTagline}</p>
-            <div className="space-y-2 text-sm">
-              <a href={telHref} className="block hover:text-primary transition-colors">📞 {opt.phoneNumber}</a>
-              <a href={`mailto:${opt.emailAddress}`} className="block hover:text-primary transition-colors">✉️ {opt.emailAddress}</a>
+    <footer className="relative overflow-hidden bg-[#0E1726] text-neutral-300">
+      {/* decorative glow */}
+      <div className="pointer-events-none absolute -top-32 left-1/4 h-64 w-64 rounded-full bg-[var(--c-secondary)]/20 blur-3xl" aria-hidden="true" />
+      <div className="pointer-events-none absolute -bottom-24 right-1/4 h-64 w-64 rounded-full bg-[var(--c-primary)]/10 blur-3xl" aria-hidden="true" />
+
+      <div className="container-xl relative py-14 lg:py-20">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-12">
+          {/* Brand + contact */}
+          <Reveal className="lg:col-span-4">
+            <div className="mb-4 font-display text-2xl font-extrabold text-white">
+              THE UAE <span className="text-[var(--c-primary)]">JUNCTION</span>
             </div>
-          </div>
-          <div>
-            <h3 className="font-display font-semibold text-white mb-4">Quick Links</h3>
-            <FooterLinks links={menus.quick} />
-          </div>
-          <div>
-            <h3 className="font-display font-semibold text-white mb-4">Our Packages</h3>
-            <FooterLinks links={menus.packages} />
-          </div>
-          <div>
-            <h3 className="font-display font-semibold text-white mb-4">Connect With Us</h3>
-            <div className="flex gap-3 mb-6">
-              {opt.socialLinks.map((s) => (
-                <a
-                  key={s.platform + s.url}
-                  href={s.url || '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.platform}
-                  className="w-9 h-9 rounded-full bg-neutral-700 hover:bg-primary flex items-center justify-center text-xs transition-colors"
-                >
-                  {SOCIAL_ABBR[s.platform?.toLowerCase()] ?? s.platform?.slice(0, 2).toLowerCase()}
+            <p className="mb-6 max-w-sm text-sm leading-relaxed text-neutral-400">{opt.footerTagline}</p>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <a href={telHref} className="inline-flex items-center gap-3 transition-colors hover:text-[var(--c-primary)]">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5"><Phone className="h-4 w-4" /></span>
+                  {opt.phoneNumber}
                 </a>
-              ))}
+              </li>
+              <li>
+                <a href={`mailto:${opt.emailAddress}`} className="inline-flex items-center gap-3 transition-colors hover:text-[var(--c-primary)]">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5"><Mail className="h-4 w-4" /></span>
+                  {opt.emailAddress}
+                </a>
+              </li>
+              <li className="inline-flex items-center gap-3 text-neutral-400">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5"><MapPin className="h-4 w-4" /></span>
+                Dubai, United Arab Emirates
+              </li>
+            </ul>
+          </Reveal>
+
+          {/* Quick links */}
+          <Reveal className="lg:col-span-2" delay={0.05}>
+            <h3 className="mb-4 font-display text-sm font-semibold uppercase tracking-wider text-white">Company</h3>
+            <FooterLinks links={menus.quick} />
+          </Reveal>
+
+          {/* Packages */}
+          <Reveal className="lg:col-span-3" delay={0.1}>
+            <h3 className="mb-4 font-display text-sm font-semibold uppercase tracking-wider text-white">Packages</h3>
+            <FooterLinks links={menus.packages} />
+          </Reveal>
+
+          {/* Newsletter + social */}
+          <Reveal className="lg:col-span-3" delay={0.15}>
+            <h3 className="mb-4 font-display text-sm font-semibold uppercase tracking-wider text-white">Stay in the loop</h3>
+            <p className="mb-3 text-sm text-neutral-400">Exclusive deals &amp; cashback drops, straight to your inbox.</p>
+            <NewsletterForm />
+            <div className="mt-6 flex gap-2.5">
+              {opt.socialLinks.map((s) => {
+                const Icon = SOCIAL_ICON[s.platform?.toLowerCase()] ?? MessageCircle
+                return (
+                  <a
+                    key={s.platform + s.url}
+                    href={s.url || '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.platform}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-neutral-300 transition-all duration-300 hover:-translate-y-1 hover:bg-[var(--c-primary)] hover:text-white"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                )
+              })}
             </div>
-            <a href={`https://wa.me/${waDigits}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2.5 rounded-btn text-sm font-semibold transition-colors">💬 WhatsApp Us</a>
-          </div>
+            <a
+              href={`https://wa.me/${waDigits}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shine mt-5 inline-flex items-center gap-2 rounded-[10px] bg-green-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-700"
+            >
+              <MessageCircle className="h-4 w-4" /> Chat on WhatsApp
+            </a>
+          </Reveal>
         </div>
-        <div className="border-t border-neutral-700 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-neutral-500">
+
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-neutral-500 sm:flex-row">
           <p>© {new Date().getFullYear()} The UAE Junction. All rights reserved.</p>
-          <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+          <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             {menus.legal.map((l) => (
               <li key={l.label + l.href}>
-                <Link href={l.href} className="hover:text-primary transition-colors">{l.label}</Link>
+                <Link href={l.href} className="transition-colors hover:text-[var(--c-primary)]">{l.label}</Link>
               </li>
             ))}
           </ul>
