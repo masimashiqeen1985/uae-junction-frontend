@@ -30,3 +30,8 @@ Thumbs.db
 
 # Project state (skill tracking file)
 # Note: keep PROJECT_STATE.md in repo root but NOT in git
+
+node_modules/
+.next/
+next-env.d.ts
+pnpm-lock.yaml
