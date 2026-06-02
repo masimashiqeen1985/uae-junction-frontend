@@ -5,6 +5,7 @@ import { Footer } from '@/components/layout/Footer'
 import { WhatsAppButton } from '@/components/layout/WhatsAppButton'
 import { GroupCorporateTab } from '@/components/layout/GroupCorporateTab'
 import { SessionWrapper } from '@/components/providers/SessionWrapper'
+import { authProviderFlags } from '@/auth'
 
 export const metadata: Metadata = {
   title: {
@@ -18,16 +19,21 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const body = (
+    <>
+      <Header />
+      <main>{children}</main>
+      <Footer />
+      <WhatsAppButton />
+      <GroupCorporateTab />
+    </>
+  )
   return (
     <html lang="en">
       <body>
-        <SessionWrapper>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <WhatsAppButton />
-          <GroupCorporateTab />
-        </SessionWrapper>
+        {/* SessionProvider only mounts when auth is configured (AUTH_SECRET present),
+            so the live site never polls /api/auth/session before secrets exist. */}
+        {authProviderFlags.configured ? <SessionWrapper>{body}</SessionWrapper> : body}
       </body>
     </html>
   )

@@ -35,7 +35,7 @@ function iconFor(label: string) {
   return Compass
 }
 
-export function HeaderClient({ nav, providers }: Props) {
+export function HeaderClient({ nav, providers, authConfigured }: Props) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const [hidden, setHidden] = useState(false)
@@ -130,7 +130,7 @@ export function HeaderClient({ nav, providers }: Props) {
                 <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--c-primary)] text-[10px] font-bold text-white">0</span>
               </Link>
               <div className="hidden sm:block">
-                <AuthDropdown providers={providers} />
+                <AuthDropdown providers={providers} configured={authConfigured} />
               </div>
               <button
                 type="button"
