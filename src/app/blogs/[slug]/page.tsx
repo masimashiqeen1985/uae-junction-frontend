@@ -7,13 +7,12 @@ import{WPImage}from'@/components/ui/WPImage'
 import type{WPPost}from'@/types/wordpress'
 
 interface Props{params:Promise<{slug:string}>}
-// Build-time SSG + ISR. The blog LISTING (also build-time) successfully reads WPGraphQL,
-// but request-time fetches from inside the container do NOT reach the public CMS URL
-// (Docker hairpin/DNS). So posts are rendered at build and refreshed on each deploy /
-// via on-demand revalidate. dynamicParams=false: only known slugs render, so a missing
-// build-time fetch can never bake a per-request 404 for an unknown path.
+// ISR with on-demand fallback. generateStaticParams pre-renders known posts at build;
+// dynamicParams=true lets any other (or build-time-missed) post render at request time.
+// This is self-healing: if the CMS is briefly unreachable during a build, posts still
+// resolve at request time instead of being frozen as a stale not-found page.
 export const revalidate=3600
-export const dynamicParams=false
+export const dynamicParams=true
 
 function fmtDate(d:string){try{return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}catch{return''}}
 
