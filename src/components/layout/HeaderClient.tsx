@@ -8,6 +8,7 @@ import {
   Ticket, Waves, Tent, Ship, Sparkles, Building2, Plane, MapPin, Compass, Moon, Star,
 } from 'lucide-react'
 import { AuthDropdown } from '@/components/auth/AuthDropdown'
+import { Logo } from './Logo'
 import { MobileMenu } from './MobileMenu'
 import type { NavItem, NavChild } from './nav-types'
 
@@ -55,7 +56,6 @@ export function HeaderClient({ nav, providers, authConfigured }: Props) {
 
   const transparent = isHome && !scrolled
   const textColor = transparent ? 'text-white' : 'text-neutral-700'
-  const logoSecond = transparent ? 'text-[#FFB733]' : 'text-[var(--c-primary)]'
 
   return (
     <>
@@ -70,8 +70,8 @@ export function HeaderClient({ nav, providers, authConfigured }: Props) {
         <div className="container-xl">
           <div className="flex h-16 items-center justify-between lg:h-20">
             {/* Logo */}
-            <Link href="/" className={`font-display text-xl font-extrabold tracking-tight ${transparent ? 'text-white' : 'text-neutral-900'}`}>
-              THE UAE <span className={logoSecond}>JUNCTION</span>
+            <Link href="/" aria-label="The UAE Junction home" className={`focus-ring rounded ${transparent ? 'text-white' : 'text-neutral-900'}`}>
+              <Logo className="h-8 sm:h-9 lg:h-11" />
             </Link>
 
             {/* Desktop nav */}

@@ -4,6 +4,7 @@ import { fetchGraphQL } from '@/lib/graphql-client'
 import { FOOTER_MENUS_QUERY, FOOTER_OPTIONS_QUERY } from '@/lib/queries/footer'
 import { Reveal } from '@/components/motion/Reveal'
 import { NewsletterForm } from './NewsletterForm'
+import { Logo } from './Logo'
 
 type FooterLink = { label: string; href: string; external?: boolean }
 
@@ -131,8 +132,8 @@ export async function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-12">
           {/* Brand + contact */}
           <Reveal className="lg:col-span-4">
-            <div className="mb-4 font-display text-2xl font-extrabold text-white">
-              THE UAE <span className="text-[var(--c-primary)]">JUNCTION</span>
+            <div className="mb-4 text-white">
+              <Logo className="h-12" />
             </div>
             <p className="mb-6 max-w-sm text-sm leading-relaxed text-neutral-400">{opt.footerTagline}</p>
             <ul className="space-y-3 text-sm">

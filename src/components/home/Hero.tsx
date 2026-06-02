@@ -88,8 +88,8 @@ export function Hero({ content }: { content?: HeroContent }) {
       <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/40" />
 
       {/* Two-column: text LEFT, contained 3D globe RIGHT (gap keeps them from overlapping; stacks on mobile) */}
-      <div className="container-xl relative z-10 w-full pt-28 pb-16 lg:pt-24">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
+      <div className="container-xl relative z-10 w-full pt-24 pb-14 sm:pt-28 sm:pb-16 lg:pt-24">
+        <div className="grid items-center gap-8 md:grid-cols-2 md:gap-10 lg:gap-12">
           {/* LEFT — content */}
           <motion.div variants={parent} initial="hidden" animate="show" className="max-w-xl">
             <motion.span
@@ -99,7 +99,7 @@ export function Hero({ content }: { content?: HeroContent }) {
               <Sparkles className="h-3.5 w-3.5 text-[#FFB733]" /> {c.badge}
             </motion.span>
 
-            <motion.h1 variants={item} className="font-display text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl lg:text-6xl">
+            <motion.h1 variants={item} className="font-display text-[2rem] font-extrabold leading-[1.06] text-white sm:text-5xl lg:text-6xl">
               {c.headline}{' '}
               <span className="text-gradient-sunset">{c.highlight}</span>
             </motion.h1>
@@ -133,7 +133,7 @@ export function Hero({ content }: { content?: HeroContent }) {
           </motion.div>
 
           {/* RIGHT — contained 3D globe (own column; never overlaps the text) */}
-          <div className="relative h-[280px] sm:h-[380px] lg:h-[560px]">
+          <div className="relative h-[300px] sm:h-[380px] md:h-[440px] lg:h-[560px]">
             {show3D && (
               <div className="absolute inset-0 opacity-95 mix-blend-screen">
                 <HeroScene mobile={mobile} />

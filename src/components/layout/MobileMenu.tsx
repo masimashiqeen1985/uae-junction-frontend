@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ChevronDown, X, Phone, MessageCircle } from 'lucide-react'
 import type { NavItem } from './nav-types'
+import { Logo } from './Logo'
 
 type Props = {
   open: boolean
@@ -49,8 +50,8 @@ export function MobileMenu({ open, onClose, nav, phone = '+971 58 589 8221', wha
             aria-modal="true"
           >
             <div className="flex items-center justify-between border-b border-neutral-100 px-5 py-4">
-              <span className="font-display text-lg font-bold text-neutral-900">
-                THE UAE <span className="text-[var(--c-primary)]">JUNCTION</span>
+              <span className="text-neutral-900">
+                <Logo className="h-8" />
               </span>
               <button type="button" onClick={onClose} aria-label="Close menu" className="focus-ring rounded p-1.5 text-neutral-500 hover:text-neutral-900">
                 <X className="h-6 w-6" />
