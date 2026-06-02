@@ -38,9 +38,9 @@ export function Hero({ content }: { content?: HeroContent }) {
       <div className="absolute inset-0" style={{ background: 'var(--g-heroSky, linear-gradient(180deg,#0B1E3A 0%,#1E7070 55%,#2D9D9D 100%))' }} />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(255,165,0,.22),transparent_55%)]" />
       {/* white line-art Dubai skyline (stand-in until a photo is supplied) */}
-      <Skyline className="pointer-events-none absolute inset-x-0 bottom-0 h-[46%] w-full sm:h-[56%]" />
+      <Skyline className="animate-skyline-drift pointer-events-none absolute bottom-0 left-[-3%] h-[46%] w-[106%] sm:h-[56%]" />
       {/* optional photographic background — shows automatically once /hero-bg.jpg exists */}
-      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${c.bgImage})` }} />
+      <div className="animate-kenburns absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${c.bgImage})` }} />
       {/* contrast overlay for centred text */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/25 to-black/45" />
 

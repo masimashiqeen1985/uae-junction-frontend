@@ -60,3 +60,14 @@ html{scroll-behavior:smooth}
   .animate-float,.animate-glow,.animate-marquee,.shimmer{animation:none!important}
   .shine::after{transition:none}
 }
+
+/* ───────── Hero background animations (GPU transforms only) ───────── */
+@keyframes kenburns{0%{transform:scale(1) translate3d(0,0,0)}100%{transform:scale(1.09) translate3d(-1.5%,-1%,0)}}
+.animate-kenburns{animation:kenburns 28s ease-in-out infinite alternate;will-change:transform}
+@keyframes skylineDrift{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(-2%,0,0)}}
+.animate-skyline-drift{animation:skylineDrift 42s ease-in-out infinite alternate;will-change:transform}
+@keyframes twinkle{0%,100%{opacity:.15}50%{opacity:.9}}
+.twinkle{animation:twinkle 3.2s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){
+  .animate-kenburns,.animate-skyline-drift,.twinkle{animation:none!important}
+}

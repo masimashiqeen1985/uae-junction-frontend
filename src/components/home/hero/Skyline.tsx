@@ -70,6 +70,19 @@ export function Skyline({ className = '' }: { className?: string }) {
         <path d="M1316 292V206h36v86M1322 224h24M1322 250h24" />
         <path d="M1366 292V244h44v48M1374 260h28M1374 278h28" />
       </g>
+        {/* twinkling window lights (white) */}
+        <g fill="#ffffff" stroke="none">
+          <circle className="twinkle" style={{ animationDelay: '0s' }} cx="370" cy="120" r="2.1" />
+          <circle className="twinkle" style={{ animationDelay: '0.6s' }} cx="205" cy="150" r="1.9" />
+          <circle className="twinkle" style={{ animationDelay: '1.1s' }} cx="566" cy="120" r="1.9" />
+          <circle className="twinkle" style={{ animationDelay: '1.7s' }} cx="778" cy="160" r="2.1" />
+          <circle className="twinkle" style={{ animationDelay: '0.3s' }} cx="1059" cy="150" r="2.1" />
+          <circle className="twinkle" style={{ animationDelay: '2.1s' }} cx="980" cy="210" r="1.8" />
+          <circle className="twinkle" style={{ animationDelay: '1.4s' }} cx="1228" cy="180" r="1.8" />
+          <circle className="twinkle" style={{ animationDelay: '0.9s' }} cx="660" cy="200" r="1.7" />
+          <circle className="twinkle" style={{ animationDelay: '2.5s' }} cx="885" cy="210" r="1.7" />
+          <circle className="twinkle" style={{ animationDelay: '1.9s' }} cx="170" cy="200" r="1.6" />
+        </g>
     </svg>
   )
 }
