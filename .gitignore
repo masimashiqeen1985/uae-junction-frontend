@@ -35,3 +35,6 @@ node_modules/
 .next/
 next-env.d.ts
 pnpm-lock.yaml
+
+# TS incremental build info
+tsconfig.tsbuildinfo
