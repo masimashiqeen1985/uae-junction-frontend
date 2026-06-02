@@ -25,9 +25,9 @@ export function WPImage({
 }: WPImageProps) {
   if (!image?.sourceUrl) return null
 
+  const alt = image.altText ?? ''
   const commonProps = {
     src: image.sourceUrl,
-    alt: image.altText ?? '',
     className,
     priority,
     quality,
@@ -37,6 +37,7 @@ export function WPImage({
     return (
       <Image
         {...commonProps}
+        alt={alt}
         fill
         sizes={sizes ?? '100vw'}
         style={{ objectFit: 'cover' }}
@@ -47,6 +48,7 @@ export function WPImage({
   return (
     <Image
       {...commonProps}
+      alt={alt}
       width={image.mediaDetails.width}
       height={image.mediaDetails.height}
       sizes={
