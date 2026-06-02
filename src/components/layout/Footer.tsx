@@ -8,6 +8,8 @@ type FooterLink = { label: string; href: string; external?: boolean }
 const FALLBACK_QUICK: FooterLink[] = [
   { label: 'Home', href: '/' },
   { label: 'About Us', href: '/about-us' },
+  { label: 'Services', href: '/services' },
+  { label: 'FAQ', href: '/faq' },
   { label: 'Contact Us', href: '/contact-us' },
   { label: 'Blogs', href: '/blogs' },
   { label: 'Careers', href: '/careers' },

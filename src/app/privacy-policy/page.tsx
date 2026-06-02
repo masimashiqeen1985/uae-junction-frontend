@@ -1,3 +1,5 @@
 import type{Metadata}from'next'
-export const metadata:Metadata={title:'Privacy Policy'}
-export default function Page(){return<div className="container-xl py-16 max-w-3xl"><h1 className="font-display font-bold text-4xl text-secondary mb-8">Privacy Policy</h1><p className="text-neutral-500">Content loading from CMS...</p></div>}
+import{CmsLegalPage}from'@/components/sections/CmsLegalPage'
+export const metadata:Metadata={title:'Privacy Policy',description:'How The UAE Junction collects, uses and protects your personal data.',alternates:{canonical:'https://theuaejunction.cloud/privacy-policy'}}
+export const revalidate=3600
+export default function Page(){return<CmsLegalPage title="Privacy Policy" uri="/privacy-policy/" fallback="Our full privacy policy is being finalised. For any questions about how we handle your data, please contact us."/>}

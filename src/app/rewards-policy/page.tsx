@@ -1,3 +1,5 @@
 import type{Metadata}from'next'
-export const metadata:Metadata={title:'Rewards Policy'}
-export default function Page(){return<div className="container-xl py-16 max-w-3xl"><h1 className="font-display font-bold text-4xl text-secondary mb-8">Rewards Policy</h1><p className="text-neutral-500">Content loading from CMS...</p></div>}
+import{CmsLegalPage}from'@/components/sections/CmsLegalPage'
+export const metadata:Metadata={title:'Rewards Policy',description:'How the 4% cashback rewards programme works at The UAE Junction.',alternates:{canonical:'https://theuaejunction.cloud/rewards-policy'}}
+export const revalidate=3600
+export default function Page(){return<CmsLegalPage title="Rewards Policy" uri="/rewards-policy/" fallback="Full details of our 4% cashback rewards programme are being finalised. Contact us to learn how cashback works."/>}

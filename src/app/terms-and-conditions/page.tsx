@@ -1,3 +1,5 @@
 import type{Metadata}from'next'
-export const metadata:Metadata={title:'Terms & Conditions'}
-export default function Page(){return<div className="container-xl py-16 max-w-3xl"><h1 className="font-display font-bold text-4xl text-secondary mb-8">Terms & Conditions</h1><p className="text-neutral-500">Content loading from CMS...</p></div>}
+import{CmsLegalPage}from'@/components/sections/CmsLegalPage'
+export const metadata:Metadata={title:'Terms & Conditions',description:'The terms and conditions for using The UAE Junction and our booking services.',alternates:{canonical:'https://theuaejunction.cloud/terms-and-conditions'}}
+export const revalidate=3600
+export default function Page(){return<CmsLegalPage title="Terms & Conditions" uri="/terms-and-conditions/" fallback="Our full terms and conditions are being finalised. For any questions, please contact us."/>}

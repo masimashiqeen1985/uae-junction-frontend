@@ -35,6 +35,11 @@ const nextConfig: NextConfig = {
         destination: '/blogs/:slug',
         permanent: false,
       },
+      {
+        source: '/terms',
+        destination: '/terms-and-conditions',
+        permanent: true,
+      },
     ]
   },
 }
