@@ -88,15 +88,12 @@ export function VibrantHome() {
       a.addEventListener('click', (e) => { e.preventDefault(); const t = a.querySelector('.t,h3'); toast('Opening ' + (t ? (t.textContent || '').trim() : 'page') + ' … (demo)') })
     )
 
-    // header CTAs / generic # buttons
-    q('.nav-cta a, a.btn[href="#"], a.btn[href="#wallet"]').forEach((a) =>
+    // generic in-page demo "#" buttons (card CTAs etc.) — nav CTAs now live in the global header
+    q('a.btn[href="#"]').forEach((a) =>
       a.addEventListener('click', (e) => {
         const label = (a.textContent || '').trim()
-        if (a.getAttribute('href') === '#wallet') return
         e.preventDefault()
-        if (/sign in/i.test(label)) toast('🔐 Sign-in coming soon — unlock your AED 20 joining bonus!')
-        else if (/wallet/i.test(label)) toast('💳 Sign in to view your Junction Wallet')
-        else toast(label + ' … (demo)')
+        toast(label + ' … (demo)')
       })
     )
 
@@ -110,12 +107,7 @@ export function VibrantHome() {
 
   return (
     <div className="vibrant-home" ref={root}>
-      <nav><div className="wrap nav-in">
-      <a className="brand" href="https://www.theuaejunction.cloud/" aria-label="The UAE Junction">The UAE <b>Junction</b></a>
-      <div className="nav-links"><a href="#trending">Things to do</a><a href="#staycations">Staycations</a><a href="#packages">Holiday Packages</a><a href="#enquiry">Hotels &amp; Flights</a><a href="#countries">Destinations</a></div>
-      <div className="nav-cta"><a className="btn btn-line" href="#">Sign in</a><a className="btn btn-grad" href="#wallet">💳 My Wallet</a></div>
-      <button className="hamb" aria-label="Menu">☰</button>
-      </div></nav>
+      {/* Navigation is provided by the global SiteChrome header on every route */}
       <header className="hero">
       <div className="blob b1"></div><div className="blob b2"></div>
       <div className="wrap">
