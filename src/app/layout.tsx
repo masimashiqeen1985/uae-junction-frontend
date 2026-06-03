@@ -4,6 +4,7 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { WhatsAppButton } from '@/components/layout/WhatsAppButton'
 import { GroupCorporateTab } from '@/components/layout/GroupCorporateTab'
+import { SiteChrome } from '@/components/layout/SiteChrome'
 import { SessionWrapper } from '@/components/providers/SessionWrapper'
 import { authProviderFlags } from '@/auth'
 
@@ -20,13 +21,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const body = (
-    <>
-      <Header />
-      <main>{children}</main>
-      <Footer />
-      <WhatsAppButton />
-      <GroupCorporateTab />
-    </>
+    <SiteChrome
+      header={<Header />}
+      footer={<Footer />}
+      extras={<><WhatsAppButton /><GroupCorporateTab /></>}
+    >
+      {children}
+    </SiteChrome>
   )
   return (
     <html lang="en">
