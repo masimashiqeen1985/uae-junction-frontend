@@ -3,10 +3,10 @@ import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
 
 /**
- * The homepage ("/") ships its own self-contained nav + footer (Vibrant Junction).
- * Every other route keeps the global site chrome. This wrapper renders the global
- * Header/Footer/extras everywhere EXCEPT on "/", with no hydration flash because
- * usePathname is resolved during SSR in the App Router.
+ * The shared (Vibrant-skinned) Header renders on EVERY route, including "/", so the
+ * site has ONE unified header. The homepage still ships its own footer, so the global
+ * Footer/extras stay gated to non-home routes. usePathname resolves during SSR in the
+ * App Router, so there is no hydration flash.
  */
 export function SiteChrome({
   header, footer, extras, children,
@@ -14,7 +14,10 @@ export function SiteChrome({
   const isHome = usePathname() === '/'
   return (
     <>
-      {!isHome && header}
+      {/* Unified Vibrant header renders on EVERY route, incl. '/' (it is homepage-aware:
+          transparent over the hero, solid after scroll). Footer/extras stay gated because
+          the homepage ships its own footer. */}
+      {header}
       <main>{children}</main>
       {!isHome && footer}
       {!isHome && extras}
