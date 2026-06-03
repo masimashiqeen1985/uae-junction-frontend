@@ -19,6 +19,7 @@ const FALLBACK_NAV: NavItem[] = [
       { label: 'Umrah Packages', href: '/umrah-packages' },
     ],
   },
+  { label: 'Around the World', href: '/#countries' },
   { label: 'Blogs', href: '/blogs' },
 ]
 
