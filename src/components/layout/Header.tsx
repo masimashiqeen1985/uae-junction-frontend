@@ -5,10 +5,9 @@ import type { NavItem } from './nav-types'
 
 // Hardcoded fallback — used if WordPress / WPGraphQL is unreachable or returns no menu.
 const FALLBACK_NAV: NavItem[] = [
-  { label: 'Promotions', href: '/promotions' },
-  { label: 'About Us', href: '/about-us' },
+  { label: 'Hot Deals', href: '/promotion' },
   {
-    label: 'Packages & Offers', href: '#', children: [
+    label: 'Explore & Book', href: '#', children: [
       { label: 'Theme Parks', href: '/theme-parks' },
       { label: 'Water Parks', href: '/water-parks' },
       { label: 'Desert Safari', href: '/desert-safari' },
@@ -20,7 +19,6 @@ const FALLBACK_NAV: NavItem[] = [
       { label: 'Umrah Packages', href: '/umrah-packages' },
     ],
   },
-  { label: 'Contact Us', href: '/contact-us' },
   { label: 'Blogs', href: '/blogs' },
 ]
 
