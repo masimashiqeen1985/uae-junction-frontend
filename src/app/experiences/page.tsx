@@ -1,3 +1,74 @@
 import type{Metadata}from'next'
-export const metadata:Metadata={title:'Experiences',description:'Unique UAE experiences.'}
-export default function Page(){return<div><div className="bg-secondary py-16 text-center text-white"><h1 className="font-display font-bold text-4xl mb-3">Experiences</h1><p className="text-white/80 text-lg">Experience thrills, beyond imagination</p></div><div className="container-xl py-12"><p className="text-neutral-500 text-center">Packages loading from CMS...</p></div></div>}
+import{fetchGraphQL}from'@/lib/graphql-client'
+import{GET_EXPERIENCES_LISTING}from'@/lib/queries/products'
+import type{WPProduct,WPCategory}from'@/types/wordpress'
+import{ExperiencesListing}from'@/components/experiences/ExperiencesListing'
+import{QuoteForm}from'@/components/home/QuoteForm'
+import Link from'next/link'
+
+export const metadata:Metadata={
+  title:'Experiences',
+  description:'Browse and book the best UAE experiences - theme parks, desert safari, dhow cruise, city tours and more. Earn 4% cashback on every booking.',
+  alternates:{canonical:'/experiences'},
+  openGraph:{title:'Experiences | The UAE Junction',description:'Browse and book the best UAE experiences with 4% cashback.',url:'/experiences',type:'website'},
+}
+export const revalidate=3600
+
+interface ListingData{
+  products?:{nodes:WPProduct[]}
+  productCategories?:{nodes:WPCategory[]}
+}
+interface Props{searchParams:Promise<{cat?:string}>}
+
+async function getListing():Promise<ListingData>{
+  try{return await fetchGraphQL<ListingData>(GET_EXPERIENCES_LISTING,undefined,3600)}
+  catch{return{}}
+}
+
+export default async function ExperiencesPage({searchParams}:Props){
+  const{cat=''}=await searchParams
+  const data=await getListing()
+  const products=data.products?.nodes??[]
+  const categories=data.productCategories?.nodes??[]
+
+  const breadcrumbLd={
+    '@context':'https://schema.org','@type':'BreadcrumbList',
+    itemListElement:[
+      {'@type':'ListItem',position:1,name:'Home',item:'https://www.theuaejunction.cloud/'},
+      {'@type':'ListItem',position:2,name:'Experiences',item:'https://www.theuaejunction.cloud/experiences'},
+    ],
+  }
+  const itemListLd=products.length>0?{
+    '@context':'https://schema.org','@type':'ItemList',
+    itemListElement:products.slice(0,24).map((p,i)=>({
+      '@type':'ListItem',position:i+1,name:p.name,url:`https://www.theuaejunction.cloud/product/${p.slug}`,
+    })),
+  }:null
+
+  return(
+    <div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(breadcrumbLd)}}/>
+      {itemListLd&&<script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(itemListLd)}}/>}
+
+      <div className="bg-secondary py-14 sm:py-16 text-center text-white">
+        <div className="container-xl">
+          <nav aria-label="Breadcrumb" className="text-sm text-white/70 mb-4">
+            <Link href="/" className="hover:text-white">Home</Link> <span aria-hidden="true">/</span> <span className="text-white">Experiences</span>
+          </nav>
+          <h1 className="font-display font-bold text-4xl mb-3">Experiences</h1>
+          <p className="text-white/80 text-lg max-w-2xl mx-auto">Experience thrills beyond imagination - hand-picked tours and tickets across the UAE, with 4% cashback on every booking.</p>
+        </div>
+      </div>
+
+      {products.length>0?(
+        <ExperiencesListing products={products} categories={categories} initialCat={cat}/>
+      ):(
+        <div className="container-xl py-16 text-center">
+          <p className="text-neutral-500">Experiences are loading. Please check back shortly.</p>
+        </div>
+      )}
+
+      <QuoteForm/>
+    </div>
+  )
+}
