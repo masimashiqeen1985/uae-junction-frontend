@@ -45,7 +45,7 @@ type MenuResponse = {
 
 async function getNav(): Promise<NavItem[]> {
   try {
-    const data = await fetchGraphQL<MenuResponse>(PRIMARY_MENU_QUERY)
+    const data = await fetchGraphQL<MenuResponse>(PRIMARY_MENU_QUERY, undefined, 0)
     const nodes = data?.menuItems?.nodes ?? []
     if (!nodes.length) return FALLBACK_NAV
     return nodes.map((n) => {
