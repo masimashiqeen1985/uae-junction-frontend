@@ -111,7 +111,7 @@ export function VibrantHome() {
   return (
     <div className="vibrant-home" ref={root}>
       <nav><div className="wrap nav-in">
-      <a className="brand" href="/" aria-label="The UAE Junction">The UAE <b>Junction</b></a>
+      <a className="brand" href="https://www.theuaejunction.cloud/" aria-label="The UAE Junction">The UAE <b>Junction</b></a>
       <div className="nav-links"><a href="#trending">Things to do</a><a href="#staycations">Staycations</a><a href="#packages">Holiday Packages</a><a href="#enquiry">Hotels &amp; Flights</a><a href="#countries">Destinations</a></div>
       <div className="nav-cta"><a className="btn btn-line" href="#">Sign in</a><a className="btn btn-grad" href="#wallet">💳 My Wallet</a></div>
       <button className="hamb" aria-label="Menu">☰</button>
@@ -145,16 +145,16 @@ export function VibrantHome() {
       </div>
       </header>
       <div className="wrap cats"><div className="cat-row">
-      <a className="cat" href="/theme-parks"><div className="emoji">🎢</div><div className="t">Theme Parks</div><div className="c">28 attractions</div></a>
-      <a className="cat" href="/desert-safari"><div className="emoji">🏜️</div><div className="t">Desert Safari</div><div className="c">41 tours</div></a>
-      <a className="cat" href="/dhow-cruise"><div className="emoji">🚤</div><div className="t">Dhow Cruise</div><div className="c">19 cruises</div></a>
-      <a className="cat" href="/water-parks"><div className="emoji">💦</div><div className="t">Water Parks</div><div className="c">12 parks</div></a>
-      <a className="cat" href="/uae-city-tours"><div className="emoji">🏙️</div><div className="t">City Tours</div><div className="c">34 tours</div></a>
+      <a className="cat" href="https://www.theuaejunction.cloud/theme-parks"><div className="emoji">🎢</div><div className="t">Theme Parks</div><div className="c">28 attractions</div></a>
+      <a className="cat" href="https://www.theuaejunction.cloud/desert-safari"><div className="emoji">🏜️</div><div className="t">Desert Safari</div><div className="c">41 tours</div></a>
+      <a className="cat" href="https://www.theuaejunction.cloud/dhow-cruise"><div className="emoji">🚤</div><div className="t">Dhow Cruise</div><div className="c">19 cruises</div></a>
+      <a className="cat" href="https://www.theuaejunction.cloud/water-parks"><div className="emoji">💦</div><div className="t">Water Parks</div><div className="c">12 parks</div></a>
+      <a className="cat" href="https://www.theuaejunction.cloud/uae-city-tours"><div className="emoji">🏙️</div><div className="t">City Tours</div><div className="c">34 tours</div></a>
       <a className="cat" href="#staycations"><div className="emoji">🏖️</div><div className="t">Staycations</div><div className="c">48 deals</div></a>
       <a className="cat" href="#packages"><div className="emoji">🧳</div><div className="t">Holiday Packages</div><div className="c">120+ trips</div></a>
       <a className="cat" href="#enquiry"><div className="emoji">🏨</div><div className="t">Hotels</div><div className="c">Enquire</div></a>
       <a className="cat" href="#enquiry"><div className="emoji">✈️</div><div className="t">Flights</div><div className="c">Enquire</div></a>
-      <a className="cat" href="/umrah-packages"><div className="emoji">🕋</div><div className="t">Umrah</div><div className="c">Packages</div></a>
+      <a className="cat" href="https://www.theuaejunction.cloud/umrah-packages"><div className="emoji">🕋</div><div className="t">Umrah</div><div className="c">Packages</div></a>
       </div></div>
       <section id="trending"><div className="wrap">
       <div className="sec-head reveal">
@@ -162,13 +162,13 @@ export function VibrantHome() {
       <a href="#">See all 240 →</a>
       </div>
       <div className="cards">
-      <a className="card reveal" href="/theme-parks"><div className="imgwrap"><img alt="Yas Island 4 Theme Park Tickets Combo Pass" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/06/SEA-FERRARI-YAS-WARNER-BROS.jpg?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-13%</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="https://www.theuaejunction.cloud/theme-parks"><div className="imgwrap"><img alt="Yas Island 4 Theme Park Tickets Combo Pass" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/06/SEA-FERRARI-YAS-WARNER-BROS.jpg?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-13%</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">Theme Parks</div><h3>Yas Island 4 Theme Park Combo Pass</h3><div className="rating">★★★★★ <b>4.9</b> <span>(3,210)</span></div><div className="priceline"><div className="price"><small>per adult</small><span className="was">AED 675</span> <strong>AED 589</strong></div><span className="cashtag">+AED 24 back</span></div></div></a>
-      <a className="card reveal" href="/theme-parks"><div className="imgwrap"><img alt="Ferrari World Plus SeaWorld Abu Dhabi Combo" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/05/Ferrari-World-SeaWorld-Abu-Dhabi-Combo-Package.webp?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-7%</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="https://www.theuaejunction.cloud/theme-parks"><div className="imgwrap"><img alt="Ferrari World Plus SeaWorld Abu Dhabi Combo" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/05/Ferrari-World-SeaWorld-Abu-Dhabi-Combo-Package.webp?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-7%</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">Theme Parks</div><h3>Ferrari World + SeaWorld Abu Dhabi Combo</h3><div className="rating">★★★★★ <b>4.8</b> <span>(8,940)</span></div><div className="priceline"><div className="price"><small>per adult</small><span className="was">AED 449</span> <strong>AED 419</strong></div><span className="cashtag">+AED 17 back</span></div></div></a>
-      <a className="card reveal" href="/experiences"><div className="imgwrap"><img alt="Dubai Aquarium and Underwater Zoo" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/Dubai-Aquarium-Under-Water-Zoo-1.jpg?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-6%</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="https://www.theuaejunction.cloud/experiences"><div className="imgwrap"><img alt="Dubai Aquarium and Underwater Zoo" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/Dubai-Aquarium-Under-Water-Zoo-1.jpg?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-6%</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">Experiences</div><h3>Dubai Aquarium &amp; Underwater Zoo</h3><div className="rating">★★★★★ <b>4.8</b> <span>(2,540)</span></div><div className="priceline"><div className="price"><small>per adult</small><span className="was">AED 169</span> <strong>AED 159</strong></div><span className="cashtag">+AED 6 back</span></div></div></a>
-      <a className="card reveal" href="/experiences"><div className="imgwrap"><img alt="Global Village Dubai" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/Global-Village-1.webp?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-10%</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="https://www.theuaejunction.cloud/experiences"><div className="imgwrap"><img alt="Global Village Dubai" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/Global-Village-1.webp?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-10%</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">Experiences</div><h3>Global Village Dubai Entry</h3><div className="rating">★★★★★ <b>4.7</b> <span>(6,120)</span></div><div className="priceline"><div className="price"><small>per adult</small><span className="was">AED 39</span> <strong>AED 35</strong></div><span className="cashtag">+AED 1.4 back</span></div></div></a>
       </div>
       </div></section>
@@ -183,9 +183,9 @@ export function VibrantHome() {
       <section id="showcase"><div className="wrap">
       <div className="sec-head reveal"><div><span className="eyebrow">Two ways to feel the UAE</span><h2>Adrenaline or golden hour — your call</h2></div></div>
       <div className="showcase">
-      <a className="show-card reveal" href="/theme-parks"><img alt="Theme park rollercoaster at IMG Worlds" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/dolphins-performing-dolphin-show-with-their-trainers-national-zoo.jpg?w=1100&ssl=1" />
+      <a className="show-card reveal" href="https://www.theuaejunction.cloud/theme-parks"><img alt="Theme park rollercoaster at IMG Worlds" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/dolphins-performing-dolphin-show-with-their-trainers-national-zoo.jpg?w=1100&ssl=1" />
       <div className="b"><span className="pill pill-cash">4% back</span><h3>Theme &amp; Water Parks</h3><p>Aquaventure, IMG Worlds, Wild Wadi and more — skip-the-line tickets from AED 199.</p><span className="btn btn-grad">Explore parks →</span></div></a>
-      <a className="show-card reveal" href="/desert-safari"><img alt="Camels and 4x4 at sunset in the desert" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/high-angle-view-off-road-vehicle-desert.jpg?w=1100&ssl=1" />
+      <a className="show-card reveal" href="https://www.theuaejunction.cloud/desert-safari"><img alt="Camels and 4x4 at sunset in the desert" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/high-angle-view-off-road-vehicle-desert.jpg?w=1100&ssl=1" />
       <div className="b"><span className="pill pill-cash">4% back</span><h3>Desert Safaris</h3><p>Dune bashing, camel rides and BBQ under the stars — morning, evening or overnight.</p><span className="btn btn-grad">Explore safaris →</span></div></a>
       </div>
       </div></section>
