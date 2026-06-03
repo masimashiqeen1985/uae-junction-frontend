@@ -102,7 +102,7 @@ export function VibrantHome() {
 
     // forms -> prevent submit + toast
     Array.from(r.querySelectorAll<HTMLFormElement>('form')).forEach((fm) =>
-      fm.addEventListener('submit', (e) => { e.preventDefault(); toast('✅ Thanks! We will be in touch shortly. (demo)'); fm.reset && fm.reset() })
+      fm.addEventListener('submit', (e) => { e.preventDefault(); toast('✅ Thanks! We will be in touch shortly. (demo)'); if (fm.reset) fm.reset() })
     )
 
     return () => { io.disconnect(); if (tEl && tEl.parentNode) tEl.parentNode.removeChild(tEl); clearTimeout(tTimer) }
@@ -173,7 +173,7 @@ export function VibrantHome() {
       </div>
       </div></section>
       <section className="how"><div className="wrap">
-      <div className="sec-head reveal"><div><span className="eyebrow">No tiers, no catch</span><h2>How your 4% cashback works</h2><p>Real money back on every booking — not points you'll forget about.</p></div></div>
+      <div className="sec-head reveal"><div><span className="eyebrow">No tiers, no catch</span><h2>How your 4% cashback works</h2><p>Real money back on every booking — not points you&apos;ll forget about.</p></div></div>
       <div className="how-grid">
       <div className="step reveal"><div className="n">1</div><h4>Book anything</h4><p>Tours, tickets and experiences across the UAE — all in one cart with one simple checkout.</p></div>
       <div className="step reveal"><div className="n">2</div><h4>Earn 4% instantly</h4><p>Cashback lands in your Junction Wallet the moment your booking is confirmed. Every dirham counts.</p></div>
@@ -216,7 +216,7 @@ export function VibrantHome() {
       </div>
       </div></section>
       <section><div className="wrap">
-      <div className="sec-head reveal"><div><span className="eyebrow">Where to next</span><h2>Top destinations across the Emirates</h2><p>Seven emirates, one platform — pick a city and we'll do the rest.</p></div><a href="#">All destinations →</a></div>
+      <div className="sec-head reveal"><div><span className="eyebrow">Where to next</span><h2>Top destinations across the Emirates</h2><p>Seven emirates, one platform — pick a city and we&apos;ll do the rest.</p></div><a href="#">All destinations →</a></div>
       <div className="dest-grid">
       <a className="dest reveal" href="#"><img alt="Dubai skyline with Burj Khalifa" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/portrait-friends-visiting-luxurious-city-dubai.jpg?w=800&ssl=1" /><div className="b"><h3>Dubai</h3><div className="c">840+ things to do</div></div></a>
       <a className="dest reveal" href="#"><img alt="Sheikh Zayed Grand Mosque in Abu Dhabi" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/06/SEA-FERRARI-YAS-WARNER-BROS.jpg?w=800&ssl=1" /><div className="b"><h3>Abu Dhabi</h3><div className="c">320+ things to do</div></div></a>
@@ -264,7 +264,7 @@ export function VibrantHome() {
       </div>
       </div></section>
       <section id="wallet"><div className="wrap">
-      <div className="sec-head reveal"><div><span className="eyebrow">When you're signed in</span><h2>Your Junction Wallet 💳</h2><p>One balance for cashback and bonuses — real dirhams, ready to spend on your next booking.</p></div></div>
+      <div className="sec-head reveal"><div><span className="eyebrow">When you&apos;re signed in</span><h2>Your Junction Wallet 💳</h2><p>One balance for cashback and bonuses — real dirhams, ready to spend on your next booking.</p></div></div>
       <div className="bundle reveal">
       <div>
       <div className="walletcard">
@@ -303,21 +303,21 @@ export function VibrantHome() {
       <section><div className="wrap">
       <div className="sec-head reveal"><div><span className="eyebrow">Loved by travellers</span><h2>12,400 trips and counting</h2><p>Rated 4.9 / 5 across verified bookings.</p></div></div>
       <div className="reviews">
-      <div className="review reveal"><div className="stars">★★★★★</div><p>“Booked the desert safari and a dhow dinner in two minutes. Cashback hit my wallet instantly — used it on the kids' Aquaventure tickets.”</p><div className="who"><div className="av">SA</div><div><b>Sara A.</b><small>Riyadh → Dubai</small></div></div></div>
+      <div className="review reveal"><div className="stars">★★★★★</div><p>“Booked the desert safari and a dhow dinner in two minutes. Cashback hit my wallet instantly — used it on the kids&apos; Aquaventure tickets.”</p><div className="who"><div className="av">SA</div><div><b>Sara A.</b><small>Riyadh → Dubai</small></div></div></div>
       <div className="review reveal"><div className="stars">★★★★★</div><p>“Finally one place for all the tickets and tours. The 4% back is real money, not points — and the joining bonus paid for our coffee on day one.”</p><div className="who"><div className="av">JM</div><div><b>James M.</b><small>London → Abu Dhabi</small></div></div></div>
       <div className="review reveal"><div className="stars">★★★★★</div><p>“Free cancellation saved me when plans changed. Re-booked a city tour same day and still got cashback. This is now my default for the UAE.”</p><div className="who"><div className="av">PR</div><div><b>Priya R.</b><small>Mumbai → Sharjah</small></div></div></div>
       </div>
       </div></section>
       <section><div className="wrap"><div className="news reveal">
       <h2>Deals worth opening</h2>
-      <p>Join 40,000 travellers getting the UAE's best experience drops — plus an extra AED 25 cashback on your first booking.</p>
+      <p>Join 40,000 travellers getting the UAE&apos;s best experience drops — plus an extra AED 25 cashback on your first booking.</p>
       <form><input type="email" placeholder="you@email.com" aria-label="Email" /><button className="btn btn-grad">Get deals →</button></form>
       </div></div></section>
       <footer><div className="wrap">
       <div className="foot-grid">
       <div className="foot-brand">
       <svg viewBox="0 0 250 60" style={{height:'48px',width:'auto',display:'block'}} role="img" aria-label="The UAE Junction"><path d="M10 52 V24 a16 16 0 0 1 32 0 V52" fill="none" stroke="#7FB0AA" strokeWidth="6" strokeLinecap="round"/><rect x="7" y="22" width="6.5" height="30" rx="3.25" fill="#E0832B"/><rect x="31" y="36" width="13" height="14" rx="3" fill="#9A82C0"/><text x="60" y="25" fontFamily="Cinzel,serif" fontWeight="600" fontSize="18" letterSpacing="2.5" fill="#ffffff">THE UAE</text><text x="60" y="48" fontFamily="Cinzel,serif" fontWeight="600" fontSize="18" letterSpacing="2.5" fill="#ffffff">JUNCTION</text></svg>
-      <p style={{maxWidth:'32ch',margin:'14px 0'}}>The UAE's one-stop platform for tours, tickets and experiences — with 4% cashback on everything.</p>
+      <p style={{maxWidth:'32ch',margin:'14px 0'}}>The UAE&apos;s one-stop platform for tours, tickets and experiences — with 4% cashback on everything.</p>
       <div className="foot-pay"><span>VISA</span><span>Mastercard</span><span>Apple Pay</span><span>Tabby</span><span>Tamara</span></div>
       </div>
       <div><h4>Explore</h4><ul><li><a href="#">Theme Parks</a></li><li><a href="#">Desert Safari</a></li><li><a href="#staycations">Staycations</a></li><li><a href="#packages">Holiday Packages</a></li><li><a href="#enquiry">Hotels &amp; Flights</a></li><li><a href="#countries">12 Destinations</a></li><li><a href="#">Umrah Packages</a></li></ul></div>
