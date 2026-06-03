@@ -1,8 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
 @import "tailwindcss";
+@theme {
+  --color-primary:#0bb8a6;
+  --color-primary-dark:#089b8c;
+  --color-primary-light:#3bd6c6;
+  --color-secondary:#1390e0;
+  --color-secondary-dark:#0d6fb0;
+  --color-secondary-light:#5b6cff;
+  --color-ink:#0d1b2a;
+  --color-coral:#ff5a5f;
+  --color-amber:#ffb020;
+  --color-amber-dark:#e0890b;
+  --font-display:"Plus Jakarta Sans",Poppins,sans-serif;
+  --font-body:"Plus Jakarta Sans",Inter,sans-serif;
+  --radius-card:16px;
+  --radius-btn:12px;
+  --radius-pill:999px;
+  --shadow-card:0 2px 8px rgba(13,27,42,0.06);
+  --shadow-card-hover:0 10px 30px rgba(13,27,42,0.12);
+}
 *{box-sizing:border-box}
-body{overflow-x:hidden;font-family:'Inter',sans-serif;color:#1A1A1A;background:#fff;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4,h5,h6{font-family:'Poppins',sans-serif}
+body{overflow-x:hidden;font-family:'Plus Jakarta Sans','Inter',sans-serif;color:#1A1A1A;background:#fff;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans','Poppins',sans-serif;letter-spacing:-.02em}
 .line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 html{scroll-behavior:smooth}
 .container-xl{max-width:1280px;margin:0 auto;padding:0 1rem}
@@ -24,8 +43,11 @@ html{scroll-behavior:smooth}
 
 /* ───────── Travel design-token layer (mirrors src/lib/design/tokens.ts) ───────── */
 :root{
-  --c-primary:#FFA500;--c-primary-dark:#E09000;--c-secondary:#2D9D9D;--c-secondary-dark:#1E7070;
-  --c-coral:#FF6B5E;--c-sand:#F6E7CE;--c-ink:#0E1726;
+  --c-primary:#0bb8a6;--c-primary-dark:#089b8c;--c-secondary:#1390e0;--c-secondary-dark:#0d6fb0;
+  --c-coral:#ff5a5f;--c-sand:#F6E7CE;--c-ink:#0d1b2a;
+  --c-amber:#ffb020;--c-blue:#1390e0;--c-indigo:#5b6cff;--c-muted:#5a6b7b;--c-line:#e8edf2;--c-bg:#f4f7fb;
+  --g-brand:linear-gradient(120deg,#0bb8a6 0%,#1390e0 55%,#5b6cff 100%);
+  --r:16px;--r-lg:22px;--e1:0 2px 8px rgba(13,27,42,.06);--e2:0 10px 30px rgba(13,27,42,.12);--ease:cubic-bezier(.34,1.56,.64,1);
   --g-sunset:linear-gradient(135deg,#FFB733 0%,#FF8A3D 45%,#FF6B5E 100%);
   --g-lagoon:linear-gradient(135deg,#3BBABA 0%,#2D9D9D 50%,#1E7070 100%);
   --g-heroSky:linear-gradient(180deg,#0B1E3A 0%,#1E7070 55%,#2D9D9D 100%);
@@ -71,3 +93,22 @@ html{scroll-behavior:smooth}
 @media(prefers-reduced-motion:reduce){
   .animate-kenburns,.animate-skyline-drift,.twinkle{animation:none!important}
 }
+
+
+/* ───────── Global Vibrant Junction primitives (site-wide, mirrors homepage) ───────── */
+.bg-brand{background:var(--g-brand)}
+.text-brand{background:var(--g-brand);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{color:var(--c-primary-dark);font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}
+.uj-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;font-weight:700;font-size:.95rem;padding:12px 24px;border:0;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s,filter .2s;text-decoration:none}
+.uj-btn-grad{background:var(--g-brand);color:#fff;box-shadow:0 6px 18px rgba(11,144,224,.35)}
+.uj-btn-grad:hover{transform:translateY(-2px) scale(1.02)}
+.uj-btn-line{background:#fff;border:1.5px solid var(--c-line);color:var(--c-ink)}
+.uj-btn-line:hover{border-color:var(--c-primary);color:var(--c-primary-dark)}
+.uj-btn-dark{background:var(--c-ink);color:#fff}
+.uj-btn-dark:hover{transform:translateY(-2px)}
+.pill{display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:.78rem;padding:6px 12px;border-radius:999px}
+.pill-cash{background:#e7faf7;color:var(--c-primary-dark)}
+.pill-hot{background:#fff0f0;color:var(--c-coral)}
+.uj-card{background:#fff;border-radius:var(--r-lg);box-shadow:var(--e1);transition:transform .3s var(--ease),box-shadow .3s}
+.uj-card:hover{transform:translateY(-6px);box-shadow:var(--e2)}
+@media(prefers-reduced-motion:reduce){.uj-btn-grad:hover,.uj-btn-dark:hover,.uj-card:hover{transform:none}}

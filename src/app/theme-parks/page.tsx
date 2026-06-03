@@ -1,3 +1,3 @@
 import type{Metadata}from'next'
 export const metadata:Metadata={title:'Theme Park Tickets',description:'Best theme park tickets in UAE.'}
-export default function Page(){return<div><div className="bg-secondary py-16 text-center text-white"><h1 className="font-display font-bold text-4xl mb-3">Theme Parks</h1><p className="text-white/80 text-lg">The Adventure Begins Here!</p></div><div className="container-xl py-12"><p className="text-neutral-500 text-center">Packages loading from CMS...</p></div></div>}
+export default function Page(){return<div><div className="bg-brand py-16 text-center text-white"><h1 className="font-display font-bold text-4xl mb-3">Theme Parks</h1><p className="text-white/80 text-lg">The Adventure Begins Here!</p></div><div className="container-xl py-12"><p className="text-neutral-500 text-center">Packages loading from CMS...</p></div></div>}

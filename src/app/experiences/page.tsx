@@ -4,7 +4,7 @@ import{GET_EXPERIENCES_LISTING}from'@/lib/queries/products'
 import type{WPProduct,WPCategory}from'@/types/wordpress'
 import{ExperiencesListing}from'@/components/experiences/ExperiencesListing'
 import{QuoteForm}from'@/components/home/QuoteForm'
-import Link from'next/link'
+import{PageHero}from'@/components/layout/PageHero'
 
 export const metadata:Metadata={
   title:'Experiences',
@@ -50,15 +50,10 @@ export default async function ExperiencesPage({searchParams}:Props){
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(breadcrumbLd)}}/>
       {itemListLd&&<script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(itemListLd)}}/>}
 
-      <div className="bg-secondary py-14 sm:py-16 text-center text-white">
-        <div className="container-xl">
-          <nav aria-label="Breadcrumb" className="text-sm text-white/70 mb-4">
-            <Link href="/" className="hover:text-white">Home</Link> <span aria-hidden="true">/</span> <span className="text-white">Experiences</span>
-          </nav>
-          <h1 className="font-display font-bold text-4xl mb-3">Experiences</h1>
-          <p className="text-white/80 text-lg max-w-2xl mx-auto">Experience thrills beyond imagination - hand-picked tours and tickets across the UAE, with 4% cashback on every booking.</p>
-        </div>
-      </div>
+      <PageHero
+        title="Experiences"
+        subtitle="Experience thrills beyond imagination - hand-picked tours and tickets across the UAE, with 4% cashback on every booking."
+      />
 
       {products.length>0?(
         <ExperiencesListing products={products} categories={categories} initialCat={cat}/>

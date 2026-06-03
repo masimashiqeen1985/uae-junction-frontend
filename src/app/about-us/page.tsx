@@ -62,8 +62,8 @@ export default function AboutPage(){
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(ld)}}/>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-secondary-dark via-secondary to-neutral-900 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,165,0,0.22),transparent_45%)]"/>
+      <section className="relative overflow-hidden bg-brand text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(91,108,255,0.30),transparent_45%)]"/>
         <div className="container-xl relative z-10 py-20 max-w-3xl">
           <nav aria-label="Breadcrumb" className="text-sm text-white/60 mb-4">
             <Link href="/" className="hover:text-white">Home</Link> <span aria-hidden="true">/</span> <span className="text-white/90">About Us</span>
@@ -104,7 +104,7 @@ export default function AboutPage(){
       </section>
 
       {/* Animated stats */}
-      <section className="py-14 bg-secondary-dark text-white">
+      <section className="py-14 bg-ink text-white">
         <div className="container-xl">
           <StatsCounter stats={STATS}/>
         </div>

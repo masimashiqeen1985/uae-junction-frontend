@@ -164,9 +164,9 @@ function MegaMenu({ items, onPick }: { items: NavChild[]; onPick: () => void }) 
               key={c.href + c.label}
               href={c.href}
               onClick={onPick}
-              className="group flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-amber-50"
+              className="group flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-[#e7faf7]"
             >
-              <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#FFB733] to-[#FF8A3D] text-white shadow-sm">
+              <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#0bb8a6] to-[#5b6cff] text-white shadow-sm">
                 <Icon className="h-4 w-4" />
               </span>
               <span className="min-w-0">
