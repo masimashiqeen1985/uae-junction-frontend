@@ -54,7 +54,7 @@ export default function Page(){
         <h2>Governing Law</h2>
         <p>These terms are governed by the laws of the United Arab Emirates. Any disputes arising shall be subject to the jurisdiction of UAE courts.</p>
         <h2>Contact</h2>
-        <p>For any questions related to these terms:<br/>Email: <a href="mailto:customerservice@theuaejunction.com">customerservice@theuaejunction.com</a><br/>Phone: +971 58 589 8221<br/>Website: www.theuaejunction.com</p>
+        <p>For any questions related to these terms:<br/>Email: <a href="mailto:sales@theuaejunction.com">sales@theuaejunction.com</a><br/>Phone: +971 58 589 8221<br/>Website: www.theuaejunction.cloud</p>
       </div>
     </div>
   )

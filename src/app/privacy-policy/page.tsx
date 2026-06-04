@@ -32,7 +32,7 @@ export default function Page(){
         <h2>Secured Transactions</h2>
         <p>To ensure the safety and confidentiality of your transactions, The UAE Junction uses secure server technology. We implement industry-standard security measures, including encryption, SSL (Secure Socket Layers), and firewalls, to protect sensitive information like your payment details.</p>
         <h2>Contact</h2>
-        <p>For any questions related to this policy:<br/>Email: <a href="mailto:customerservice@theuaejunction.com">customerservice@theuaejunction.com</a><br/>Phone: +971 58 589 8221<br/>Website: www.theuaejunction.com</p>
+        <p>For any questions related to this policy:<br/>Email: <a href="mailto:sales@theuaejunction.com">sales@theuaejunction.com</a><br/>Phone: +971 58 589 8221<br/>Website: www.theuaejunction.cloud</p>
         <p><em>Note: By using our platform, you agree to the terms of this Privacy Policy.</em></p>
       </div>
     </div>

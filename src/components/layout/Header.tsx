@@ -28,7 +28,7 @@ const CATEGORY_NAV: NavItem = {
 
 // Hardcoded fallback — used if WordPress / WPGraphQL is unreachable or returns no menu.
 const FALLBACK_NAV: NavItem[] = [
-  { label: 'Hot Deals', href: '/promotion' },
+  { label: 'Hot Deals', href: '/promotions' },
   // Not a dropdown: clicking scrolls to the category slider on the homepage.
   { label: 'Explore & Book', href: '/#explore-book' },
   CATEGORY_NAV,
