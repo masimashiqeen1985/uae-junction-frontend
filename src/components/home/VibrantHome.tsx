@@ -12,6 +12,7 @@ import './vibrant-home.css'
  */
 export function VibrantHome() {
   const root = useRef<HTMLDivElement>(null)
+  const catRowRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const r = root.current
@@ -136,18 +137,28 @@ export function VibrantHome() {
       </div>
       </div>
       </header>
-      <div className="wrap cats"><div className="cat-row">
-      <a className="cat" href="https://www.theuaejunction.cloud/theme-parks"><div className="emoji">🎢</div><div className="t">Theme Parks</div><div className="c">28 attractions</div></a>
-      <a className="cat" href="https://www.theuaejunction.cloud/desert-safari"><div className="emoji">🏜️</div><div className="t">Desert Safari</div><div className="c">41 tours</div></a>
-      <a className="cat" href="https://www.theuaejunction.cloud/dhow-cruise"><div className="emoji">🚤</div><div className="t">Dhow Cruise</div><div className="c">19 cruises</div></a>
-      <a className="cat" href="https://www.theuaejunction.cloud/water-parks"><div className="emoji">💦</div><div className="t">Water Parks</div><div className="c">12 parks</div></a>
-      <a className="cat" href="https://www.theuaejunction.cloud/uae-city-tours"><div className="emoji">🏙️</div><div className="t">City Tours</div><div className="c">34 tours</div></a>
-      <a className="cat" href="#staycations"><div className="emoji">🏖️</div><div className="t">Staycations</div><div className="c">48 deals</div></a>
-      <a className="cat" href="#packages"><div className="emoji">🧳</div><div className="t">Holiday Packages</div><div className="c">120+ trips</div></a>
-      <a className="cat" href="#enquiry"><div className="emoji">🏨</div><div className="t">Hotels</div><div className="c">Enquire</div></a>
-      <a className="cat" href="#enquiry"><div className="emoji">✈️</div><div className="t">Flights</div><div className="c">Enquire</div></a>
-      <a className="cat" href="https://www.theuaejunction.cloud/umrah-packages"><div className="emoji">🕋</div><div className="t">Umrah</div><div className="c">Packages</div></a>
-      </div></div>
+      <div className="wrap cats">
+        <div className="cat-scroll-wrap">
+          <button className="cat-arrow cat-arrow-left" aria-label="Scroll categories left" onClick={() => catRowRef.current?.scrollBy({ left: -320, behavior: 'smooth' })}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div className="cat-row" ref={catRowRef}>
+            <a className="cat" href="/theme-parks"><div className="emoji">🎢</div><div className="t">Theme Parks</div><div className="c">28 attractions</div></a>
+            <a className="cat" href="/desert-safari-packages"><div className="emoji">🏜️</div><div className="t">Desert Safari</div><div className="c">41 tours</div></a>
+            <a className="cat" href="/dubai-dhow-cruise"><div className="emoji">🚤</div><div className="t">Dhow Cruise</div><div className="c">19 cruises</div></a>
+            <a className="cat" href="/water-park-tickets"><div className="emoji">💦</div><div className="t">Water Parks</div><div className="c">12 parks</div></a>
+            <a className="cat" href="/uae-city-tours"><div className="emoji">🏙️</div><div className="t">City Tours</div><div className="c">34 tours</div></a>
+            <a className="cat" href="#staycations"><div className="emoji">🏖️</div><div className="t">Staycations</div><div className="c">48 deals</div></a>
+            <a className="cat" href="#packages"><div className="emoji">🧳</div><div className="t">Holiday Packages</div><div className="c">120+ trips</div></a>
+            <a className="cat" href="#enquiry"><div className="emoji">🏨</div><div className="t">Hotels</div><div className="c">Enquire</div></a>
+            <a className="cat" href="#enquiry"><div className="emoji">✈️</div><div className="t">Flights</div><div className="c">Enquire</div></a>
+            <a className="cat" href="/umrah-packages"><div className="emoji">🕋</div><div className="t">Umrah</div><div className="c">Packages</div></a>
+          </div>
+          <button className="cat-arrow cat-arrow-right" aria-label="Scroll categories right" onClick={() => catRowRef.current?.scrollBy({ left: 320, behavior: 'smooth' })}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
       <section id="trending"><div className="wrap">
       <div className="sec-head reveal">
       <div><span className="eyebrow">Popular right now</span><h2>Trending in Dubai 🔥</h2><p>Lowest-price guarantee · every booking earns 4% back</p></div>
