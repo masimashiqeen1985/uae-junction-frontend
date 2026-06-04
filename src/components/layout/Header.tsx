@@ -6,19 +6,8 @@ import type { NavItem } from './nav-types'
 // Hardcoded fallback — used if WordPress / WPGraphQL is unreachable or returns no menu.
 const FALLBACK_NAV: NavItem[] = [
   { label: 'Hot Deals', href: '/promotion' },
-  {
-    label: 'Explore & Book', href: '#', children: [
-      { label: 'Theme Parks', href: '/theme-parks' },
-      { label: 'Water Parks', href: '/water-parks' },
-      { label: 'Desert Safari', href: '/desert-safari' },
-      { label: 'Dhow Cruise', href: '/dhow-cruise' },
-      { label: 'Experiences', href: '/experiences' },
-      { label: 'UAE City Tours', href: '/uae-city-tours' },
-      { label: 'Hotel Booking', href: '/hotel-booking' },
-      { label: 'Flight Booking', href: '/flight-booking' },
-      { label: 'Umrah Packages', href: '/umrah-packages' },
-    ],
-  },
+  // Not a dropdown: clicking scrolls to the category slider on the homepage.
+  { label: 'Explore & Book', href: '/#explore-book' },
   { label: 'Around the World', href: '/#countries' },
   { label: 'Blogs', href: '/blogs' },
 ]
@@ -49,6 +38,10 @@ async function getNav(): Promise<NavItem[]> {
     const nodes = data?.menuItems?.nodes ?? []
     if (!nodes.length) return FALLBACK_NAV
     return nodes.map((n) => {
+      // "Explore & Book" is intentionally a scroll-to-slider link, never a dropdown.
+      if (n.label?.toLowerCase().startsWith('explore')) {
+        return { label: n.label, href: '/#explore-book' }
+      }
       const children = n.childItems?.nodes ?? []
       return {
         label: n.label,

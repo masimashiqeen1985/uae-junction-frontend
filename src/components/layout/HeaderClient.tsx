@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, type MouseEvent } from 'react'
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from 'framer-motion'
 import {
   ShoppingCart, Search, Menu, ChevronDown, Wallet,
@@ -44,6 +44,24 @@ export function HeaderClient({ nav, providers, authConfigured }: Props) {
   const pathname = usePathname()
   const reduce = useReducedMotion()
   const isHome = pathname === '/'
+
+  // For in-page hash links (e.g. "/#explore-book"): when already on the target
+  // page, smooth-scroll instead of a hard jump. Cross-page nav falls through to
+  // <Link> and the target page scrolls on mount (see VibrantHome).
+  const handleHashNav =
+    (href: string) => (e: MouseEvent<HTMLAnchorElement>) => {
+      if (!href.includes('#')) return
+      const [path, hash] = href.split('#')
+      const targetPath = path || '/'
+      const onTarget = pathname === targetPath || (targetPath === '/' && isHome)
+      if (!hash || !onTarget) return
+      const el = document.getElementById(hash)
+      if (el) {
+        e.preventDefault()
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        history.replaceState(null, '', href)
+      }
+    }
   const { scrollY } = useScroll()
 
   useMotionValueEvent(scrollY, 'change', (y) => {
@@ -112,6 +130,8 @@ export function HeaderClient({ nav, providers, authConfigured }: Props) {
                   <Link
                     key={item.label}
                     href={item.href}
+                    onClick={handleHashNav(item.href)}
+                    aria-label={item.href.includes('#explore-book') ? 'Scroll to Explore & Book categories' : undefined}
                     className={`focus-ring rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:text-[var(--c-primary)] ${textColor}`}
                   >
                     {item.label}
