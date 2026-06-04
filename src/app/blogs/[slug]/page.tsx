@@ -13,6 +13,7 @@ interface Props{params:Promise<{slug:string}>}
 // resolve at request time instead of being frozen as a stale not-found page.
 export const revalidate=3600
 export const dynamicParams=true
+export const dynamic = 'force-dynamic'
 
 function fmtDate(d:string){try{return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}catch{return''}}
 function readingTime(html?:string){const w=(html??'').replace(/<[^>]+>/g,'').split(/\s+/).filter(Boolean).length;return`${Math.max(1,Math.round(w/200))} min read`}
