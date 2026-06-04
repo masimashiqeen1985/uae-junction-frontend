@@ -10,40 +10,59 @@ const SORTS:{value:Sort;label:string}[]=[
   {value:'featured',label:'Featured'},
   {value:'price-asc',label:'Price: Low to High'},
   {value:'price-desc',label:'Price: High to Low'},
-  {value:'name',label:'Name: A–Z'},
+  {value:'name',label:'Name: A-Z'},
 ]
 const num=(p?:string)=>{const n=parseFloat((p??'').replace(/[^0-9.]/g,''));return isNaN(n)?0:n}
 const priceOf=(p:WPProduct)=>num(p.salePrice||p.regularPrice||p.price)
 
-export function ExperiencesListing({products,categories,initialCat=''}:{products:WPProduct[];categories:WPCategory[];initialCat?:string}){
+export function ExperiencesListing({products,categories,initialCat='',initialQ=''}:{products:WPProduct[];categories:WPCategory[];initialCat?:string;initialQ?:string}){
   const[cat,setCat]=useState(initialCat)
+  const[q,setQ]=useState(initialQ)
   const[sort,setSort]=useState<Sort>('featured')
   const[visible,setVisible]=useState(PAGE)
 
-  // Only show categories that actually have products
   const chips=useMemo(()=>categories.filter(c=>(c.count??0)>0),[categories])
 
-  const syncUrl=useCallback((next:string)=>{
+  const syncUrl=useCallback((nextCat:string,nextQ:string)=>{
     if(typeof window==='undefined')return
     const url=new URL(window.location.href)
-    if(next)url.searchParams.set('cat',next);else url.searchParams.delete('cat')
+    if(nextCat)url.searchParams.set('cat',nextCat);else url.searchParams.delete('cat')
+    if(nextQ)url.searchParams.set('q',nextQ);else url.searchParams.delete('q')
     window.history.replaceState(null,'',url.toString())
   },[])
 
-  const selectCat=useCallback((slug:string)=>{setCat(slug);setVisible(PAGE);syncUrl(slug)},[syncUrl])
+  const selectCat=useCallback((slug:string)=>{setCat(slug);setVisible(PAGE);syncUrl(slug,q)},[syncUrl,q])
+  const onQuery=useCallback((value:string)=>{setQ(value);setVisible(PAGE);syncUrl(cat,value)},[syncUrl,cat])
 
   const filtered=useMemo(()=>{
+    const ql=q.trim().toLowerCase()
     let list=cat?products.filter(p=>p.productCategories?.nodes?.some(n=>n.slug===cat)):[...products]
+    if(ql)list=list.filter(p=>p.name.toLowerCase().includes(ql)||(p.shortDescription||'').toLowerCase().includes(ql))
     if(sort==='price-asc')list=[...list].sort((a,b)=>priceOf(a)-priceOf(b))
     else if(sort==='price-desc')list=[...list].sort((a,b)=>priceOf(b)-priceOf(a))
     else if(sort==='name')list=[...list].sort((a,b)=>a.name.localeCompare(b.name))
     return list
-  },[products,cat,sort])
+  },[products,cat,q,sort])
 
   const shown=filtered.slice(0,visible)
 
   return(
     <div className="container-xl py-10 sm:py-12">
+      {/* Search box */}
+      <div className="mb-6">
+        <div className="relative max-w-xl">
+          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400" aria-hidden="true">&#128269;</span>
+          <input
+            type="search"
+            value={q}
+            onChange={e=>onQuery(e.target.value)}
+            placeholder="Search experiences, tickets and tours..."
+            aria-label="Search experiences"
+            className="w-full rounded-full border border-neutral-200 bg-white py-3 pl-11 pr-4 text-sm text-neutral-700 focus:outline-none focus:ring-2 focus:ring-secondary/40 min-h-[44px]"
+          />
+        </div>
+      </div>
+
       {/* Filter chips */}
       {chips.length>0&&(
         <div className="mb-6 -mx-1 overflow-x-auto" role="group" aria-label="Filter by category">
@@ -64,7 +83,9 @@ export function ExperiencesListing({products,categories,initialCat=''}:{products
 
       {/* Result count + sort */}
       <div className="flex items-center justify-between gap-4 mb-6">
-        <p className="text-sm text-neutral-500" aria-live="polite">{filtered.length} experience{filtered.length===1?'':'s'}</p>
+        <p className="text-sm text-neutral-500" aria-live="polite">
+          {filtered.length} experience{filtered.length===1?'':'s'}{q.trim()?` for "${q.trim()}"`:''}
+        </p>
         <label className="flex items-center gap-2 text-sm text-neutral-600">
           <span className="hidden sm:inline font-medium">Sort by</span>
           <select value={sort} onChange={e=>{setSort(e.target.value as Sort);setVisible(PAGE)}}
@@ -81,8 +102,8 @@ export function ExperiencesListing({products,categories,initialCat=''}:{products
         </div>
       ):(
         <div className="text-center py-20">
-          <p className="text-neutral-500 mb-4">No experiences found in this category yet.</p>
-          {cat&&<button type="button" onClick={()=>selectCat('')} className="text-secondary font-semibold hover:text-secondary-dark">View all experiences →</button>}
+          <p className="text-neutral-500 mb-4">No experiences found{q.trim()?` for "${q.trim()}"`:cat?' in this category yet':''}.</p>
+          {(cat||q.trim())&&<button type="button" onClick={()=>{setCat('');setQ('');setVisible(PAGE);syncUrl('','')}} className="text-secondary font-semibold hover:text-secondary-dark">View all experiences -&gt;</button>}
         </div>
       )}
 

@@ -75,10 +75,7 @@ export function VibrantHome() {
     const onGo = (e: Event) => {
       e.preventDefault()
       const query = inputs[0] ? inputs[0].value.trim() : ''
-      const catEl = r.querySelector('.search-tabs button.active')
-      const cat = catEl ? (catEl.textContent || '').trim() : 'Experiences'
-      toast('🔍 Searching ' + cat + (query ? ' for “' + query + '”' : '') + ' …')
-      const tgt = r.querySelector('#trending'); if (tgt) tgt.scrollIntoView({ behavior: 'smooth' })
+      window.location.href = '/experiences' + (query ? '?q=' + encodeURIComponent(query) : '')
     }
     if (go) go.addEventListener('click', onGo)
     inputs.forEach((i) => i.addEventListener('keydown', (e) => { if ((e as KeyboardEvent).key === 'Enter' && go) go.click() }))

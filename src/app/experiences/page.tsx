@@ -18,7 +18,7 @@ interface ListingData{
   products?:{nodes:WPProduct[]}
   productCategories?:{nodes:WPCategory[]}
 }
-interface Props{searchParams:Promise<{cat?:string}>}
+interface Props{searchParams:Promise<{cat?:string;q?:string}>}
 
 async function getListing():Promise<ListingData>{
   try{return await fetchGraphQL<ListingData>(GET_EXPERIENCES_LISTING,undefined,3600)}
@@ -26,7 +26,7 @@ async function getListing():Promise<ListingData>{
 }
 
 export default async function ExperiencesPage({searchParams}:Props){
-  const{cat=''}=await searchParams
+  const{cat='',q=''}=await searchParams
   const data=await getListing()
   const products=data.products?.nodes??[]
   const categories=data.productCategories?.nodes??[]
@@ -56,7 +56,7 @@ export default async function ExperiencesPage({searchParams}:Props){
       />
 
       {products.length>0?(
-        <ExperiencesListing products={products} categories={categories} initialCat={cat}/>
+        <ExperiencesListing products={products} categories={categories} initialCat={cat} initialQ={q}/>
       ):(
         <div className="container-xl py-16 text-center">
           <p className="text-neutral-500">Experiences are loading. Please check back shortly.</p>
