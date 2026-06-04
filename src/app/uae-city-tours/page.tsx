@@ -17,7 +17,7 @@ export const revalidate=3600
 interface CatData{productCategory?:{name:string;slug:string;description?:string;count?:number;products:{nodes:WPProduct[]}}}
 
 async function getData():Promise<CatData>{
-  try{return await fetchGraphQL<CatData>(GET_CATEGORY_PRODUCTS,{slug:'uae-city-tours',first:48},3600)}
+  try{return await fetchGraphQL<CatData>(GET_CATEGORY_PRODUCTS,{slug:'city-tours',first:48},3600)}
   catch{return{}}
 }
 
