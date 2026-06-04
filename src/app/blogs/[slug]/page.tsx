@@ -15,6 +15,7 @@ export const revalidate=3600
 export const dynamicParams=true
 
 function fmtDate(d:string){try{return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}catch{return''}}
+function readingTime(html?:string){const w=(html??'').replace(/<[^>]+>/g,'').split(/\s+/).filter(Boolean).length;return`${Math.max(1,Math.round(w/200))} min read`}
 
 async function getPost(slug:string):Promise<WPPost|null>{
   try{
@@ -49,12 +50,12 @@ export default async function BlogPostPage({params}:Props){
   return(
     <article className="bg-white">
       <header className="relative overflow-hidden bg-gradient-to-br from-secondary-dark via-secondary to-neutral-900 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,rgba(255,165,0,0.2),transparent_45%)]"/>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,rgba(11,184,166,0.24),transparent_45%)]"/>
         <div className="container-xl relative z-10 py-14 max-w-3xl">
           <Link href="/blogs" className="text-white/70 hover:text-white text-sm font-semibold">← Back to blog</Link>
           {cat&&<span className="block text-xs font-bold uppercase tracking-widest text-primary mt-5 mb-2">{cat.name}</span>}
           <h1 className="font-display font-extrabold text-3xl sm:text-4xl leading-tight mb-4" dangerouslySetInnerHTML={{__html:post.title}}/>
-          <p className="text-white/70 text-sm">{post.author?.node?.name&&<>By {post.author.node.name} · </>}{fmtDate(post.date)}</p>
+          <p className="text-white/70 text-sm">{post.author?.node?.name&&<>By {post.author.node.name} · </>}{fmtDate(post.date)} · {readingTime(post.content)}</p>
         </div>
       </header>
 
