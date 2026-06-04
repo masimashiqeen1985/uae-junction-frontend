@@ -158,9 +158,9 @@ export function VibrantHome() {
           </button>
           <div className="cat-row" ref={catRowRef}>
             <a className="cat" href="/theme-parks"><div className="emoji">🎢</div><div className="t">Theme Parks</div><div className="c">28 attractions</div></a>
-            <a className="cat" href="/desert-safari-packages"><div className="emoji">🏜️</div><div className="t">Desert Safari</div><div className="c">41 tours</div></a>
-            <a className="cat" href="/dubai-dhow-cruise"><div className="emoji">🚤</div><div className="t">Dhow Cruise</div><div className="c">19 cruises</div></a>
-            <a className="cat" href="/water-park-tickets"><div className="emoji">💦</div><div className="t">Water Parks</div><div className="c">12 parks</div></a>
+            <a className="cat" href="https://www.theuaejunction.cloud/desert-safari"><div className="emoji">🏜️</div><div className="t">Desert Safari</div><div className="c">41 tours</div></a>
+            <a className="cat" href="https://www.theuaejunction.cloud/dhow-cruise"><div className="emoji">🚤</div><div className="t">Dhow Cruise</div><div className="c">19 cruises</div></a>
+            <a className="cat" href="https://www.theuaejunction.cloud/water-parks"><div className="emoji">💦</div><div className="t">Water Parks</div><div className="c">12 parks</div></a>
             <a className="cat" href="/uae-city-tours"><div className="emoji">🏙️</div><div className="t">City Tours</div><div className="c">34 tours</div></a>
             <a className="cat" href="#staycations"><div className="emoji">🏖️</div><div className="t">Staycations</div><div className="c">48 deals</div></a>
             <a className="cat" href="#packages"><div className="emoji">🧳</div><div className="t">Holiday Packages</div><div className="c">120+ trips</div></a>
@@ -337,9 +337,9 @@ export function VibrantHome() {
       <p style={{maxWidth:'32ch',margin:'14px 0'}}>The UAE&apos;s one-stop platform for tours, tickets and experiences — with 4% cashback on everything.</p>
       <div className="foot-pay"><span>VISA</span><span>Mastercard</span><span>Apple Pay</span><span>Tabby</span><span>Tamara</span></div>
       </div>
-      <div><h4>Explore</h4><ul><li><a href="#">Theme Parks</a></li><li><a href="#">Desert Safari</a></li><li><a href="#staycations">Staycations</a></li><li><a href="#packages">Holiday Packages</a></li><li><a href="#enquiry">Hotels &amp; Flights</a></li><li><a href="#countries">12 Destinations</a></li><li><a href="#">Umrah Packages</a></li></ul></div>
-      <div><h4>Company</h4><ul><li><a href="#">About us</a></li><li><a href="#">Careers</a></li><li><a href="#">Group &amp; Corporate</a></li><li><a href="#">Promotions</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li></ul></div>
-      <div><h4>Support</h4><ul><li><a href="#">Help centre</a></li><li><a href="#">Rewards policy</a></li><li><a href="#">Privacy policy</a></li><li><a href="#">Terms &amp; conditions</a></li><li><a href="#">Cancellation</a></li></ul></div>
+      <div><h4>Explore</h4><ul><li><a href="https://www.theuaejunction.cloud/theme-parks">Theme Parks</a></li><li><a href="https://www.theuaejunction.cloud/desert-safari">Desert Safari</a></li><li><a href="#staycations">Staycations</a></li><li><a href="#packages">Holiday Packages</a></li><li><a href="#enquiry">Hotels &amp; Flights</a></li><li><a href="#countries">12 Destinations</a></li><li><a href="https://www.theuaejunction.cloud/umrah-packages">Umrah Packages</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="https://www.theuaejunction.cloud/about-us">About us</a></li><li><a href="https://www.theuaejunction.cloud/careers">Careers</a></li><li><a href="https://www.theuaejunction.cloud/group-corporate-bookings">Group &amp; Corporate</a></li><li><a href="https://www.theuaejunction.cloud/promotions">Promotions</a></li><li><a href="https://www.theuaejunction.cloud/blogs">Blog</a></li><li><a href="https://www.theuaejunction.cloud/contact-us">Contact</a></li></ul></div>
+      <div><h4>Support</h4><ul><li><a href="https://www.theuaejunction.cloud/contact-us">Help centre</a></li><li><a href="https://www.theuaejunction.cloud/rewards-policy">Rewards policy</a></li><li><a href="https://www.theuaejunction.cloud/privacy-policy">Privacy policy</a></li><li><a href="https://www.theuaejunction.cloud/terms-and-conditions">Terms &amp; conditions</a></li><li><a href="https://www.theuaejunction.cloud/terms-and-conditions">Cancellation</a></li></ul></div>
       </div>
       <div className="foot-bottom"><span>© 2026 The UAE Junction. All rights reserved.</span><span>Dubai, United Arab Emirates · hello@theuaejunction.cloud</span></div>
       </div></footer>
