@@ -1,32 +1,41 @@
 'use client'
-// Profile form — Phase 5. Dirty-state aware (Save disabled until changed,
-// unsaved-changes warning on tab close), inline validation with
-// aria-invalid/aria-describedby, aria-live toasts, double-submit guard,
-// and an optional change-password section that always requires the current
-// password (verified server-side — see /api/account/profile).
+// Profile form — Phase 5 + traveller details (nationality, UAE residency,
+// gender — OPTIONAL here, mandatory at checkout). Dirty-state aware (Save
+// disabled until changed, unsaved-changes warning on tab close), inline
+// validation with aria-invalid/aria-describedby, aria-live toasts,
+// double-submit guard, optional change-password section (current password
+// verified server-side — see /api/account/profile), and a profile
+// completeness meter nudging towards faster checkout.
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { Loader2, Eye, EyeOff, CheckCircle2, AlertCircle, KeyRound } from 'lucide-react'
+import { Loader2, Eye, EyeOff, CheckCircle2, AlertCircle, KeyRound, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { COUNTRIES } from '@/lib/countries'
+import { GENDER_OPTIONS, RESIDENCY_OPTIONS, profileCompleteness } from '@/lib/profile-fields'
 
-type Values = { firstName: string; lastName: string; email: string; phone: string; country: string }
+type Values = {
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  country: string
+  nationality: string
+  residency: string
+  gender: string
+}
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 const PHONE_RE = /^\+?[0-9 ()-]{6,20}$/
 
-const COUNTRIES: Array<[string, string]> = [
-  ['AE', 'United Arab Emirates'], ['SA', 'Saudi Arabia'], ['QA', 'Qatar'], ['KW', 'Kuwait'],
-  ['BH', 'Bahrain'], ['OM', 'Oman'], ['EG', 'Egypt'], ['JO', 'Jordan'], ['LB', 'Lebanon'],
-  ['IN', 'India'], ['PK', 'Pakistan'], ['PH', 'Philippines'], ['GB', 'United Kingdom'],
-  ['US', 'United States'], ['DE', 'Germany'], ['FR', 'France'], ['RU', 'Russia'], ['CN', 'China'],
-]
-
 function Field({
-  id, label, error, children,
-}: { id: string; label: string; error?: string; children: React.ReactNode }) {
+  id, label, error, optional, children,
+}: { id: string; label: string; error?: string; optional?: boolean; children: React.ReactNode }) {
   return (
     <div>
-      <label htmlFor={id} className="mb-1.5 block text-sm font-semibold text-secondary">{label}</label>
+      <label htmlFor={id} className="mb-1.5 block text-sm font-semibold text-secondary">
+        {label}
+        {optional && <span className="ml-1 font-normal text-neutral-400">(optional)</span>}
+      </label>
       {children}
       {error && (
         <p id={`${id}-error`} className="mt-1.5 flex items-center gap-1 text-xs font-semibold text-red-600">
@@ -42,6 +51,29 @@ const inputCls = (invalid?: boolean) =>
     'focus-ring w-full rounded-btn border bg-white px-3.5 py-2.5 text-sm text-secondary placeholder:text-neutral-400',
     invalid ? 'border-red-400' : 'border-neutral-200',
   )
+
+function CompletenessMeter({ values }: { values: Values }) {
+  const pct = profileCompleteness(values)
+  if (pct >= 100) {
+    return (
+      <p className="mb-5 flex items-center gap-2 rounded-btn bg-emerald-50 px-3.5 py-2.5 text-xs font-semibold text-emerald-700">
+        <CheckCircle2 className="h-4 w-4 shrink-0" aria-hidden />
+        Profile complete — you’re all set for express checkout.
+      </p>
+    )
+  }
+  return (
+    <div className="mb-5 rounded-btn bg-amber-50/80 px-3.5 py-3">
+      <p className="flex items-center gap-2 text-xs font-semibold text-amber-800">
+        <Sparkles className="h-4 w-4 shrink-0" aria-hidden />
+        Profile {pct}% complete — finish it for faster checkout.
+      </p>
+      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-amber-100" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label="Profile completeness">
+        <div className="h-full rounded-full bg-primary transition-all duration-500" style={{ width: `${pct}%` }} />
+      </div>
+    </div>
+  )
+}
 
 export function ProfileForm({ initial }: { initial: Values }) {
   const reduce = useReducedMotion()
@@ -95,12 +127,16 @@ export function ProfileForm({ initial }: { initial: Values }) {
       })
       const json = await res.json().catch(() => null)
       if (json?.ok) {
+        const p = json.profile ?? {}
         const next: Values = {
-          firstName: json.customer?.firstName ?? values.firstName,
-          lastName: json.customer?.lastName ?? values.lastName,
-          email: json.customer?.email ?? values.email,
-          phone: json.customer?.billing?.phone ?? values.phone,
-          country: json.customer?.billing?.country ?? values.country,
+          firstName: p.firstName ?? values.firstName,
+          lastName: p.lastName ?? values.lastName,
+          email: p.email ?? values.email,
+          phone: p.phone ?? values.phone,
+          country: p.country || values.country,
+          nationality: p.nationality ?? values.nationality,
+          residency: p.residency ?? values.residency,
+          gender: p.gender ?? values.gender,
         }
         setValues(next)
         setSaved(next)
@@ -135,7 +171,9 @@ export function ProfileForm({ initial }: { initial: Values }) {
       noValidate
       className="rounded-card bg-white p-5 shadow-card sm:p-6"
     >
-      <h2 className="font-display mb-5 text-lg font-bold text-secondary">Personal details</h2>
+      <h2 className="font-display mb-4 text-lg font-bold text-secondary">Personal details</h2>
+
+      <CompletenessMeter values={values} />
 
       <div className="grid gap-4 sm:grid-cols-2">
         <Field id="pf-first" label="First name" error={errors.firstName}>
@@ -153,17 +191,36 @@ export function ProfileForm({ initial }: { initial: Values }) {
             aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? 'pf-email-error' : undefined}
             className={inputCls(Boolean(errors.email))} />
         </Field>
-        <Field id="pf-phone" label="Phone (WhatsApp preferred)" error={errors.phone}>
+        <Field id="pf-phone" label="Mobile (WhatsApp)" error={errors.phone} optional>
           <input id="pf-phone" type="tel" autoComplete="tel" placeholder="+971 5x xxx xxxx" value={values.phone} onChange={set('phone')}
             aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? 'pf-phone-error' : undefined}
             className={inputCls(Boolean(errors.phone))} />
         </Field>
-        <Field id="pf-country" label="Country">
+        <Field id="pf-country" label="Country of residence" optional>
           <select id="pf-country" autoComplete="country" value={values.country} onChange={set('country')} className={inputCls()}>
+            <option value="">Select country…</option>
             {COUNTRIES.map(([code, label]) => <option key={code} value={code}>{label}</option>)}
             {!COUNTRIES.some(([c]) => c === values.country) && values.country && (
               <option value={values.country}>{values.country}</option>
             )}
+          </select>
+        </Field>
+        <Field id="pf-nationality" label="Nationality" optional>
+          <select id="pf-nationality" value={values.nationality} onChange={set('nationality')} className={inputCls()}>
+            <option value="">Select nationality…</option>
+            {COUNTRIES.map(([code, label]) => <option key={code} value={code}>{label}</option>)}
+          </select>
+        </Field>
+        <Field id="pf-residency" label="UAE residency" optional>
+          <select id="pf-residency" value={values.residency} onChange={set('residency')} className={inputCls()}>
+            <option value="">Select…</option>
+            {RESIDENCY_OPTIONS.map(([k, label]) => <option key={k} value={k}>{label}</option>)}
+          </select>
+        </Field>
+        <Field id="pf-gender" label="Gender" optional>
+          <select id="pf-gender" value={values.gender} onChange={set('gender')} className={inputCls()}>
+            <option value="">Select…</option>
+            {GENDER_OPTIONS.map(([k, label]) => <option key={k} value={k}>{label}</option>)}
           </select>
         </Field>
       </div>
