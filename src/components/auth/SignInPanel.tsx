@@ -1,8 +1,9 @@
 'use client'
 import { type FormEvent, type RefObject } from 'react'
 import Link from 'next/link'
-import { Mail, Lock, Loader2, X } from 'lucide-react'
+import { Mail, Lock, Loader2 } from 'lucide-react'
 import { GoogleIcon, FacebookIcon } from './icons'
+import { BenefitsReminder } from './BenefitsStrip'
 
 type Props = {
   providers: { google: boolean; facebook: boolean }
@@ -12,19 +13,16 @@ type Props = {
   onClose: () => void
   onSocial: (p: 'google' | 'facebook') => void
   onCredentials: (e: FormEvent<HTMLFormElement>) => void
+  /** Switch to the Create-account tab (stays inside the dropdown). */
+  onSwitchToRegister: () => void
 }
 
 // Presentational sign-in panel (no session hooks). Reused by both the live and
 // the static (not-yet-configured) dropdown variants.
-export function SignInPanel({ providers, busy, error, firstFieldRef, onClose, onSocial, onCredentials }: Props) {
+export function SignInPanel({ providers, busy, error, firstFieldRef, onClose, onSocial, onCredentials, onSwitchToRegister }: Props) {
   return (
-    <div className="p-5">
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="font-display text-lg font-bold text-neutral-900">Welcome back</h2>
-        <button type="button" onClick={onClose} aria-label="Close" className="focus-ring rounded p-1 text-neutral-400 hover:text-neutral-700">
-          <X className="h-4 w-4" />
-        </button>
-      </div>
+    <div className="px-5 pb-5 pt-4">
+      <BenefitsReminder />
 
       <div className="grid gap-2">
         <button type="button" disabled={!providers.google || busy !== null} onClick={() => onSocial('google')} className="focus-ring flex items-center justify-center gap-2 rounded-[10px] border border-neutral-200 px-4 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50">
@@ -71,7 +69,9 @@ export function SignInPanel({ providers, busy, error, firstFieldRef, onClose, on
 
       <div className="mt-4 flex items-center justify-between text-xs text-neutral-500">
         <Link href="/my-account" className="hover:text-[var(--c-primary)]" onClick={onClose}>Forgot password?</Link>
-        <Link href="/my-account" className="font-semibold text-[var(--c-primary)] hover:underline" onClick={onClose}>Create account</Link>
+        <button type="button" onClick={onSwitchToRegister} className="focus-ring rounded font-semibold text-[var(--c-primary)] hover:underline">
+          Create account
+        </button>
       </div>
     </div>
   )
