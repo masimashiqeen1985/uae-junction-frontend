@@ -13,8 +13,6 @@ import './vibrant-home.css'
 export function VibrantHome() {
   const root = useRef<HTMLDivElement>(null)
   const catRowRef = useRef<HTMLDivElement>(null)
-  const catLeftRef = useRef<HTMLButtonElement>(null)
-  const catRightRef = useRef<HTMLButtonElement>(null)
 
   // Scroll to the category slider when arriving with the #explore-book hash
   // (e.g. clicking "Explore & Book" in the header from another page).
@@ -30,28 +28,6 @@ export function VibrantHome() {
     return () => window.clearTimeout(t)
   }, [])
 
-  // Toggle arrow disabled state at the start/end of the category row.
-  useEffect(() => {
-    const row = catRowRef.current
-    if (!row) return
-    let raf = 0
-    const update = () => {
-      raf = 0
-      const atStart = row.scrollLeft <= 1
-      const atEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 1
-      catLeftRef.current?.setAttribute('aria-disabled', String(atStart))
-      catRightRef.current?.setAttribute('aria-disabled', String(atEnd))
-    }
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
-    update()
-    row.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
-    return () => {
-      if (raf) cancelAnimationFrame(raf)
-      row.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
-    }
-  }, [])
 
   useEffect(() => {
     const r = root.current
@@ -175,24 +151,18 @@ export function VibrantHome() {
       </header>
       <div className="wrap cats" id="explore-book" style={{ scrollMarginTop: 96 }}>
         <div className="cat-scroll-wrap">
-          <button ref={catLeftRef} className="cat-arrow cat-arrow-left" aria-label="Scroll categories left" onClick={() => catRowRef.current?.scrollBy({ left: -320, behavior: 'smooth' })}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-          </button>
           <div className="cat-row" ref={catRowRef} role="group" aria-label="Browse categories">
-            <a className="cat" href="/theme-parks"><div className="emoji">🎢</div><div className="t">Theme Parks</div><div className="c">28 attractions</div></a>
-            <a className="cat" href="https://www.theuaejunction.cloud/desert-safari"><div className="emoji">🏜️</div><div className="t">Desert Safari</div><div className="c">41 tours</div></a>
-            <a className="cat" href="https://www.theuaejunction.cloud/dhow-cruise"><div className="emoji">🚤</div><div className="t">Dhow Cruise</div><div className="c">19 cruises</div></a>
-            <a className="cat" href="https://www.theuaejunction.cloud/water-parks"><div className="emoji">💦</div><div className="t">Water Parks</div><div className="c">12 parks</div></a>
-            <a className="cat" href="/uae-city-tours"><div className="emoji">🏙️</div><div className="t">City Tours</div><div className="c">34 tours</div></a>
-            <a className="cat" href="#staycations"><div className="emoji">🏖️</div><div className="t">Staycations</div><div className="c">48 deals</div></a>
-            <a className="cat" href="#packages"><div className="emoji">🧳</div><div className="t">Holiday Packages</div><div className="c">120+ trips</div></a>
-            <a className="cat" href="#enquiry"><div className="emoji">🏨</div><div className="t">Hotels</div><div className="c">Enquire</div></a>
-            <a className="cat" href="#enquiry"><div className="emoji">✈️</div><div className="t">Flights</div><div className="c">Enquire</div></a>
-            <a className="cat" href="/umrah-packages"><div className="emoji">🕋</div><div className="t">Umrah</div><div className="c">Packages</div></a>
+            <a className="cat" href="/theme-parks" aria-label="Theme Parks, 28 attractions"><img className="cat-img" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/06/SEA-FERRARI-YAS-WARNER-BROS.jpg?w=500&ssl=1" alt="Theme Parks" loading="lazy" decoding="async" width="184" height="230" /><span className="cat-scrim" aria-hidden="true"></span><span className="cat-meta"><span className="t">Theme Parks</span><span className="c">28 attractions</span></span></a>
+            <a className="cat" href="https://www.theuaejunction.cloud/desert-safari" aria-label="Desert Safari, 41 tours"><img className="cat-img" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/high-angle-view-off-road-vehicle-desert.jpg?w=500&ssl=1" alt="Desert Safari" loading="lazy" decoding="async" width="184" height="230" /><span className="cat-scrim" aria-hidden="true"></span><span className="cat-meta"><span className="t">Desert Safari</span><span className="c">41 tours</span></span></a>
+            <a className="cat" href="https://www.theuaejunction.cloud/dhow-cruise" aria-label="Dhow Cruise, 19 cruises"><img className="cat-img" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/PREMIUM-DHOW-CRUISE-CREEK-DEAL-768x1024-1.jpg?w=500&ssl=1" alt="Dhow Cruise" loading="lazy" decoding="async" width="184" height="230" /><span className="cat-scrim" aria-hidden="true"></span><span className="cat-meta"><span className="t">Dhow Cruise</span><span className="c">19 cruises</span></span></a>
+            <a className="cat" href="https://www.theuaejunction.cloud/water-parks" aria-label="Water Parks, 12 parks"><img className="cat-img" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/1-14.jpg?w=500&ssl=1" alt="Water Parks" loading="lazy" decoding="async" width="184" height="230" /><span className="cat-scrim" aria-hidden="true"></span><span className="cat-meta"><span className="t">Water Parks</span><span className="c">12 parks</span></span></a>
+            <a className="cat" href="/uae-city-tours" aria-label="City Tours, 34 tours"><img className="cat-img" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/portrait-friends-visiting-luxurious-city-dubai.jpg?w=500&ssl=1" alt="City Tours" loading="lazy" decoding="async" width="184" height="230" /><span className="cat-scrim" aria-hidden="true"></span><span className="cat-meta"><span className="t">City Tours</span><span className="c">34 tours</span></span></a>
+            <a className="cat" href="#staycations" aria-label="Staycations, 48 deals"><img className="cat-img" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/Dubai-Fountain-1.jpg?w=500&ssl=1" alt="Staycations" loading="lazy" decoding="async" width="184" height="230" /><span className="cat-scrim" aria-hidden="true"></span><span className="cat-meta"><span className="t">Staycations</span><span className="c">48 deals</span></span></a>
+            <a className="cat" href="#packages" aria-label="Holiday Packages, 120+ trips"><img className="cat-img" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/young-beautiful-hipster-couple-love-tropical-beach-taking-selfie-photo-smartphone-sunglasses-stylish-outfit-summer-vacation-having-fun-smiling-happy-colorful-positive-emotion.jpg?w=500&ssl=1" alt="Holiday Packages" loading="lazy" decoding="async" width="184" height="230" /><span className="cat-scrim" aria-hidden="true"></span><span className="cat-meta"><span className="t">Holiday Packages</span><span className="c">120+ trips</span></span></a>
+            <a className="cat" href="#enquiry" aria-label="Hotels, Enquire"><img className="cat-img" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/couple-receptionist-counter-hotel-young-couple-checking-hotel.jpg?w=500&ssl=1" alt="Hotels" loading="lazy" decoding="async" width="184" height="230" /><span className="cat-scrim" aria-hidden="true"></span><span className="cat-meta"><span className="t">Hotels</span><span className="c">Enquire</span></span></a>
+            <a className="cat" href="#enquiry" aria-label="Flights, Enquire"><img className="cat-img" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/9782-1.jpg?w=500&ssl=1" alt="Flights" loading="lazy" decoding="async" width="184" height="230" /><span className="cat-scrim" aria-hidden="true"></span><span className="cat-meta"><span className="t">Flights</span><span className="c">Enquire</span></span></a>
+            <a className="cat" href="/umrah-packages" aria-label="Umrah, Packages"><img className="cat-img" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/08/1-21.jpg?w=500&ssl=1" alt="Umrah" loading="lazy" decoding="async" width="184" height="230" /><span className="cat-scrim" aria-hidden="true"></span><span className="cat-meta"><span className="t">Umrah</span><span className="c">Packages</span></span></a>
           </div>
-          <button ref={catRightRef} className="cat-arrow cat-arrow-right" aria-label="Scroll categories right" onClick={() => catRowRef.current?.scrollBy({ left: 320, behavior: 'smooth' })}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
         </div>
       </div>
       <section id="trending"><div className="wrap">
