@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef } from 'react'
 import './vibrant-home.css'
+import { SocialIcons } from '@/components/layout/SocialIcons'
 
 /**
  * Vibrant Junction — full homepage.
@@ -327,7 +328,7 @@ export function VibrantHome() {
       <div className="foot-brand">
       <svg viewBox="0 0 250 60" style={{height:'48px',width:'auto',display:'block'}} role="img" aria-label="The UAE Junction"><path d="M10 52 V24 a16 16 0 0 1 32 0 V52" fill="none" stroke="#7FB0AA" strokeWidth="6" strokeLinecap="round"/><rect x="7" y="22" width="6.5" height="30" rx="3.25" fill="#E0832B"/><rect x="31" y="36" width="13" height="14" rx="3" fill="#9A82C0"/><text x="60" y="25" fontFamily="Cinzel,serif" fontWeight="600" fontSize="18" letterSpacing="2.5" fill="#ffffff">THE UAE</text><text x="60" y="48" fontFamily="Cinzel,serif" fontWeight="600" fontSize="18" letterSpacing="2.5" fill="#ffffff">JUNCTION</text></svg>
       <p style={{maxWidth:'32ch',margin:'14px 0'}}>The UAE&apos;s one-stop platform for tours, tickets and experiences — with 4% cashback on everything.</p>
-      <div className="foot-pay"><span>VISA</span><span>Mastercard</span><span>Apple Pay</span><span>Tabby</span><span>Tamara</span></div>
+      <div className="foot-pay"><span>VISA</span><span>Mastercard</span><span>Apple Pay</span><span>Tabby</span><span>Tamara</span></div><div className="foot-social" style={{marginTop:'18px'}}><p style={{fontSize:'.72rem',letterSpacing:'.12em',textTransform:'uppercase',opacity:.7,margin:'0 0 10px'}}>Follow us</p><SocialIcons links={[{platform:'Instagram',url:'https://www.instagram.com/theuaejunction_travel'},{platform:'Facebook',url:'https://www.facebook.com/share/1DBbzt4W8s/'},{platform:'TikTok',url:'https://www.tiktok.com/@theuaejunction2'},{platform:'YouTube',url:'https://youtube.com/@theuaejunction'},{platform:'Pinterest',url:'https://www.pinterest.com/theuaejunction/'}]} /></div>
       </div>
       <div><h4>Explore</h4><ul><li><a href="https://www.theuaejunction.cloud/theme-parks">Theme Parks</a></li><li><a href="https://www.theuaejunction.cloud/desert-safari">Desert Safari</a></li><li><a href="#staycations">Staycations</a></li><li><a href="#packages">Holiday Packages</a></li><li><a href="#enquiry">Hotels &amp; Flights</a></li><li><a href="#countries">12 Destinations</a></li><li><a href="https://www.theuaejunction.cloud/umrah-packages">Umrah Packages</a></li></ul></div>
       <div><h4>Company</h4><ul><li><a href="https://www.theuaejunction.cloud/about-us">About us</a></li><li><a href="https://www.theuaejunction.cloud/careers">Careers</a></li><li><a href="https://www.theuaejunction.cloud/group-corporate-bookings">Group &amp; Corporate</a></li><li><a href="https://www.theuaejunction.cloud/promotions">Promotions</a></li><li><a href="https://www.theuaejunction.cloud/blogs">Blog</a></li><li><a href="https://www.theuaejunction.cloud/contact-us">Contact</a></li></ul></div>
