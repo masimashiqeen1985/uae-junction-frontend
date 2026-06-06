@@ -1,17 +1,23 @@
-// Profile update — Phase 5. POST { firstName, lastName, email, phone,
-// country, currentPassword?, newPassword? }.
+// Profile read/update — Phase 5 + traveller-details extension.
+// GET  → bearer's own profile (incl. nationality/residency/gender meta) —
+//        used by checkout prefill for signed-in customers.
+// POST → { firstName, lastName, email, phone, country, nationality?,
+//          residency?, gender?, currentPassword?, newPassword? }.
 // Security model (probe-driven, 2026-06-07):
-//  • updateCustomer mutates ONLY the bearer (cross-customer attempt →
-//    capability error, proven) — but it does NOT ask for the current
-//    password. We therefore verify the current password ourselves (a login
-//    mutation for the bearer's own email) before applying a password change.
-//  • The WP JWT stays valid after email AND password changes (proven), so
-//    the session survives; the header chip refreshes on next sign-in.
-//  • Same sanitisation rules as the Phase-4 register route: generic
-//    non-enumerating errors, nothing logged, nothing cached.
+//   • updateCustomer mutates ONLY the bearer (cross-customer attempt →
+//     capability error, proven) — but it does NOT ask for the current
+//     password. We therefore verify the current password ourselves (a login
+//     mutation for the bearer's own email) before applying a password change.
+//   • The WP JWT stays valid after email AND password changes (proven), so
+//     the session survives; the header chip refreshes on next sign-in.
+//   • Same sanitisation rules as the Phase-4 register route: generic
+//     non-enumerating errors, nothing logged, nothing cached.
+//   • Traveller extras persist as customer metaData (uaej_* keys) — schema
+//     probed live 2026-06-07 (metaData input + keysIn read-back accepted).
 import { NextRequest, NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt'
-import { UPDATE_CUSTOMER, type CustomerProfile } from '@/lib/queries/customer'
+import { GET_CUSTOMER_PROFILE, UPDATE_CUSTOMER, type CustomerProfile } from '@/lib/queries/customer'
+import { isGender, isNationality, isResidency, fieldsToMeta, metaToFields } from '@/lib/profile-fields'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -23,7 +29,7 @@ const GENERIC = 'We couldn’t save your changes. Please check the form and try 
 const BAD_PASSWORD = 'Your current password didn’t match. Please try again.'
 
 const VERIFY_LOGIN = `mutation VerifyPassword($username:String!,$password:String!){
-  login(input:{clientMutationId:"verify-pw",username:$username,password:$password}){ authToken }
+login(input:{clientMutationId:"verify-pw",username:$username,password:$password}){ authToken }
 }`
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
@@ -41,6 +47,42 @@ async function gql(query: string, variables: Record<string, unknown>, bearer?: s
   })
   if (!res.ok) return null
   return res.json().catch(() => null)
+}
+
+function profileJson(customer: CustomerProfile) {
+  const meta = metaToFields(customer.metaData)
+  return {
+    firstName: customer.firstName ?? '',
+    lastName: customer.lastName ?? '',
+    email: customer.email ?? '',
+    phone: customer.billing?.phone ?? '',
+    country: customer.billing?.country ?? '',
+    nationality: meta.nationality,
+    residency: meta.residency,
+    gender: meta.gender,
+  }
+}
+
+/** Signed-in customer's own profile — consumed by the checkout prefill. */
+export async function GET(req: NextRequest) {
+  if (!SECRET || !ENDPOINT) {
+    return NextResponse.json({ ok: false }, { status: 503 })
+  }
+  const token = await getToken({ req, secret: SECRET })
+  const wpAuthToken = token?.wpAuthToken as string | undefined
+  if (!token || !wpAuthToken) {
+    return NextResponse.json({ ok: false }, { status: 401 })
+  }
+  try {
+    const json = await gql(GET_CUSTOMER_PROFILE, {}, wpAuthToken)
+    const customer = (json?.data?.customer ?? null) as CustomerProfile | null
+    if (!customer || json?.errors?.length) {
+      return NextResponse.json({ ok: false }, { status: 502 })
+    }
+    return NextResponse.json({ ok: true, profile: profileJson(customer) })
+  } catch {
+    return NextResponse.json({ ok: false }, { status: 502 })
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -67,14 +109,21 @@ export async function POST(req: NextRequest) {
   const email = str(body.email, 254)
   const phone = str(body.phone, 24)
   const country = str(body.country, 2).toUpperCase()
+  const nationality = str(body.nationality, 2).toUpperCase()
+  const residency = str(body.residency, 20)
+  const gender = str(body.gender, 20)
   const currentPassword = typeof body.currentPassword === 'string' ? body.currentPassword.slice(0, 200) : ''
   const newPassword = typeof body.newPassword === 'string' ? body.newPassword.slice(0, 200) : ''
 
-  // Validation — mirror the client's inline rules.
+  // Validation — mirror the client's inline rules. Traveller extras are
+  // OPTIONAL here (progressive profiling) but must be valid when present.
   if (!firstName || !lastName) return NextResponse.json({ ok: false, message: 'Please add your first and last name.' }, { status: 400 })
   if (!EMAIL_RE.test(email)) return NextResponse.json({ ok: false, message: 'Please enter a valid email address.' }, { status: 400 })
   if (phone && !PHONE_RE.test(phone)) return NextResponse.json({ ok: false, message: 'Please enter a valid phone number.' }, { status: 400 })
   if (country && !/^[A-Z]{2}$/.test(country)) return NextResponse.json({ ok: false, message: GENERIC }, { status: 400 })
+  if (nationality && !isNationality(nationality)) return NextResponse.json({ ok: false, message: GENERIC }, { status: 400 })
+  if (residency && !isResidency(residency)) return NextResponse.json({ ok: false, message: GENERIC }, { status: 400 })
+  if (gender && !isGender(gender)) return NextResponse.json({ ok: false, message: GENERIC }, { status: 400 })
   if (newPassword && newPassword.length < 8) {
     return NextResponse.json({ ok: false, message: 'New password must be at least 8 characters.' }, { status: 400 })
   }
@@ -92,11 +141,13 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    const meta = fieldsToMeta({ nationality, residency, gender })
     const variables: Record<string, unknown> = {
       firstName,
       lastName,
       email,
       billing: { phone: phone || null, country: country || null },
+      ...(meta.length ? { metaData: meta } : {}),
     }
     if (newPassword) variables.password = newPassword
 
@@ -109,6 +160,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       ok: true,
       customer,
+      profile: profileJson(customer),
       emailChanged: sessionEmail !== '' && customer.email !== null && customer.email !== sessionEmail,
       passwordChanged: Boolean(newPassword),
     })
