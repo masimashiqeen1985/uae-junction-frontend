@@ -8,9 +8,9 @@ import{QuoteForm}from'@/components/home/QuoteForm'
 
 export const metadata:Metadata={
   title:'Water Park Tickets',
-  description:'Skip-the-line water park tickets across the UAE — instant confirmation and 4% cashback on every booking.',
+  description:'Skip-the-line water park tickets across the UAE — instant confirmation and 2.5% cashback on every booking.',
   alternates:{canonical:'/water-parks'},
-  openGraph:{title:'Water Park Tickets | The UAE Junction',description:'Book the UAE’s best water park tickets with 4% cashback.',url:'/water-parks',type:'website'},
+  openGraph:{title:'Water Park Tickets | The UAE Junction',description:'Book the UAE’s best water park tickets with 2.5% cashback.',url:'/water-parks',type:'website'},
 }
 export const revalidate=3600
 

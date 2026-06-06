@@ -205,14 +205,14 @@ function MegaMenu({ items, onPick }: { items: NavChild[]; onPick: () => void }) 
               </span>
               <span className="min-w-0">
                 <span className="block text-sm font-semibold text-neutral-800 group-hover:text-[var(--c-primary-dark)]">{c.label}</span>
-                <span className="block truncate text-xs text-neutral-400">{c.description || 'Explore & book with 4% cashback'}</span>
+                <span className="block truncate text-xs text-neutral-400">{c.description || 'Explore & book with 2.5% cashback'}</span>
               </span>
             </Link>
           )
         })}
       </div>
       <div className="mt-1 flex items-center justify-between rounded-xl bg-neutral-50 px-4 py-2.5">
-        <span className="text-xs text-neutral-500">Every booking earns 4% cashback</span>
+        <span className="text-xs text-neutral-500">Every booking earns 2.5% cashback</span>
         <Link href="/promotions" onClick={onPick} className="text-xs font-semibold text-[var(--c-primary)] hover:underline">
           View all offers â
         </Link>

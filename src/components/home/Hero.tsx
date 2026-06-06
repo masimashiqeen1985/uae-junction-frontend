@@ -15,7 +15,7 @@ export type HeroContent = {
 
 const DEFAULTS: Required<HeroContent> = {
   headline: 'Your Journey Is Our Passion',
-  subline: '4% Cashback on All Travel Bookings',
+  subline: '2.5% Cashback on All Travel Bookings',
   subhead:
     'Every journey holds a promise, every destination unfolds a story, and every moment crafts a memory. We don’t just guide you to places, we transform the way you embrace the world.',
   bgImage: '/hero-bg.jpg',

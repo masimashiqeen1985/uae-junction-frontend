@@ -75,7 +75,7 @@ export default async function BlogPostPage({params}:Props){
       <section className="py-12 bg-primary">
         <div className="container-xl text-center">
           <h2 className="font-display font-bold text-2xl text-white mb-3">Inspired to travel?</h2>
-          <p className="text-white/90 mb-6">Plan your trip with us and earn 4% cashback on every booking.</p>
+          <p className="text-white/90 mb-6">Plan your trip with us and earn 2.5% cashback on every booking.</p>
           <Link href="/contact-us" className="inline-block bg-white text-primary font-bold px-8 py-3.5 rounded-btn hover:bg-neutral-100 transition-colors">Get a Free Quote</Link>
         </div>
       </section>

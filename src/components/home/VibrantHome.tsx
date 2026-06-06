@@ -126,10 +126,10 @@ export function VibrantHome() {
       <div className="blob b1"></div><div className="blob b2"></div>
       <div className="wrap">
       <div className="hero-top">
-      <span className="pill">💸 Flat 4% cashback — every booking, no exceptions</span>
+      <span className="pill">💸 Flat 2.5% cashback — every booking, no exceptions</span>
       </div>
       <h1>Every UAE experience, in one place.</h1>
-      <p className="sub">From theme parks and desert safaris to dhow cruises, city tours and far beyond — book in seconds, get instant tickets, cancel free if plans change, and earn a flat <b>4% cashback on every single booking</b>.</p>
+      <p className="sub">From theme parks and desert safaris to dhow cruises, city tours and far beyond — book in seconds, get instant tickets, cancel free if plans change, and earn a flat <b>2.5% cashback on every single booking</b>.</p>
       <div className="searchwrap">
       <div className="search-tabs" role="tablist">
       <button className="active" role="tab" aria-selected="true">Experiences</button>
@@ -168,25 +168,25 @@ export function VibrantHome() {
       </div>
       <section id="trending"><div className="wrap">
       <div className="sec-head reveal">
-      <div><span className="eyebrow">Popular right now</span><h2>Trending in Dubai 🔥</h2><p>Lowest-price guarantee · every booking earns 4% back</p></div>
+      <div><span className="eyebrow">Popular right now</span><h2>Trending in Dubai 🔥</h2><p>Lowest-price guarantee · every booking earns 2.5% back</p></div>
       <a href="#">See all 240 →</a>
       </div>
       <div className="cards">
-      <a className="card reveal" href="https://www.theuaejunction.cloud/theme-parks"><div className="imgwrap"><img alt="Yas Island 4 Theme Park Tickets Combo Pass" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/06/SEA-FERRARI-YAS-WARNER-BROS.jpg?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-13%</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="https://www.theuaejunction.cloud/theme-parks"><div className="imgwrap"><img alt="Yas Island 4 Theme Park Tickets Combo Pass" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/06/SEA-FERRARI-YAS-WARNER-BROS.jpg?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-13%</span><span className="pill pill-cash">2.5% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">Theme Parks</div><h3>Yas Island 4 Theme Park Combo Pass</h3><div className="rating">★★★★★ <b>4.9</b> <span>(3,210)</span></div><div className="priceline"><div className="price"><small>per adult</small><span className="was">AED 675</span> <strong>AED 589</strong></div><span className="cashtag">+AED 24 back</span></div></div></a>
-      <a className="card reveal" href="https://www.theuaejunction.cloud/theme-parks"><div className="imgwrap"><img alt="Ferrari World Plus SeaWorld Abu Dhabi Combo" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/05/Ferrari-World-SeaWorld-Abu-Dhabi-Combo-Package.webp?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-7%</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="https://www.theuaejunction.cloud/theme-parks"><div className="imgwrap"><img alt="Ferrari World Plus SeaWorld Abu Dhabi Combo" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/05/Ferrari-World-SeaWorld-Abu-Dhabi-Combo-Package.webp?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-7%</span><span className="pill pill-cash">2.5% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">Theme Parks</div><h3>Ferrari World + SeaWorld Abu Dhabi Combo</h3><div className="rating">★★★★★ <b>4.8</b> <span>(8,940)</span></div><div className="priceline"><div className="price"><small>per adult</small><span className="was">AED 449</span> <strong>AED 419</strong></div><span className="cashtag">+AED 17 back</span></div></div></a>
-      <a className="card reveal" href="https://www.theuaejunction.cloud/experiences"><div className="imgwrap"><img alt="Dubai Aquarium and Underwater Zoo" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/Dubai-Aquarium-Under-Water-Zoo-1.jpg?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-6%</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="https://www.theuaejunction.cloud/experiences"><div className="imgwrap"><img alt="Dubai Aquarium and Underwater Zoo" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/Dubai-Aquarium-Under-Water-Zoo-1.jpg?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-6%</span><span className="pill pill-cash">2.5% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">Experiences</div><h3>Dubai Aquarium &amp; Underwater Zoo</h3><div className="rating">★★★★★ <b>4.8</b> <span>(2,540)</span></div><div className="priceline"><div className="price"><small>per adult</small><span className="was">AED 169</span> <strong>AED 159</strong></div><span className="cashtag">+AED 6 back</span></div></div></a>
-      <a className="card reveal" href="https://www.theuaejunction.cloud/experiences"><div className="imgwrap"><img alt="Global Village Dubai" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/Global-Village-1.webp?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-10%</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="https://www.theuaejunction.cloud/experiences"><div className="imgwrap"><img alt="Global Village Dubai" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/Global-Village-1.webp?w=700&ssl=1" /><div className="badges"><span className="pill pill-hot">-10%</span><span className="pill pill-cash">2.5% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">Experiences</div><h3>Global Village Dubai Entry</h3><div className="rating">★★★★★ <b>4.7</b> <span>(6,120)</span></div><div className="priceline"><div className="price"><small>per adult</small><span className="was">AED 39</span> <strong>AED 35</strong></div><span className="cashtag">+AED 1.4 back</span></div></div></a>
       </div>
       </div></section>
       <section className="how"><div className="wrap">
-      <div className="sec-head reveal"><div><span className="eyebrow">No tiers, no catch</span><h2>How your 4% cashback works</h2><p>Real money back on every booking — not points you&apos;ll forget about.</p></div></div>
+      <div className="sec-head reveal"><div><span className="eyebrow">No tiers, no catch</span><h2>How your 2.5% cashback works</h2><p>Real money back on every booking — not points you&apos;ll forget about.</p></div></div>
       <div className="how-grid">
       <div className="step reveal"><div className="n">1</div><h4>Book anything</h4><p>Tours, tickets and experiences across the UAE — all in one cart with one simple checkout.</p></div>
-      <div className="step reveal"><div className="n">2</div><h4>Earn 4% instantly</h4><p>Cashback lands in your Junction Wallet the moment your booking is confirmed. Every dirham counts.</p></div>
+      <div className="step reveal"><div className="n">2</div><h4>Earn 2.5% instantly</h4><p>Cashback lands in your Junction Wallet the moment your booking is confirmed. Every dirham counts.</p></div>
       <div className="step reveal"><div className="n">3</div><h4>Spend it your way</h4><p>Use your balance against the next booking, or withdraw it. No expiry, no minimum, no fine print.</p></div>
       </div>
       </div></section>
@@ -194,34 +194,34 @@ export function VibrantHome() {
       <div className="sec-head reveal"><div><span className="eyebrow">Two ways to feel the UAE</span><h2>Adrenaline or golden hour — your call</h2></div></div>
       <div className="showcase">
       <a className="show-card reveal" href="https://www.theuaejunction.cloud/theme-parks"><img alt="Theme park rollercoaster at IMG Worlds" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/dolphins-performing-dolphin-show-with-their-trainers-national-zoo.jpg?w=1100&ssl=1" />
-      <div className="b"><span className="pill pill-cash">4% back</span><h3>Theme &amp; Water Parks</h3><p>Aquaventure, IMG Worlds, Wild Wadi and more — skip-the-line tickets from AED 199.</p><span className="btn btn-grad">Explore parks →</span></div></a>
+      <div className="b"><span className="pill pill-cash">2.5% back</span><h3>Theme &amp; Water Parks</h3><p>Aquaventure, IMG Worlds, Wild Wadi and more — skip-the-line tickets from AED 199.</p><span className="btn btn-grad">Explore parks →</span></div></a>
       <a className="show-card reveal" href="https://www.theuaejunction.cloud/desert-safari"><img alt="Camels and 4x4 at sunset in the desert" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/high-angle-view-off-road-vehicle-desert.jpg?w=1100&ssl=1" />
-      <div className="b"><span className="pill pill-cash">4% back</span><h3>Desert Safaris</h3><p>Dune bashing, camel rides and BBQ under the stars — morning, evening or overnight.</p><span className="btn btn-grad">Explore safaris →</span></div></a>
+      <div className="b"><span className="pill pill-cash">2.5% back</span><h3>Desert Safaris</h3><p>Dune bashing, camel rides and BBQ under the stars — morning, evening or overnight.</p><span className="btn btn-grad">Explore safaris →</span></div></a>
       </div>
       </div></section>
       <section id="staycations"><div className="wrap">
-      <div className="sec-head reveal"><div><span className="eyebrow">Stay close, feel away</span><h2>UAE Staycations 🏖️</h2><p>Resort nights, breakfast &amp; perks bundled — 4% cashback included.</p></div><a href="#">See all 48 →</a></div>
+      <div className="sec-head reveal"><div><span className="eyebrow">Stay close, feel away</span><h2>UAE Staycations 🏖️</h2><p>Resort nights, breakfast &amp; perks bundled — 2.5% cashback included.</p></div><a href="#">See all 48 →</a></div>
       <div className="cards">
-      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Palm Jumeirah beach resort" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/couple-receptionist-counter-hotel-young-couple-checking-hotel.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-hot">-20%</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Palm Jumeirah beach resort" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/couple-receptionist-counter-hotel-young-couple-checking-hotel.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-hot">-20%</span><span className="pill pill-cash">2.5% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">Dubai · 1 Night</div><h3>Palm Beach Resort + Breakfast</h3><div className="rating">★★★★★ <b>4.8</b> <span>(1,120)</span></div><div className="priceline"><div className="price"><small>per room</small><span className="was">AED 740</span> <strong>AED 590</strong></div><span className="cashtag">+AED 24 back</span></div></div></a>
-      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Desert resort pool at dusk" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/young-beautiful-hipster-couple-love-tropical-beach-taking-selfie-photo-smartphone-sunglasses-stylish-outfit-summer-vacation-having-fun-smiling-happy-colorful-positive-emotion.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Desert resort pool at dusk" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/young-beautiful-hipster-couple-love-tropical-beach-taking-selfie-photo-smartphone-sunglasses-stylish-outfit-summer-vacation-having-fun-smiling-happy-colorful-positive-emotion.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-cash">2.5% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">RAK · 1 Night</div><h3>Desert Spa Escape + Half Board</h3><div className="rating">★★★★★ <b>4.9</b> <span>(640)</span></div><div className="priceline"><div className="price"><small>per room</small><strong>AED 820</strong></div><span className="cashtag">+AED 33 back</span></div></div></a>
-      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Abu Dhabi waterfront hotel" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/portrait-friends-visiting-luxurious-city-dubai.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-hot">Family</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Abu Dhabi waterfront hotel" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/portrait-friends-visiting-luxurious-city-dubai.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-hot">Family</span><span className="pill pill-cash">2.5% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">Abu Dhabi · 2 Nights</div><h3>Corniche Family Stay + Park Tickets</h3><div className="rating">★★★★★ <b>4.7</b> <span>(910)</span></div><div className="priceline"><div className="price"><small>package</small><strong>AED 1,450</strong></div><span className="cashtag">+AED 58 back</span></div></div></a>
-      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Boutique hotel courtyard Al Fahidi" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/pattaya-park-major-tourist-attractions-city.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Boutique hotel courtyard Al Fahidi" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/pattaya-park-major-tourist-attractions-city.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-cash">2.5% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">Dubai · 1 Night</div><h3>Old-Town Boutique + Late Checkout</h3><div className="rating">★★★★★ <b>4.8</b> <span>(420)</span></div><div className="priceline"><div className="price"><small>per room</small><strong>AED 510</strong></div><span className="cashtag">+AED 20 back</span></div></div></a>
       </div>
       </div></section>
       <section id="packages"><div className="wrap">
       <div className="sec-head reveal"><div><span className="eyebrow">Everything sorted</span><h2>Holiday Packages 🧳</h2><p>Flights, stay &amp; experiences in one price — book online or enquire for a tailored quote.</p></div><a href="#">See all 120 →</a></div>
       <div className="cards">
-      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Maldives overwater villas" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/05/Group-146-1.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-hot">Bestseller</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Maldives overwater villas" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/05/Group-146-1.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-hot">Bestseller</span><span className="pill pill-cash">2.5% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">Maldives · 4N / 5D</div><h3>Overwater Villa Honeymoon</h3><div className="rating">★★★★★ <b>4.9</b> <span>(380)</span></div><div className="priceline"><div className="price"><small>per person</small><strong>AED 5,900</strong></div><span className="cashtag">+AED 236 back</span></div></div></a>
-      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Istanbul skyline with mosques" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/05/Group-148-1.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Istanbul skyline with mosques" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/05/Group-148-1.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-cash">2.5% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">Türkiye · 5N / 6D</div><h3>Istanbul &amp; Cappadocia Explorer</h3><div className="rating">★★★★★ <b>4.8</b> <span>(510)</span></div><div className="priceline"><div className="price"><small>per person</small><strong>AED 3,200</strong></div><span className="cashtag">+AED 128 back</span></div></div></a>
-      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Georgia mountains and old town" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/05/Group-147-1.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-hot">-12%</span><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Georgia mountains and old town" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/05/Group-147-1.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-hot">-12%</span><span className="pill pill-cash">2.5% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">Georgia · 4N / 5D</div><h3>Tbilisi &amp; Kazbegi Getaway</h3><div className="rating">★★★★★ <b>4.7</b> <span>(290)</span></div><div className="priceline"><div className="price"><small>per person</small><strong>AED 2,450</strong></div><span className="cashtag">+AED 98 back</span></div></div></a>
-      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Thailand beach and longtail boats" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/05/Group-144-1.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-cash">4% back</span></div><div className="heart">♡</div></div>
+      <a className="card reveal" href="#"><div className="imgwrap"><img alt="Thailand beach and longtail boats" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/05/Group-144-1.jpg?w=900&ssl=1" /><div className="badges"><span className="pill pill-cash">2.5% back</span></div><div className="heart">♡</div></div>
       <div className="body"><div className="cat-tag">Thailand · 6N / 7D</div><h3>Phuket &amp; Krabi Island Hopper</h3><div className="rating">★★★★★ <b>4.8</b> <span>(670)</span></div><div className="priceline"><div className="price"><small>per person</small><strong>AED 4,100</strong></div><span className="cashtag">+AED 164 back</span></div></div></a>
       </div>
       </div></section>
@@ -256,7 +256,7 @@ export function VibrantHome() {
       <div>
       <span className="pill pill-cash">Tailored for you</span>
       <h2>Hotels &amp; Flights — get a quote in minutes</h2>
-      <p>Tell us where and when. Our UAE travel desk sends a hand-priced quote — and you still earn 4% cashback once booked.</p>
+      <p>Tell us where and when. Our UAE travel desk sends a hand-priced quote — and you still earn 2.5% cashback once booked.</p>
       <ul className="enq-points">
       <li>✓ Best regional &amp; international fares</li>
       <li>✓ 2,100+ hotels, negotiated rates</li>
@@ -292,7 +292,7 @@ export function VibrantHome() {
       <h2 style={{marginTop:'14px'}}>Spend it like cash — on anything</h2>
       <p>Your wallet tops up automatically and never expires. Apply it to any booking at checkout, in full or in part.</p>
       <div className="mini">
-      <div className="m"><strong>4%</strong><small>back on every booking</small></div>
+      <div className="m"><strong>2.5%</strong><small>back on every booking</small></div>
       <div className="m"><strong>AED 25</strong><small>welcome joining bonus</small></div>
       <div className="m"><strong>AED 20</strong><small>per friend you refer</small></div>
       </div>
@@ -305,7 +305,7 @@ export function VibrantHome() {
       <div className="blob b1" style={{opacity:'.35'}}></div>
       <span className="eyebrow" style={{color:'#fff',opacity:'.9'}}>Junction Rewards</span>
       <h2>Get back what you spend</h2>
-      <div className="big">4% cashback</div>
+      <div className="big">2.5% cashback</div>
       <p>On every booking, automatically. The more you explore the UAE, the more your wallet grows — no tiers, no expiry, no catch.</p>
       <a className="btn btn-dark" href="#">Start earning →</a>
       </div>
@@ -314,7 +314,7 @@ export function VibrantHome() {
       <div className="sec-head reveal"><div><span className="eyebrow">Loved by travellers</span><h2>12,400 trips and counting</h2><p>Rated 4.9 / 5 across verified bookings.</p></div></div>
       <div className="reviews">
       <div className="review reveal"><div className="stars">★★★★★</div><p>“Booked the desert safari and a dhow dinner in two minutes. Cashback hit my wallet instantly — used it on the kids&apos; Aquaventure tickets.”</p><div className="who"><div className="av">SA</div><div><b>Sara A.</b><small>Riyadh → Dubai</small></div></div></div>
-      <div className="review reveal"><div className="stars">★★★★★</div><p>“Finally one place for all the tickets and tours. The 4% back is real money, not points — and the joining bonus paid for our coffee on day one.”</p><div className="who"><div className="av">JM</div><div><b>James M.</b><small>London → Abu Dhabi</small></div></div></div>
+      <div className="review reveal"><div className="stars">★★★★★</div><p>“Finally one place for all the tickets and tours. The 2.5% back is real money, not points — and the joining bonus paid for our coffee on day one.”</p><div className="who"><div className="av">JM</div><div><b>James M.</b><small>London → Abu Dhabi</small></div></div></div>
       <div className="review reveal"><div className="stars">★★★★★</div><p>“Free cancellation saved me when plans changed. Re-booked a city tour same day and still got cashback. This is now my default for the UAE.”</p><div className="who"><div className="av">PR</div><div><b>Priya R.</b><small>Mumbai → Sharjah</small></div></div></div>
       </div>
       </div></section>
@@ -327,7 +327,7 @@ export function VibrantHome() {
       <div className="foot-grid">
       <div className="foot-brand">
       <svg viewBox="0 0 250 60" style={{height:'48px',width:'auto',display:'block'}} role="img" aria-label="The UAE Junction"><path d="M10 52 V24 a16 16 0 0 1 32 0 V52" fill="none" stroke="#7FB0AA" strokeWidth="6" strokeLinecap="round"/><rect x="7" y="22" width="6.5" height="30" rx="3.25" fill="#E0832B"/><rect x="31" y="36" width="13" height="14" rx="3" fill="#9A82C0"/><text x="60" y="25" fontFamily="Cinzel,serif" fontWeight="600" fontSize="18" letterSpacing="2.5" fill="#ffffff">THE UAE</text><text x="60" y="48" fontFamily="Cinzel,serif" fontWeight="600" fontSize="18" letterSpacing="2.5" fill="#ffffff">JUNCTION</text></svg>
-      <p style={{maxWidth:'32ch',margin:'14px 0'}}>The UAE&apos;s one-stop platform for tours, tickets and experiences — with 4% cashback on everything.</p>
+      <p style={{maxWidth:'32ch',margin:'14px 0'}}>The UAE&apos;s one-stop platform for tours, tickets and experiences — with 2.5% cashback on everything.</p>
       <div className="foot-pay"><span>VISA</span><span>Mastercard</span><span>Apple Pay</span><span>Tabby</span><span>Tamara</span></div><div className="foot-social" style={{marginTop:'18px'}}><p style={{fontSize:'.72rem',letterSpacing:'.12em',textTransform:'uppercase',opacity:.7,margin:'0 0 10px'}}>Follow us</p><SocialIcons links={[{platform:'Instagram',url:'https://www.instagram.com/theuaejunction_travel'},{platform:'Facebook',url:'https://www.facebook.com/share/1DBbzt4W8s/'},{platform:'TikTok',url:'https://www.tiktok.com/@theuaejunction2'},{platform:'YouTube',url:'https://youtube.com/@theuaejunction'},{platform:'Pinterest',url:'https://www.pinterest.com/theuaejunction/'}]} /></div>
       </div>
       <div><h4>Explore</h4><ul><li><a href="https://www.theuaejunction.cloud/theme-parks">Theme Parks</a></li><li><a href="https://www.theuaejunction.cloud/desert-safari">Desert Safari</a></li><li><a href="#staycations">Staycations</a></li><li><a href="#packages">Holiday Packages</a></li><li><a href="#enquiry">Hotels &amp; Flights</a></li><li><a href="#countries">12 Destinations</a></li><li><a href="https://www.theuaejunction.cloud/umrah-packages">Umrah Packages</a></li></ul></div>

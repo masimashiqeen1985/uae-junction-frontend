@@ -6,7 +6,7 @@ import type{WPProduct}from'@/types/wordpress'
 
 export const metadata:Metadata={
   title:'Promotions & Deals',
-  description:'Current travel promotions from The UAE Junction — theme parks, desert safari, dhow cruise, Umrah and more, every booking with 4% cashback.',
+  description:'Current travel promotions from The UAE Junction — theme parks, desert safari, dhow cruise, Umrah and more, every booking with 2.5% cashback.',
 }
 export const revalidate=3600
 
@@ -35,7 +35,7 @@ export default async function PromotionsPage(){
         <div className="container-xl relative z-10 py-16 max-w-3xl">
           <span className="inline-block bg-primary/90 text-white text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">Limited-Time Offers</span>
           <h1 className="font-display font-extrabold text-4xl sm:text-5xl mb-4 leading-tight">Promotions &amp; Deals</h1>
-          <p className="text-neutral-100 text-lg leading-relaxed">Hand-picked seasonal offers across the Emirates — and remember, every booking earns you 4% cashback.</p>
+          <p className="text-neutral-100 text-lg leading-relaxed">Hand-picked seasonal offers across the Emirates — and remember, every booking earns you 2.5% cashback.</p>
         </div>
       </section>
 

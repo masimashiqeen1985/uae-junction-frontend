@@ -32,7 +32,7 @@ export function OrderSummary({
           <dd className="font-display font-bold text-primary text-xl" aria-live="polite">{money(total)}</dd>
         </div>
         <div className="flex items-center justify-between rounded-btn bg-emerald-50 px-3 py-2 text-emerald-700">
-          <dt className="font-semibold">You’ll earn 4% cashback</dt>
+          <dt className="font-semibold">You’ll earn 2.5% cashback</dt>
           <dd className="font-bold">{money(cashback)}</dd>
         </div>
       </dl>

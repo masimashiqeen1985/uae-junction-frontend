@@ -27,7 +27,7 @@ export async function generateMetadata({params}:Props):Promise<Metadata>{
   const{slug}=await params
   const product=await getProduct(slug)
   if(!product)return{title:slug.replace(/-/g,' ')}
-  const desc=product.shortDescription?product.shortDescription.replace(/<[^>]+>/g,'').trim():`Book ${product.name} with instant confirmation and 4% cashback.`
+  const desc=product.shortDescription?product.shortDescription.replace(/<[^>]+>/g,'').trim():`Book ${product.name} with instant confirmation and 2.5% cashback.`
   return{
     title:product.name,
     description:desc,
@@ -84,7 +84,7 @@ export default async function ProductPage({params}:Props){
 
           <div className="mb-6"><AddToCartButton productId={product.databaseId} /></div>
 
-          <p className="text-sm text-neutral-500">Instant confirmation · Flat 4% cashback on every booking.</p>
+          <p className="text-sm text-neutral-500">Instant confirmation · Flat 2.5% cashback on every booking.</p>
         </div>
       </div>
 

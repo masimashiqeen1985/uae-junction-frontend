@@ -11,7 +11,7 @@ import { authProviderFlags } from '@/auth'
 
 const SITE_URL = 'https://www.theuaejunction.cloud'
 const SITE_DESC =
-  'The UAE Junction provides flights, hotels, theme park tickets, desert safari, dhow cruise & holiday packages with 4% cashback.'
+  'The UAE Junction provides flights, hotels, theme park tickets, desert safari, dhow cruise & holiday packages with 2.5% cashback.'
 
 const organizationLd = {
   '@context': 'https://schema.org',
@@ -30,7 +30,7 @@ const websiteLd = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'The UAE Junction — Travel Deals with 4% Cashback',
+    default: 'The UAE Junction — Travel Deals with 2.5% Cashback',
     template: '%s | The UAE Junction',
   },
   description: SITE_DESC,

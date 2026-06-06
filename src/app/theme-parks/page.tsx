@@ -8,9 +8,9 @@ import{QuoteForm}from'@/components/home/QuoteForm'
 
 export const metadata:Metadata={
   title:'Theme Park Tickets',
-  description:'Skip-the-line theme park tickets in the UAE — LEGOLAND, MotionGate, Ferrari World, IMG Worlds, SeaWorld and more. Instant confirmation and 4% cashback on every booking.',
+  description:'Skip-the-line theme park tickets in the UAE — LEGOLAND, MotionGate, Ferrari World, IMG Worlds, SeaWorld and more. Instant confirmation and 2.5% cashback on every booking.',
   alternates:{canonical:'/theme-parks'},
-  openGraph:{title:'Theme Park Tickets | The UAE Junction',description:'Book the UAE’s best theme park tickets with 4% cashback.',url:'/theme-parks',type:'website'},
+  openGraph:{title:'Theme Park Tickets | The UAE Junction',description:'Book the UAE’s best theme park tickets with 2.5% cashback.',url:'/theme-parks',type:'website'},
 }
 export const revalidate=3600
 
@@ -46,7 +46,7 @@ export default async function Page(){
 
       <PageHero
         title="Theme Parks"
-        subtitle="The adventure begins here — skip-the-line tickets to the UAE’s biggest theme parks, with instant confirmation and 4% cashback on every booking."
+        subtitle="The adventure begins here — skip-the-line tickets to the UAE’s biggest theme parks, with instant confirmation and 2.5% cashback on every booking."
       />
 
       {products.length>0?(

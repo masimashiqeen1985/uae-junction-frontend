@@ -4,9 +4,9 @@ import{StatsCounter,type Stat}from'@/components/about/StatsCounter'
 
 export const metadata:Metadata={
   title:'About Us',
-  description:'The UAE Junction is your trusted tourism company in Dubai - flights, hotels, theme parks, desert safari, dhow cruise, Umrah & visas, with 4% cashback on every booking.',
+  description:'The UAE Junction is your trusted tourism company in Dubai - flights, hotels, theme parks, desert safari, dhow cruise, Umrah & visas, with 2.5% cashback on every booking.',
   alternates:{canonical:'/about-us'},
-  openGraph:{title:'About Us | The UAE Junction',description:'Your trusted tourism company in Dubai - all your travel, under one roof, with 4% cashback.',url:'/about-us',type:'website'},
+  openGraph:{title:'About Us | The UAE Junction',description:'Your trusted tourism company in Dubai - all your travel, under one roof, with 2.5% cashback.',url:'/about-us',type:'website'},
 }
 export const revalidate=3600
 
@@ -25,7 +25,7 @@ const SERVICES=[
   {i:'🕋',t:'Umrah Packages',d:'Complete support with visa, accommodation, and transport.'},
   {i:'🏜️',t:'Desert Safari & Dhow Cruise',d:'Authentic UAE adventures filled with culture and excitement.'},
   {i:'🛂',t:'Visa Assistance',d:'Smooth, reliable services for tourists, families, and corporates.'},
-  {i:'🎁',t:'Reward Programs',d:'Earn 4% cashback on every booking and unlock exclusive offers.'},
+  {i:'🎁',t:'Reward Programs',d:'Earn 2.5% cashback on every booking and unlock exclusive offers.'},
 ]
 
 const APART=[
@@ -79,7 +79,7 @@ export default function AboutPage(){
         <div className="container-xl max-w-3xl">
           <h2 className="font-display font-bold text-3xl text-secondary mb-5">Welcome to The UAE Junction</h2>
           <p className="text-neutral-600 text-lg leading-relaxed mb-5">Founded in October 2023, we are more than just a travel company - we are your dedicated partner in crafting journeys that are seamless, enriching, and tailored to your every need. Whether you are booking a flight, searching for the perfect hotel, planning a desert adventure, or organising a corporate retreat, we bring everything together under one roof with clarity, convenience, and care.</p>
-          <p className="text-neutral-600 text-lg leading-relaxed">What sets us apart is how we reward loyalty. Every single booking earns you 4% cashback - real value you can spend on your next adventure. No fine print, no catch, just a thank-you for travelling with us.</p>
+          <p className="text-neutral-600 text-lg leading-relaxed">What sets us apart is how we reward loyalty. Every single booking earns you 2.5% cashback - real value you can spend on your next adventure. No fine print, no catch, just a thank-you for travelling with us.</p>
         </div>
       </section>
 
@@ -189,7 +189,7 @@ export default function AboutPage(){
       <section className="py-14 bg-primary">
         <div className="container-xl text-center">
           <h2 className="font-display font-bold text-3xl text-white mb-3">Ready to plan your next trip?</h2>
-          <p className="text-white/90 mb-7 max-w-xl mx-auto">Tell us where you want to go and our team will craft an itinerary - with 4% cashback built in.</p>
+          <p className="text-white/90 mb-7 max-w-xl mx-auto">Tell us where you want to go and our team will craft an itinerary - with 2.5% cashback built in.</p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/contact-us" className="inline-block bg-white text-primary font-bold px-8 py-3.5 rounded-btn hover:bg-neutral-100 transition-colors">Get in Touch</Link>
             <Link href="/promotions" className="inline-block border-2 border-white text-white font-bold px-8 py-3.5 rounded-btn hover:bg-white hover:text-primary transition-colors">View Promotions</Link>

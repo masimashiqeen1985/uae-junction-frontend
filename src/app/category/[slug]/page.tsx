@@ -11,20 +11,20 @@ const SITE='https://www.theuaejunction.cloud'
 
 // Marketing copy per known category slug. Falls back to CMS name/description.
 const CAT_META:Record<string,{subtitle:string;blurb:string}>={
-  'theme-parks-attractions':{subtitle:'World-class rides and attractions across the UAE.',blurb:'Skip-the-line theme park and attraction tickets with instant confirmation and 4% cashback.'},
-  'water-parks':{subtitle:'Water adventure, just a splash away!',blurb:'Book the UAE’s best water park tickets with instant confirmation and 4% cashback.'},
-  'adventure-thrill':{subtitle:'Adrenaline-packed experiences for the bold.',blurb:'Adventure and thrill experiences across the UAE with instant confirmation and 4% cashback.'},
-  'landmarks-views':{subtitle:'Iconic skylines and unforgettable viewpoints.',blurb:'Tickets to the UAE’s most iconic landmarks and observation decks, with 4% cashback.'},
-  'gardens-nature':{subtitle:'Green escapes and natural wonders.',blurb:'Gardens, parks and nature experiences across the UAE with instant confirmation and 4% cashback.'},
-  'museums-culture-immersive':{subtitle:'Art, heritage and immersive worlds.',blurb:'Museums, cultural sites and immersive experiences with instant confirmation and 4% cashback.'},
-  'desert-safari':{subtitle:'Dunes, sunsets and Bedouin nights.',blurb:'Desert safari experiences across the UAE with instant confirmation and 4% cashback.'},
-  'city-tours':{subtitle:'See the best of the city in one trip.',blurb:'Guided city tours across the UAE with instant confirmation and 4% cashback.'},
-  'cruises':{subtitle:'Set sail across the Arabian Gulf.',blurb:'Dhow and yacht cruises across the UAE with instant confirmation and 4% cashback.'},
-  'combo-passes':{subtitle:'More experiences, better value.',blurb:'Combo passes that bundle the UAE’s best experiences — with 4% cashback on every booking.'},
-  'staycations-hotels':{subtitle:'Stay, relax and unwind.',blurb:'Staycations and hotel packages across the UAE with 4% cashback on every booking.'},
-  'umrah-packages':{subtitle:'A spiritual journey, thoughtfully arranged.',blurb:'Umrah packages with trusted operators, instant confirmation and 4% cashback.'},
-  'international-tours':{subtitle:'Explore beyond the UAE.',blurb:'International tour packages with instant confirmation and 4% cashback.'},
-  'visa-services':{subtitle:'Fast, hassle-free visa processing.',blurb:'UAE and international visa services with quick turnaround and 4% cashback.'},
+  'theme-parks-attractions':{subtitle:'World-class rides and attractions across the UAE.',blurb:'Skip-the-line theme park and attraction tickets with instant confirmation and 2.5% cashback.'},
+  'water-parks':{subtitle:'Water adventure, just a splash away!',blurb:'Book the UAE’s best water park tickets with instant confirmation and 2.5% cashback.'},
+  'adventure-thrill':{subtitle:'Adrenaline-packed experiences for the bold.',blurb:'Adventure and thrill experiences across the UAE with instant confirmation and 2.5% cashback.'},
+  'landmarks-views':{subtitle:'Iconic skylines and unforgettable viewpoints.',blurb:'Tickets to the UAE’s most iconic landmarks and observation decks, with 2.5% cashback.'},
+  'gardens-nature':{subtitle:'Green escapes and natural wonders.',blurb:'Gardens, parks and nature experiences across the UAE with instant confirmation and 2.5% cashback.'},
+  'museums-culture-immersive':{subtitle:'Art, heritage and immersive worlds.',blurb:'Museums, cultural sites and immersive experiences with instant confirmation and 2.5% cashback.'},
+  'desert-safari':{subtitle:'Dunes, sunsets and Bedouin nights.',blurb:'Desert safari experiences across the UAE with instant confirmation and 2.5% cashback.'},
+  'city-tours':{subtitle:'See the best of the city in one trip.',blurb:'Guided city tours across the UAE with instant confirmation and 2.5% cashback.'},
+  'cruises':{subtitle:'Set sail across the Arabian Gulf.',blurb:'Dhow and yacht cruises across the UAE with instant confirmation and 2.5% cashback.'},
+  'combo-passes':{subtitle:'More experiences, better value.',blurb:'Combo passes that bundle the UAE’s best experiences — with 2.5% cashback on every booking.'},
+  'staycations-hotels':{subtitle:'Stay, relax and unwind.',blurb:'Staycations and hotel packages across the UAE with 2.5% cashback on every booking.'},
+  'umrah-packages':{subtitle:'A spiritual journey, thoughtfully arranged.',blurb:'Umrah packages with trusted operators, instant confirmation and 2.5% cashback.'},
+  'international-tours':{subtitle:'Explore beyond the UAE.',blurb:'International tour packages with instant confirmation and 2.5% cashback.'},
+  'visa-services':{subtitle:'Fast, hassle-free visa processing.',blurb:'UAE and international visa services with quick turnaround and 2.5% cashback.'},
 }
 
 export const revalidate=3600
@@ -44,7 +44,7 @@ export async function generateMetadata({params}:{params:Promise<{slug:string}>})
   const cat=data.productCategory
   if(!cat)return{title:slug.replace(/-/g,' ')}
   const meta=CAT_META[slug]
-  const desc=meta?.blurb||strip(cat.description)||`Browse ${cat.name} experiences across the UAE with instant confirmation and 4% cashback.`
+  const desc=meta?.blurb||strip(cat.description)||`Browse ${cat.name} experiences across the UAE with instant confirmation and 2.5% cashback.`
   return{
     title:cat.name,
     description:desc,

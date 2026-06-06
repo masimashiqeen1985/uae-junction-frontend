@@ -8,9 +8,9 @@ import{QuoteForm}from'@/components/home/QuoteForm'
 
 export const metadata:Metadata={
   title:'Dubai Dhow Cruise',
-  description:'Dhow cruise dinners and sightseeing across Dubai’s creek and marina, with instant confirmation and 4% cashback.',
+  description:'Dhow cruise dinners and sightseeing across Dubai’s creek and marina, with instant confirmation and 2.5% cashback.',
   alternates:{canonical:'/dhow-cruise'},
-  openGraph:{title:'Dubai Dhow Cruise | The UAE Junction',description:'Book a Dubai dhow cruise with 4% cashback.',url:'/dhow-cruise',type:'website'},
+  openGraph:{title:'Dubai Dhow Cruise | The UAE Junction',description:'Book a Dubai dhow cruise with 2.5% cashback.',url:'/dhow-cruise',type:'website'},
 }
 export const revalidate=3600
 

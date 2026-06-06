@@ -66,7 +66,7 @@ export function CartView() {
       <div className="bg-white rounded-card shadow-card p-10 text-center max-w-lg mx-auto">
         <span className="mx-auto mb-5 grid h-14 w-14 place-items-center rounded-full bg-amber-50 text-primary"><ShoppingBag className="h-7 w-7" /></span>
         <h2 className="font-display font-bold text-xl text-secondary mb-2">Your cart is empty</h2>
-        <p className="text-neutral-500 mb-6">Explore theme parks, desert safaris, dhow cruises and more — every booking earns 4% cashback.</p>
+        <p className="text-neutral-500 mb-6">Explore theme parks, desert safaris, dhow cruises and more — every booking earns 2.5% cashback.</p>
         <Link href="/experiences" className="inline-block bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-btn font-semibold transition-colors">Browse experiences</Link>
       </div>
     )

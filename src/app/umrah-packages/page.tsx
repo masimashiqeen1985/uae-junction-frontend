@@ -8,9 +8,9 @@ import{QuoteForm}from'@/components/home/QuoteForm'
 
 export const metadata:Metadata={
   title:'Umrah Packages',
-  description:'Umrah packages with trusted partners — flights, stays and transfers, plus 4% cashback on every booking.',
+  description:'Umrah packages with trusted partners — flights, stays and transfers, plus 2.5% cashback on every booking.',
   alternates:{canonical:'/umrah-packages'},
-  openGraph:{title:'Umrah Packages | The UAE Junction',description:'Book Umrah packages with 4% cashback.',url:'/umrah-packages',type:'website'},
+  openGraph:{title:'Umrah Packages | The UAE Junction',description:'Book Umrah packages with 2.5% cashback.',url:'/umrah-packages',type:'website'},
 }
 export const revalidate=3600
 

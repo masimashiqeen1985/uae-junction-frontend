@@ -26,9 +26,9 @@ const CATEGORIES:{slug:string;name:string;blurb:string}[]=[
 
 export const metadata:Metadata={
   title:'All Categories',
-  description:'Browse all UAE Junction experience categories — theme parks, water parks, desert safaris, cruises, tours and more, each with instant confirmation and 4% cashback.',
+  description:'Browse all UAE Junction experience categories — theme parks, water parks, desert safaris, cruises, tours and more, each with instant confirmation and 2.5% cashback.',
   alternates:{canonical:'/category'},
-  openGraph:{title:'All Categories | The UAE Junction',description:'Browse every UAE Junction experience category with 4% cashback on every booking.',url:'/category',type:'website'},
+  openGraph:{title:'All Categories | The UAE Junction',description:'Browse every UAE Junction experience category with 2.5% cashback on every booking.',url:'/category',type:'website'},
 }
 export const revalidate=3600
 
@@ -67,7 +67,7 @@ export default async function CategoryIndexPage(){
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(breadcrumbLd)}}/>
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(itemListLd)}}/>
 
-      <PageHero title="Explore by Category" subtitle="Find your next experience — every booking earns 4% cashback."/>
+      <PageHero title="Explore by Category" subtitle="Find your next experience — every booking earns 2.5% cashback."/>
 
       <div className="container-xl py-10 sm:py-12">
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

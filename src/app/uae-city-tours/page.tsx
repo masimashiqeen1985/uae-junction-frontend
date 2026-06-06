@@ -8,9 +8,9 @@ import{QuoteForm}from'@/components/home/QuoteForm'
 
 export const metadata:Metadata={
   title:'UAE City Tours',
-  description:'Guided city tours across the UAE — Dubai, Abu Dhabi and beyond, with instant confirmation and 4% cashback.',
+  description:'Guided city tours across the UAE — Dubai, Abu Dhabi and beyond, with instant confirmation and 2.5% cashback.',
   alternates:{canonical:'/uae-city-tours'},
-  openGraph:{title:'UAE City Tours | The UAE Junction',description:'Book UAE city tours with 4% cashback.',url:'/uae-city-tours',type:'website'},
+  openGraph:{title:'UAE City Tours | The UAE Junction',description:'Book UAE city tours with 2.5% cashback.',url:'/uae-city-tours',type:'website'},
 }
 export const revalidate=3600
 

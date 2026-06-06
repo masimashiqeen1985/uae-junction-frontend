@@ -3,7 +3,7 @@ import { staggerParent, fadeUp } from '@/components/motion/variants'
 
 const STATS = [
   { v: '50K+', l: 'Happy travellers' },
-  { v: '4%', l: 'Cashback on every booking' },
+  { v: '2.5%', l: 'Cashback on every booking' },
   { v: '200+', l: 'Tours & experiences' },
   { v: '24/7', l: 'Customer support' },
 ]

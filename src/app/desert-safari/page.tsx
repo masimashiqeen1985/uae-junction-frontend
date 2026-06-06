@@ -8,9 +8,9 @@ import{QuoteForm}from'@/components/home/QuoteForm'
 
 export const metadata:Metadata={
   title:'Desert Safari Packages',
-  description:'Desert safari experiences in the UAE — dune bashing, camps and more, with instant confirmation and 4% cashback.',
+  description:'Desert safari experiences in the UAE — dune bashing, camps and more, with instant confirmation and 2.5% cashback.',
   alternates:{canonical:'/desert-safari'},
-  openGraph:{title:'Desert Safari Packages | The UAE Junction',description:'Book UAE desert safari packages with 4% cashback.',url:'/desert-safari',type:'website'},
+  openGraph:{title:'Desert Safari Packages | The UAE Junction',description:'Book UAE desert safari packages with 2.5% cashback.',url:'/desert-safari',type:'website'},
 }
 export const revalidate=3600
 

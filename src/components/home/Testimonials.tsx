@@ -11,7 +11,7 @@ const DEFAULT_REVIEWS: Review[] = [
   { name: 'Aisha R.', loc: 'Dubai, UAE', text: 'Booked our Ferrari World tickets and a desert safari through The UAE Junction — seamless, and the cashback was a lovely surprise. Will use again!' },
   { name: 'James M.', loc: 'London, UK', text: 'Planned our entire Dubai trip with them. Great prices on the dhow cruise and hotel, and support answered every question on WhatsApp within minutes.' },
   { name: 'Priya S.', loc: 'Mumbai, India', text: 'The Umrah package was handled with so much care. Everything was organised end to end. Highly recommend for stress-free travel.' },
-  { name: 'Omar K.', loc: 'Abu Dhabi, UAE', text: 'Customised our family itinerary perfectly — water parks for the kids and city tours for us. Excellent value with the 4% cashback.' },
+  { name: 'Omar K.', loc: 'Abu Dhabi, UAE', text: 'Customised our family itinerary perfectly — water parks for the kids and city tours for us. Excellent value with the 2.5% cashback.' },
 ]
 
 export function Testimonials({ reviews = DEFAULT_REVIEWS }: { reviews?: Review[] }) {

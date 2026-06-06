@@ -348,7 +348,7 @@ export function OrderConfirmation() {
               if (!Number.isFinite(n) || n <= 0) return null
               return (
                 <div className="flex items-center justify-between rounded-btn bg-emerald-50 px-3 py-2 text-emerald-700">
-                  <dt className="font-semibold">4% cashback earned — pending until payment</dt>
+                  <dt className="font-semibold">2.5% cashback earned — pending until payment</dt>
                   <dd className="font-bold">{`AED ${(n * 0.04).toFixed(2)}`}</dd>
                 </div>
               )

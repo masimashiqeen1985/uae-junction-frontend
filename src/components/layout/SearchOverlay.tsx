@@ -221,7 +221,7 @@ export function SearchOverlay({ open, onClose }: Props) {
               {!touched && (
                 <div className="px-6 py-10 text-center">
                   <p className="text-sm text-neutral-500">Start typing to find experiences across the UAE.</p>
-                  <p className="mt-1 text-xs text-neutral-400">Every booking earns 4% cashback.</p>
+                  <p className="mt-1 text-xs text-neutral-400">Every booking earns 2.5% cashback.</p>
                 </div>
               )}
             </div>

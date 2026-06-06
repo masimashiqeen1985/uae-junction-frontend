@@ -41,7 +41,7 @@ phoneNumber: '+971 58 589 8221',
 emailAddress: 'sales@theuaejunction.com',
 whatsappNumber: '971585898221',
 footerTagline:
-'Your gateway to global exploration. Earn 4% cashback on every flight, hotel, tour and ticket you book with us.',
+'Your gateway to global exploration. Earn 2.5% cashback on every flight, hotel, tour and ticket you book with us.',
 socialLinks: [
 { platform: 'Instagram', url: 'https://www.instagram.com/theuaejunction_travel' },
 { platform: 'Facebook', url: 'https://www.facebook.com/share/1DBbzt4W8s/' },

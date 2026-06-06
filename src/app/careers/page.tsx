@@ -127,7 +127,7 @@ const perks = [
   'Engagement activities & team-building events',
   'Flexible work environment (for selected roles)',
   'Exposure to the UAE tourism and global travel market',
-  '4% cashback on every booking you make with us',
+  '2.5% cashback on every booking you make with us',
 ]
 
 const departments = [
@@ -171,7 +171,7 @@ export default function CareersPage() {
           <div className="mt-10 flex flex-wrap gap-6 text-sm font-semibold text-white/95">
             <span>🌍 Remote-first roles</span>
             <span>🎟️ UAE tourism &amp; global travel</span>
-            <span>💸 4% cashback employee perk</span>
+            <span>💸 2.5% cashback employee perk</span>
           </div>
         </div>
         <svg className="block h-[70px] w-full" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true">

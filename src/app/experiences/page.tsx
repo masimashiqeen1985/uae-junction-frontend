@@ -8,9 +8,9 @@ import{PageHero}from'@/components/layout/PageHero'
 
 export const metadata:Metadata={
   title:'Experiences',
-  description:'Browse and book the best UAE experiences - theme parks, desert safari, dhow cruise, city tours and more. Earn 4% cashback on every booking.',
+  description:'Browse and book the best UAE experiences - theme parks, desert safari, dhow cruise, city tours and more. Earn 2.5% cashback on every booking.',
   alternates:{canonical:'/experiences'},
-  openGraph:{title:'Experiences | The UAE Junction',description:'Browse and book the best UAE experiences with 4% cashback.',url:'/experiences',type:'website'},
+  openGraph:{title:'Experiences | The UAE Junction',description:'Browse and book the best UAE experiences with 2.5% cashback.',url:'/experiences',type:'website'},
 }
 export const revalidate=3600
 
@@ -52,7 +52,7 @@ export default async function ExperiencesPage({searchParams}:Props){
 
       <PageHero
         title="Experiences"
-        subtitle="Experience thrills beyond imagination - hand-picked tours and tickets across the UAE, with 4% cashback on every booking."
+        subtitle="Experience thrills beyond imagination - hand-picked tours and tickets across the UAE, with 2.5% cashback on every booking."
       />
 
       {products.length>0?(
