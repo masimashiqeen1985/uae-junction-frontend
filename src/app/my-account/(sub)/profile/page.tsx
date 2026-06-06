@@ -1,9 +1,12 @@
-// /my-account/profile — Profile editing (Phase 5, sub-page 2 of 3).
-// Server component prefills the form from the bearer's own customer record
-// (customerFetch — token never reaches the browser, nothing cached).
+// /my-account/profile — Profile editing (Phase 5, sub-page 2 of 3) +
+// traveller details (nationality / UAE residency / gender — optional here,
+// mandatory at checkout). Server component prefills the form from the
+// bearer's own customer record (customerFetch — token never reaches the
+// browser, nothing cached).
 import type { Metadata } from 'next'
 import { customerFetch } from '@/lib/account/api'
 import { GET_CUSTOMER_PROFILE, type CustomerProfile } from '@/lib/queries/customer'
+import { metaToFields } from '@/lib/profile-fields'
 import { ProfileForm } from '@/components/account/ProfileForm'
 import { formatDate } from '@/lib/utils'
 
@@ -17,6 +20,7 @@ export const dynamic = 'force-dynamic'
 export default async function ProfilePageRoute() {
   const result = await customerFetch<{ customer: CustomerProfile | null }>(GET_CUSTOMER_PROFILE)
   const customer = result.ok ? result.data.customer : null
+  const meta = metaToFields(customer?.metaData)
 
   return (
     <div>
@@ -51,7 +55,10 @@ export default async function ProfilePageRoute() {
               lastName: customer.lastName ?? '',
               email: customer.email ?? '',
               phone: customer.billing?.phone ?? '',
-              country: customer.billing?.country ?? 'AE',
+              country: customer.billing?.country ?? '',
+              nationality: meta.nationality,
+              residency: meta.residency,
+              gender: meta.gender,
             }}
           />
         </div>
