@@ -13,6 +13,8 @@ import './vibrant-home.css'
 export function VibrantHome() {
   const root = useRef<HTMLDivElement>(null)
   const catRowRef = useRef<HTMLDivElement>(null)
+  const catLeftRef = useRef<HTMLButtonElement>(null)
+  const catRightRef = useRef<HTMLButtonElement>(null)
 
   // Scroll to the category slider when arriving with the #explore-book hash
   // (e.g. clicking "Explore & Book" in the header from another page).
@@ -26,6 +28,29 @@ export function VibrantHome() {
       120,
     )
     return () => window.clearTimeout(t)
+  }, [])
+
+  // Toggle arrow disabled state at the start/end of the category row.
+  useEffect(() => {
+    const row = catRowRef.current
+    if (!row) return
+    let raf = 0
+    const update = () => {
+      raf = 0
+      const atStart = row.scrollLeft <= 1
+      const atEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 1
+      catLeftRef.current?.setAttribute('aria-disabled', String(atStart))
+      catRightRef.current?.setAttribute('aria-disabled', String(atEnd))
+    }
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
+    update()
+    row.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      if (raf) cancelAnimationFrame(raf)
+      row.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
   }, [])
 
   useEffect(() => {
@@ -150,10 +175,10 @@ export function VibrantHome() {
       </header>
       <div className="wrap cats" id="explore-book" style={{ scrollMarginTop: 96 }}>
         <div className="cat-scroll-wrap">
-          <button className="cat-arrow cat-arrow-left" aria-label="Scroll categories left" onClick={() => catRowRef.current?.scrollBy({ left: -320, behavior: 'smooth' })}>
+          <button ref={catLeftRef} className="cat-arrow cat-arrow-left" aria-label="Scroll categories left" onClick={() => catRowRef.current?.scrollBy({ left: -320, behavior: 'smooth' })}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
-          <div className="cat-row" ref={catRowRef}>
+          <div className="cat-row" ref={catRowRef} role="group" aria-label="Browse categories">
             <a className="cat" href="/theme-parks"><div className="emoji">🎢</div><div className="t">Theme Parks</div><div className="c">28 attractions</div></a>
             <a className="cat" href="https://www.theuaejunction.cloud/desert-safari"><div className="emoji">🏜️</div><div className="t">Desert Safari</div><div className="c">41 tours</div></a>
             <a className="cat" href="https://www.theuaejunction.cloud/dhow-cruise"><div className="emoji">🚤</div><div className="t">Dhow Cruise</div><div className="c">19 cruises</div></a>
@@ -165,7 +190,7 @@ export function VibrantHome() {
             <a className="cat" href="#enquiry"><div className="emoji">✈️</div><div className="t">Flights</div><div className="c">Enquire</div></a>
             <a className="cat" href="/umrah-packages"><div className="emoji">🕋</div><div className="t">Umrah</div><div className="c">Packages</div></a>
           </div>
-          <button className="cat-arrow cat-arrow-right" aria-label="Scroll categories right" onClick={() => catRowRef.current?.scrollBy({ left: 320, behavior: 'smooth' })}>
+          <button ref={catRightRef} className="cat-arrow cat-arrow-right" aria-label="Scroll categories right" onClick={() => catRowRef.current?.scrollBy({ left: 320, behavior: 'smooth' })}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
         </div>
