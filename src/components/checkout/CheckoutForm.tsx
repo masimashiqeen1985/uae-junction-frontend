@@ -11,6 +11,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { useCart } from '@/components/cart/CartProvider'
 import { OrderSummary } from '@/components/commerce/OrderSummary'
 import { PaymentMethods } from '@/components/checkout/PaymentMethods'
+import { ORDER_SNAPSHOT_KEY, type OrderSnapshot } from '@/components/checkout/OrderConfirmation'
 import type { CheckoutResult } from '@/lib/queries/checkout'
 
 type Fields = { firstName: string; lastName: string; email: string; phone: string; country: string; note: string }
@@ -111,13 +112,30 @@ export function CheckoutForm() {
         return
       }
       submittedRef.current = true
+      // Snapshot for the confirmation page (sessionStorage only — dies with
+      // the tab, never sent anywhere). Best-effort: the page degrades to a
+      // reference-only state if this fails.
+      try {
+        const snapshot: OrderSnapshot = {
+          ref: data.order.orderNumber,
+          total: data.order.total || '',
+          status: data.order.status || '',
+          firstName: fields.firstName,
+          subtotal: cart?.subtotal,
+          items: cart?.contents?.nodes?.map((n) => ({
+            name: n.product.node.name, qty: n.quantity, total: n.total,
+          })),
+          placedAt: Date.now(),
+        }
+        sessionStorage.setItem(ORDER_SNAPSHOT_KEY, JSON.stringify(snapshot))
+      } catch { /* non-fatal */ }
       void refresh() // server cart already emptied by Woo checkout
       router.push(`/order-confirmation?ref=${encodeURIComponent(data.order.orderNumber)}&total=${encodeURIComponent(data.order.total || '')}`)
     } catch {
       setFormError(ERROR_COPY['checkout-unavailable'])
       setSubmitting(false)
     }
-  }, [fields, submitting, refresh, router])
+  }, [fields, submitting, refresh, router, cart])
 
   // ---- Empty cart guard ----
   if (status === 'loading' && !cart) {
