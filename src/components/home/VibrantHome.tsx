@@ -338,7 +338,7 @@ export function VibrantHome() {
       <div><h4>Company</h4><ul><li><a href="https://www.theuaejunction.cloud/about-us">About us</a></li><li><a href="https://www.theuaejunction.cloud/careers">Careers</a></li><li><a href="https://www.theuaejunction.cloud/group-corporate-bookings">Group &amp; Corporate</a></li><li><a href="https://www.theuaejunction.cloud/promotions">Promotions</a></li><li><a href="https://www.theuaejunction.cloud/blogs">Blog</a></li><li><a href="https://www.theuaejunction.cloud/contact-us">Contact</a></li></ul></div>
       <div><h4>Support</h4><ul><li><a href="https://www.theuaejunction.cloud/contact-us">Help centre</a></li><li><a href="https://www.theuaejunction.cloud/rewards-policy">Rewards policy</a></li><li><a href="https://www.theuaejunction.cloud/privacy-policy">Privacy policy</a></li><li><a href="https://www.theuaejunction.cloud/terms-and-conditions">Terms &amp; conditions</a></li><li><a href="https://www.theuaejunction.cloud/terms-and-conditions">Cancellation</a></li></ul></div>
       </div>
-      <div className="foot-bottom"><span>© 2026 The UAE Junction. All rights reserved.</span><span>Dubai, United Arab Emirates · sales@theuaejunction.com</span></div>
+      <div className="foot-bottom"><span>Copyright © 2026 The UAE Junction, Powered by Arabian Junction FZC LLC All rights reserved.</span><span>Sharjah, United Arab Emirates · sales@theuaejunction.com</span></div>
       </div></footer>
     </div>
   )
