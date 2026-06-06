@@ -180,7 +180,7 @@ export function HeaderClient({ nav, providers, authConfigured }: Props) {
       {/* Spacer so fixed header doesn't overlay content (homepage hero sits under it intentionally) */}
       {!isHome && <div className="h-16 lg:h-20" aria-hidden="true" />}
 
-      <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} nav={nav} />
+      <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} nav={nav} authConfigured={authConfigured} />
 
       <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
@@ -214,7 +214,7 @@ function MegaMenu({ items, onPick }: { items: NavChild[]; onPick: () => void }) 
       <div className="mt-1 flex items-center justify-between rounded-xl bg-neutral-50 px-4 py-2.5">
         <span className="text-xs text-neutral-500">Every booking earns 2.5% cashback</span>
         <Link href="/promotions" onClick={onPick} className="text-xs font-semibold text-[var(--c-primary)] hover:underline">
-          View all offers â
+          View all offers →
         </Link>
       </div>
     </div>

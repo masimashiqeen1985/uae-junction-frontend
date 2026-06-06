@@ -2,7 +2,8 @@
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { ChevronDown, X, Phone, MessageCircle } from 'lucide-react'
+import { useSession } from 'next-auth/react'
+import { ChevronDown, X, Phone, MessageCircle, User } from 'lucide-react'
 import type { NavItem } from './nav-types'
 import { Logo } from './Logo'
 
@@ -12,9 +13,28 @@ type Props = {
   nav: NavItem[]
   phone?: string
   whatsapp?: string
+  /** When true, the account button shows the signed-in customer's name
+   *  (SessionProvider is only mounted when auth is configured). */
+  authConfigured?: boolean
 }
 
-export function MobileMenu({ open, onClose, nav, phone = '+971 58 589 8221', whatsapp = '971585898221' }: Props) {
+const accountBtnCls =
+  'mb-3 flex w-full items-center justify-center gap-2 rounded-[10px] bg-[var(--c-primary)] py-3 text-center font-semibold text-white'
+
+// Live variant — safe to call useSession (provider mounted upstream).
+function LiveAccountLink({ onClose }: { onClose: () => void }) {
+  const { data: session, status } = useSession()
+  const firstName =
+    status === 'authenticated' ? session?.user?.name?.split(' ')[0] || null : null
+  return (
+    <Link href="/my-account" onClick={onClose} className={accountBtnCls}>
+      <User className="h-4 w-4 shrink-0" aria-hidden />
+      <span className="max-w-[14rem] truncate">{firstName ? `Hi, ${firstName} — My account` : 'Sign in / Register'}</span>
+    </Link>
+  )
+}
+
+export function MobileMenu({ open, onClose, nav, phone = '+971 58 589 8221', whatsapp = '971585898221', authConfigured = false }: Props) {
   const reduce = useReducedMotion()
 
   // Lock body scroll + close on Escape while open.
@@ -93,13 +113,14 @@ export function MobileMenu({ open, onClose, nav, phone = '+971 58 589 8221', wha
             </nav>
 
             <div className="border-t border-neutral-100 p-4">
-              <Link
-                href="/my-account"
-                onClick={onClose}
-                className="mb-3 block w-full rounded-[10px] bg-[var(--c-primary)] py-3 text-center font-semibold text-white"
-              >
-                Sign in / Register
-              </Link>
+              {authConfigured ? (
+                <LiveAccountLink onClose={onClose} />
+              ) : (
+                <Link href="/my-account" onClick={onClose} className={accountBtnCls}>
+                  <User className="h-4 w-4 shrink-0" aria-hidden />
+                  Sign in / Register
+                </Link>
+              )}
               <div className="flex gap-2">
                 <a href={`tel:${phone.replace(/[^+\d]/g, '')}`} className="flex flex-1 items-center justify-center gap-2 rounded-[10px] border border-neutral-200 py-2.5 text-sm font-medium text-neutral-700">
                   <Phone className="h-4 w-4" /> Call
