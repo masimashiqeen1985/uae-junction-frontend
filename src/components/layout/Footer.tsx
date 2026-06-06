@@ -151,7 +151,7 @@ export async function Footer() {
               </li>
               <li className="inline-flex items-center gap-3 text-neutral-400">
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5"><MapPin className="h-4 w-4" /></span>
-                Dubai, United Arab Emirates
+                Sharjah, United Arab Emirates
               </li>
             </ul>
           </Reveal>
@@ -202,7 +202,7 @@ export async function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-neutral-500 sm:flex-row">
-          <p>© {new Date().getFullYear()} The UAE Junction. All rights reserved.</p>
+          <p>Copyright © {new Date().getFullYear()} The UAE Junction, Powered by Arabian Junction FZC LLC All rights reserved.</p>
           <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             {menus.legal.map((l) => (
               <li key={l.label + l.href}>
