@@ -10,6 +10,7 @@ import {
 import { AuthDropdown } from '@/components/auth/AuthDropdown'
 import { Logo } from './Logo'
 import { MobileMenu } from './MobileMenu'
+import { SearchOverlay } from './SearchOverlay'
 import type { NavItem, NavChild } from './nav-types'
 
 export type { NavItem, NavChild }
@@ -38,6 +39,7 @@ function iconFor(label: string) {
 
 export function HeaderClient({ nav, providers, authConfigured }: Props) {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const [hidden, setHidden] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -142,7 +144,7 @@ export function HeaderClient({ nav, providers, authConfigured }: Props) {
 
             {/* Actions */}
             <div className="flex items-center gap-1.5 sm:gap-3">
-              <button aria-label="Search" className={`focus-ring rounded-full p-2 transition-colors hover:text-[var(--c-primary)] ${textColor}`}>
+              <button type="button" aria-label="Search" aria-haspopup="dialog" onClick={() => setSearchOpen(true)} className={`focus-ring rounded-full p-2 transition-colors hover:text-[var(--c-primary)] ${textColor}`}>
                 <Search className="h-5 w-5" />
               </button>
               <Link href="/cart" aria-label="Cart" className={`focus-ring relative rounded-full p-2 transition-colors hover:text-[var(--c-primary)] ${textColor}`}>
@@ -177,6 +179,8 @@ export function HeaderClient({ nav, providers, authConfigured }: Props) {
       {!isHome && <div className="h-16 lg:h-20" aria-hidden="true" />}
 
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} nav={nav} />
+
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   )
 }
