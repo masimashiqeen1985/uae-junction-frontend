@@ -1,3 +1,31 @@
-import type{Metadata}from'next'
-export const metadata:Metadata={title:'My Account'}
-export default function AccountPage(){return<div className="container-xl py-16 max-w-md"><h1 className="font-display font-bold text-3xl text-secondary mb-8 text-center">My Account</h1><div className="bg-white rounded-card shadow-card p-8"><h2 className="font-display font-semibold text-xl mb-6">Sign In</h2><form className="space-y-4"><input type="email" placeholder="Email" className="w-full border border-neutral-200 rounded-btn px-4 py-3 text-sm focus:outline-none focus:border-primary"/><input type="password" placeholder="Password" className="w-full border border-neutral-200 rounded-btn px-4 py-3 text-sm focus:outline-none focus:border-primary"/><button type="submit" className="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3.5 rounded-btn transition-colors">Sign In</button></form><p className="text-center text-sm text-neutral-500 mt-4">No account? <a href="/my-account/register" className="text-primary hover:underline">Register</a></p></div></div>}
+// /my-account — Customer Account Hub (Phase 4).
+// Server component: auth() decides the variant server-side (no client flash).
+// Signed out → AuthPanel (Sign In / Create Account). Signed in → dashboard.
+// noindex: account pages must never be indexed.
+import type { Metadata } from 'next'
+import { Suspense } from 'react'
+import { auth, authProviderFlags } from '@/auth'
+import { AccountGate } from '@/components/account/AccountGate'
+
+export const metadata: Metadata = {
+  title: 'My Account',
+  robots: { index: false, follow: false },
+}
+
+export const dynamic = 'force-dynamic'
+
+export default async function MyAccountPage() {
+  // auth() is safe even when AUTH_SECRET is absent at build/runtime — we gate
+  // on authProviderFlags.configured and never call it unconfigured.
+  const session = authProviderFlags.configured ? await auth() : null
+  return (
+    // Suspense: AuthPanel/AccountDashboard use useSearchParams (deep-link tabs).
+    <Suspense fallback={<div className="container-xl py-20" aria-busy="true" />}>
+      <AccountGate
+        session={session}
+        configured={authProviderFlags.configured}
+        providers={{ google: authProviderFlags.google, facebook: authProviderFlags.facebook }}
+      />
+    </Suspense>
+  )
+}
