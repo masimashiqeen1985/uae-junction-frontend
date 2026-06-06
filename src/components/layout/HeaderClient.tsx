@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import { CartBadge } from '@/components/cart/CartBadge'
 import { usePathname } from 'next/navigation'
 import { useState, type MouseEvent } from 'react'
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from 'framer-motion'
@@ -149,6 +150,7 @@ export function HeaderClient({ nav, providers, authConfigured }: Props) {
               </button>
               <Link href="/cart" aria-label="Cart" className={`focus-ring relative rounded-full p-2 transition-colors hover:text-[var(--c-primary)] ${textColor}`}>
                 <ShoppingCart className="h-5 w-5" />
+                <CartBadge />
                 <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--c-primary)] text-[10px] font-bold text-white">0</span>
               </Link>
               <a

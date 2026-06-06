@@ -6,6 +6,7 @@ import type{WPProduct}from'@/types/wordpress'
 import{WPImage}from'@/components/ui/WPImage'
 import{Badge}from'@/components/ui/Badge'
 import{formatPrice}from'@/lib/utils'
+import{AddToCartButton}from'@/components/cart/AddToCartButton'
 
 // Self-contained, schema-verified single-product query. Pricing fields live on
 // SimpleProduct (inline fragment); no ACF/SEO fields (not registered on this CMS).
@@ -81,7 +82,7 @@ export default async function ProductPage({params}:Props){
 
           {product.shortDescription&&<div className="prose prose-neutral text-neutral-600 mb-6" dangerouslySetInnerHTML={{__html:product.shortDescription}}/>}
 
-          <button className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-btn text-lg transition-colors mb-6">Book Now</button>
+          <div className="mb-6"><AddToCartButton productId={product.databaseId} /></div>
 
           <p className="text-sm text-neutral-500">Instant confirmation · Flat 4% cashback on every booking.</p>
         </div>

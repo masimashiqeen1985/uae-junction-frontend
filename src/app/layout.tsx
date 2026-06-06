@@ -6,6 +6,7 @@ import { WhatsAppButton } from '@/components/layout/WhatsAppButton'
 import { GroupCorporateTab } from '@/components/layout/GroupCorporateTab'
 import { SiteChrome } from '@/components/layout/SiteChrome'
 import { SessionWrapper } from '@/components/providers/SessionWrapper'
+import { CartProvider } from '@/components/cart/CartProvider'
 import { authProviderFlags } from '@/auth'
 
 const SITE_URL = 'https://www.theuaejunction.cloud'
@@ -66,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         {/* SessionProvider only mounts when auth is configured (AUTH_SECRET present),
             so the live site never polls /api/auth/session before secrets exist. */}
-        {authProviderFlags.configured ? <SessionWrapper>{body}</SessionWrapper> : body}
+        <CartProvider>{authProviderFlags.configured ? <SessionWrapper>{body}</SessionWrapper> : body}</CartProvider>
       </body>
     </html>
   )
