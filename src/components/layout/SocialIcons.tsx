@@ -90,11 +90,7 @@ export function SocialIcons({ links }: { links: SocialLinkInput[] }) {
   if (ordered.length === 0) return null
 
   return (
-    <ul
-      className="flex flex-wrap gap-2.5"
-      aria-label="Social media"
-      style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', listStyle: 'none', margin: 0, padding: 0 }}
-    >
+    <ul className="flex flex-wrap gap-2.5" aria-label="Social media" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', listStyle: 'none', margin: 0, padding: 0 }}>
       {ordered.map(({ key, url }) => {
         const isPrimary = PRIMARY.includes(key)
         return (
@@ -113,4 +109,12 @@ export function SocialIcons({ links }: { links: SocialLinkInput[] }) {
                 aria-hidden="true"
                 className={isPrimary ? 'h-[18px] w-[18px]' : 'h-4 w-4'}
               >
-      
+                <path d={PATHS[key]} />
+              </svg>
+            </a>
+          </li>
+        )
+      })}
+    </ul>
+  )
+}
