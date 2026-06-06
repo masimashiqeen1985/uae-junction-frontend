@@ -11,12 +11,17 @@
 // OAuth callback URLs to register:
 //   https://www.theuaejunction.cloud/api/auth/callback/google
 //   https://www.theuaejunction.cloud/api/auth/callback/facebook
+//
+// Phase 4 (additive): the WP JWT authToken/refreshToken returned by
+// authenticateWithWordpress are stashed INSIDE the NextAuth JWT (encrypted,
+// httpOnly cookie). The session callback deliberately exposes only safe
+// fields (uid/name/email) to the client — tokens never leave the server.
 // ───────────────────────────────────────────────────────────────────
 import NextAuth, { type NextAuthConfig } from 'next-auth'
 import Google from 'next-auth/providers/google'
 import Facebook from 'next-auth/providers/facebook'
 import Credentials from 'next-auth/providers/credentials'
-import { authenticateWithWordpress } from '@/lib/auth/wordpress'
+import { authenticateWithWordpress, type WpAuthUser } from '@/lib/auth/wordpress'
 
 const providers: NextAuthConfig['providers'] = []
 
@@ -59,15 +64,24 @@ providers.push(
 export const authConfig: NextAuthConfig = {
   trustHost: true,
   providers,
-  pages: { signIn: '/' }, // sign-in happens via the header dropdown, not a page
+  pages: { signIn: '/my-account' }, // full-page destination (Phase 4); header dropdown stays the quick path
   session: { strategy: 'jwt' },
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.uid = user.id
+      if (user) {
+        token.uid = user.id
+        // Phase 4: stash WP JWTs server-side (encrypted JWT cookie only).
+        const wp = user as WpAuthUser
+        if (wp.wpAuthToken) token.wpAuthToken = wp.wpAuthToken
+        if (wp.wpRefreshToken) token.wpRefreshToken = wp.wpRefreshToken
+      }
       return token
     },
     async session({ session, token }) {
       if (token?.uid && session.user) session.user.id = token.uid as string
+      // NOTE: wpAuthToken / wpRefreshToken are intentionally NOT copied here —
+      // the session object is client-visible. Server code reads them via
+      // getToken() (see /api/account/me).
       return session
     },
   },
