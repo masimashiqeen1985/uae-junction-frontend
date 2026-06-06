@@ -5,8 +5,8 @@
 // is ever accepted or forwarded. PII is never logged.
 //
 // Traveller-details gate (2026-06-07): nationality, UAE residency and gender
-// are MANDATORY at checkout (optional everywhere else — progressive
-// profiling). They are stored on the ORDER as metaData (uaej_* keys —
+// are MANDATORY at checkout (optional everywhere else - progressive
+// profiling). They are stored on the ORDER as metaData (uaej_* keys -
 // checkout.metaData schema-probed live 2026-06-07) and, for signed-in
 // customers, persisted back to the CUSTOMER profile so they are asked
 // exactly once.
@@ -37,7 +37,7 @@ interface CheckoutPayload {
   residency?: unknown
   gender?: unknown
   note?: unknown
-  website?: unknown // honeypot — must be empty
+  website?: unknown // honeypot - must be empty
 }
 
 function str(v: unknown, max: number): string {
@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
   if (!ENDPOINT) return NextResponse.json({ error: 'endpoint-missing' }, { status: 503 })
 
   const body = (await req.json().catch(() => null)) as CheckoutPayload | null
-  // Bot/malformed guard: non-JSON body or filled honeypot → reject quietly.
+  // Bot/malformed guard: non-JSON body or filled honeypot -> reject quietly.
   if (!body || (typeof body.website === 'string' && body.website.length > 0)) {
     return NextResponse.json({ error: 'invalid-request' }, { status: 400 })
   }
@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
 
   const token = req.cookies.get(COOKIE)?.value
   if (!token) {
-    // No cart session → nothing to check out.
+    // No cart session -> nothing to check out.
     return NextResponse.json({ error: 'empty-cart' }, { status: 409 })
   }
 
@@ -135,10 +135,17 @@ export async function POST(req: NextRequest) {
     }
 
     // Signed-in? Persist traveller details back to the customer profile so
-    // they're asked exactly once. Best-effort: never blocks the order.
+    // they are asked exactly once. Best-effort: never blocks the order.
     if (SECRET) {
       try {
-        const nextToken = await getToken({ req, secret: SECRET })
+        // Cookie-name probing - https serves `__Secure-authjs.session-token`.
+        let nextToken: Awaited<ReturnType<typeof getToken>> = null
+        for (const cookieName of [undefined, '__Secure-authjs.session-token', 'authjs.session-token']) {
+          try {
+            const t = await getToken({ req, secret: SECRET, ...(cookieName ? { cookieName } : {}) })
+            if (t && typeof t.wpAuthToken === 'string' && t.wpAuthToken) { nextToken = t; break }
+          } catch { /* try next */ }
+        }
         const wpAuthToken = nextToken?.wpAuthToken as string | undefined
         if (wpAuthToken) {
           await fetch(ENDPOINT, {
@@ -158,7 +165,7 @@ export async function POST(req: NextRequest) {
           })
         }
       } catch {
-        /* non-fatal — order already placed */
+        /* non-fatal - order already placed */
       }
     }
 
