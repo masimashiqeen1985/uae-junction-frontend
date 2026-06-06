@@ -1,10 +1,15 @@
 'use client'
-// Guest checkout form (no JWT auth yet — structured so logged-in prefill can
-// be added later). Submits to /api/checkout which creates a real Woo order
-// via the `bacs` (Direct Account Transfer) method. Cart is preserved on any
-// recoverable failure; on success the provider refreshes (server cart is
-// emptied by Woo) and we route to /order-confirmation with the reference.
-import { useCallback, useRef, useState } from 'react'
+// Checkout form — guest + signed-in. Submits to /api/checkout which creates a
+// real Woo order via the `bacs` (Direct Account Transfer) method. Cart is
+// preserved on any recoverable failure; on success the provider refreshes
+// (server cart is emptied by Woo) and we route to /order-confirmation.
+//
+// Traveller-details gate (2026-06-07): nationality, UAE residency and gender
+// are MANDATORY here (optional on profile — progressive profiling). For
+// signed-in customers the form prefills from the saved profile via
+// GET /api/account/profile (guests get a silent 401 → blank form), and
+// anything entered here is saved back server-side so it's asked once.
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
@@ -13,19 +18,26 @@ import { OrderSummary } from '@/components/commerce/OrderSummary'
 import { PaymentMethods } from '@/components/checkout/PaymentMethods'
 import { ORDER_SNAPSHOT_KEY, type OrderSnapshot } from '@/components/checkout/OrderConfirmation'
 import type { CheckoutResult } from '@/lib/queries/checkout'
+import { COUNTRIES } from '@/lib/countries'
+import { GENDER_OPTIONS, RESIDENCY_OPTIONS, isGender, isNationality, isResidency } from '@/lib/profile-fields'
 
-type Fields = { firstName: string; lastName: string; email: string; phone: string; country: string; note: string }
+type Fields = {
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  country: string
+  nationality: string
+  residency: string
+  gender: string
+  note: string
+}
 type Errors = Partial<Record<keyof Fields, string>>
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 const PHONE_RE = /^\+?[0-9 ()-]{7,20}$/
 
-const COUNTRIES: [string, string][] = [
-  ['AE', 'United Arab Emirates'], ['SA', 'Saudi Arabia'], ['QA', 'Qatar'], ['KW', 'Kuwait'],
-  ['OM', 'Oman'], ['BH', 'Bahrain'], ['IN', 'India'], ['PK', 'Pakistan'], ['EG', 'Egypt'],
-  ['GB', 'United Kingdom'], ['US', 'United States'], ['DE', 'Germany'], ['FR', 'France'],
-  ['CN', 'China'], ['RU', 'Russia'], ['PH', 'Philippines'], ['NG', 'Nigeria'], ['ZA', 'South Africa'],
-]
+const REQUIRED_KEYS = ['firstName', 'lastName', 'email', 'phone', 'nationality', 'residency', 'gender'] as const
 
 function validateField(name: keyof Fields, value: string): string {
   switch (name) {
@@ -33,6 +45,9 @@ function validateField(name: keyof Fields, value: string): string {
     case 'lastName': return value.trim() ? '' : 'Last name is required'
     case 'email': return EMAIL_RE.test(value.trim()) ? '' : 'Enter a valid email address'
     case 'phone': return PHONE_RE.test(value.trim()) ? '' : 'Enter a valid phone number (e.g. +971 5x xxx xxxx)'
+    case 'nationality': return isNationality(value) ? '' : 'Select your nationality'
+    case 'residency': return isResidency(value) ? '' : 'Tell us if you are a UAE resident'
+    case 'gender': return isGender(value) ? '' : 'Select an option'
     default: return ''
   }
 }
@@ -63,11 +78,46 @@ export function CheckoutForm() {
   const { cart, status, refresh } = useCart()
   const router = useRouter()
   const reduceMotion = useReducedMotion()
-  const [fields, setFields] = useState<Fields>({ firstName: '', lastName: '', email: '', phone: '', country: 'AE', note: '' })
+  const [fields, setFields] = useState<Fields>({
+    firstName: '', lastName: '', email: '', phone: '', country: 'AE',
+    nationality: '', residency: '', gender: '', note: '',
+  })
   const [errors, setErrors] = useState<Errors>({})
   const [formError, setFormError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [prefilled, setPrefilled] = useState(false)
   const submittedRef = useRef(false)
+
+  // Signed-in prefill — fills only fields the visitor hasn't typed into yet.
+  // Guests receive a silent 401 and the form stays blank.
+  useEffect(() => {
+    let cancelled = false
+    ;(async () => {
+      try {
+        const res = await fetch('/api/account/profile', { method: 'GET', cache: 'no-store' })
+        if (!res.ok) return
+        const json = await res.json().catch(() => null)
+        const p = json?.profile
+        if (!p || cancelled) return
+        let filled = false
+        setFields((f) => {
+          const next = { ...f }
+          ;(['firstName', 'lastName', 'email', 'phone', 'nationality', 'residency', 'gender'] as const).forEach((k) => {
+            if (!next[k] && typeof p[k] === 'string' && p[k]) {
+              next[k] = p[k]
+              filled = true
+            }
+          })
+          if (f.country === 'AE' && typeof p.country === 'string' && /^[A-Z]{2}$/.test(p.country)) next.country = p.country
+          return next
+        })
+        if (filled) setPrefilled(true)
+      } catch {
+        /* guest / offline — ignore */
+      }
+    })()
+    return () => { cancelled = true }
+  }, [])
 
   const set = useCallback((name: keyof Fields, value: string) => {
     setFields((f) => ({ ...f, [name]: value }))
@@ -78,17 +128,13 @@ export function CheckoutForm() {
     setErrors((e) => ({ ...e, [name]: validateField(name, fields[name]) || undefined }))
   }, [fields])
 
-  const allValid =
-    !validateField('firstName', fields.firstName) &&
-    !validateField('lastName', fields.lastName) &&
-    !validateField('email', fields.email) &&
-    !validateField('phone', fields.phone)
+  const allValid = REQUIRED_KEYS.every((k) => !validateField(k, fields[k]))
 
   const onSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (submitting || submittedRef.current) return
     const nextErrors: Errors = {}
-    ;(['firstName', 'lastName', 'email', 'phone'] as const).forEach((k) => {
+    REQUIRED_KEYS.forEach((k) => {
       const msg = validateField(k, fields[k])
       if (msg) nextErrors[k] = msg
     })
@@ -174,6 +220,12 @@ export function CheckoutForm() {
           </div>
         )}
 
+        {prefilled && (
+          <p className="rounded-card bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
+            Welcome back — we’ve filled in your saved details. Please review and complete anything missing.
+          </p>
+        )}
+
         <section aria-labelledby="contact-heading" className="space-y-5">
           <h2 id="contact-heading" className="font-display font-semibold text-lg text-secondary">
             Contact &amp; traveller details
@@ -199,7 +251,7 @@ export function CheckoutForm() {
               className={inputCls} placeholder="you@example.com" />
           </Field>
           <div className="grid gap-5 sm:grid-cols-2">
-            <Field id="phone" label="Phone (WhatsApp preferred)" error={errors.phone}>
+            <Field id="phone" label="Mobile (WhatsApp)" error={errors.phone}>
               <input id="phone" name="phone" type="tel" autoComplete="tel" inputMode="tel" required
                 value={fields.phone} onChange={(e) => set('phone', e.target.value)} onBlur={() => blur('phone')}
                 aria-invalid={!!errors.phone} aria-describedby={errors.phone ? 'phone-error' : undefined}
@@ -214,6 +266,50 @@ export function CheckoutForm() {
               </select>
             </Field>
           </div>
+          <div className="grid gap-5 sm:grid-cols-2">
+            <Field id="nationality" label="Nationality" error={errors.nationality}>
+              <select id="nationality" name="nationality" required
+                value={fields.nationality} onChange={(e) => set('nationality', e.target.value)} onBlur={() => blur('nationality')}
+                aria-invalid={!!errors.nationality} aria-describedby={errors.nationality ? 'nationality-error' : undefined}
+                className={inputCls}>
+                <option value="">Select nationality…</option>
+                {COUNTRIES.map(([code, name]) => (
+                  <option key={code} value={code}>{name}</option>
+                ))}
+              </select>
+            </Field>
+            <Field id="gender" label="Gender" error={errors.gender}>
+              <select id="gender" name="gender" required
+                value={fields.gender} onChange={(e) => set('gender', e.target.value)} onBlur={() => blur('gender')}
+                aria-invalid={!!errors.gender} aria-describedby={errors.gender ? 'gender-error' : undefined}
+                className={inputCls}>
+                <option value="">Select…</option>
+                {GENDER_OPTIONS.map(([k, label]) => (
+                  <option key={k} value={k}>{label}</option>
+                ))}
+              </select>
+            </Field>
+          </div>
+          <Field id="residency" label="Are you a UAE resident?" error={errors.residency}>
+            <div role="radiogroup" aria-labelledby="residency" className="grid grid-cols-2 gap-2">
+              {RESIDENCY_OPTIONS.map(([k, label]) => (
+                <button
+                  key={k}
+                  type="button"
+                  role="radio"
+                  aria-checked={fields.residency === k}
+                  onClick={() => set('residency', k)}
+                  className={`focus-ring rounded-btn border px-4 py-3 text-sm font-semibold transition-colors ${
+                    fields.residency === k
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </Field>
           <Field id="note" label="Special requests (optional)">
             <textarea id="note" name="note" rows={3} maxLength={500}
               value={fields.note} onChange={(e) => set('note', e.target.value)}
