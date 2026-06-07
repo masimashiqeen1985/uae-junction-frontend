@@ -110,13 +110,7 @@ html{scroll-behavior:smooth}
 .vibrant-home .cashtag{font-size:.74rem;font-weight:800;color:var(--teal-d);background:#e7faf7;padding:5px 9px;border-radius:9px}
 .vibrant-home .how{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .vibrant-home .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:14px}
-@media(max-width:760px){
-  .vibrant-home .how-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-  .vibrant-home .step{padding:14px 10px;border-radius:14px}
-  .vibrant-home .step .n{width:30px;height:30px;border-radius:9px;font-size:.92rem}
-  .vibrant-home .step h4{margin:10px 0 6px;font-size:.88rem;line-height:1.25}
-  .vibrant-home .step p{font-size:.74rem;line-height:1.45}
-}
+@media(max-width:760px){.vibrant-home .how-grid{grid-template-columns:1fr}}
 .vibrant-home .step{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);padding:26px}
 .vibrant-home .step .n{width:42px;height:42px;border-radius:12px;background:var(--grad);color:#fff;font-weight:800;display:grid;place-items:center;font-size:1.1rem}
 .vibrant-home .step h4{margin:16px 0 8px;font-size:1.12rem}
