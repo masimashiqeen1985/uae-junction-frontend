@@ -210,6 +210,7 @@ function LiveDropdown({ providers }: { providers: Providers }) {
           lastName: String(form.get('lastName') || ''),
           email,
           password,
+          referralCode: String(form.get('referralCode') || ''),
         }),
       })
       const json = await res.json().catch(() => ({}))
