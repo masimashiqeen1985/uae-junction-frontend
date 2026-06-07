@@ -153,15 +153,6 @@ export function VibrantHome({ destinations = [] }: { destinations?: HeroCountry[
       <div className="step reveal"><div className="n">3</div><h4>Spend it your way</h4><p>Use your balance against the next booking, or withdraw it. No expiry, no minimum, no fine print.</p></div>
       </div>
       </div></section>
-      <section id="showcase"><div className="wrap">
-      <div className="sec-head reveal"><div><span className="eyebrow">Two ways to feel the UAE</span><h2>Adrenaline or golden hour — your call</h2></div></div>
-      <div className="showcase">
-      <a className="show-card reveal" href="https://www.theuaejunction.cloud/theme-parks"><img alt="Theme park rollercoaster at IMG Worlds" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/dolphins-performing-dolphin-show-with-their-trainers-national-zoo.jpg?w=1100&ssl=1" />
-      <div className="b"><h3>Theme &amp; Water Parks</h3><p>Aquaventure, IMG Worlds, Wild Wadi and more — skip-the-line tickets from AED 199.</p><span className="btn btn-grad">Explore parks →</span></div></a>
-      <a className="show-card reveal" href="https://www.theuaejunction.cloud/desert-safari"><img alt="Camels and 4x4 at sunset in the desert" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/high-angle-view-off-road-vehicle-desert.jpg?w=1100&ssl=1" />
-      <div className="b"><h3>Desert Safaris</h3><p>Dune bashing, camel rides and BBQ under the stars — morning, evening or overnight.</p><span className="btn btn-grad">Explore safaris →</span></div></a>
-      </div>
-      </div></section>
       <section id="staycations"><div className="wrap">
       <div className="sec-head reveal"><div><span className="eyebrow">Stay close, feel away</span><h2>UAE Staycations 🏖️</h2><p>Resort nights, breakfast &amp; perks bundled — 2.5% cashback included.</p></div><a href="#">See all 48 →</a></div>
       <div className="cards">
@@ -261,16 +252,6 @@ export function VibrantHome({ destinations = [] }: { destinations?: HeroCountry[
       </div>
       <div style={{marginTop:'22px',display:'flex',gap:'12px',flexWrap:'wrap'}}><a className="btn btn-grad" href="#">Create free account →</a><a className="btn btn-line" href="#" style={{background:'transparent',color:'#fff',borderColor:'rgba(255,255,255,.3)'}}>Invite friends</a></div>
       </div>
-      </div>
-      </div></section>
-      <section id="rewards"><div className="wrap">
-      <div className="rewards reveal">
-      <div className="blob b1" style={{opacity:'.35'}}></div>
-      <span className="eyebrow" style={{color:'#fff',opacity:'.9'}}>Junction Rewards</span>
-      <h2>Get back what you spend</h2>
-      <div className="big">2.5% cashback</div>
-      <p>On every booking, automatically. The more you explore the UAE, the more your wallet grows — no tiers, no expiry, no catch.</p>
-      <a className="btn btn-dark" href="#">Start earning →</a>
       </div>
       </div></section>
       <section><div className="wrap">
