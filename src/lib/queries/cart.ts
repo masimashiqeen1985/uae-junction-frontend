@@ -29,3 +29,8 @@ export interface Cart {
   total: string
   contents: { itemCount: number; nodes: CartItem[] }
 }
+
+// Sunday Super Deal — same addToCart but with WooGraphQL extraData carrying the
+// deal flag; the uaej-sunday-deal CMS plugin converts it to the deal date and
+// enforces price/qty/units server-side.
+export const ADD_DEAL_TO_CART = `mutation AddDealToCart($id:Int!){addToCart(input:{productId:$id,quantity:1,extraData:"{\\"uaej_deal\\":\\"sunday\\"}"}){cartItem{${CART_ITEM_FIELDS}}}}`

@@ -4,7 +4,7 @@
 // Verified live: WooGraphQL returns the session header on first cart op and
 // honours `Session <token>` thereafter.
 import { NextRequest, NextResponse } from 'next/server'
-import { GET_CART, ADD_TO_CART, UPDATE_ITEM_QTY, REMOVE_ITEMS, EMPTY_CART } from '@/lib/queries/cart'
+import { GET_CART, ADD_TO_CART, ADD_DEAL_TO_CART, UPDATE_ITEM_QTY, REMOVE_ITEMS, EMPTY_CART } from '@/lib/queries/cart'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -76,6 +76,8 @@ export async function POST(req: NextRequest) {
   switch (action) {
     case 'add':
       return withSession(req, ADD_TO_CART, { id: Number(body.productId), qty: Number(body.quantity) || 1 })
+    case 'addDeal':
+      return withSession(req, ADD_DEAL_TO_CART, { id: Number(body.productId) })
     case 'update':
       return withSession(req, UPDATE_ITEM_QTY, { key: String(body.key), qty: Number(body.quantity) })
     case 'remove':
