@@ -24,7 +24,6 @@ const CAT_META:Record<string,{subtitle:string;blurb:string}>={
   'staycations-hotels':{subtitle:'Stay, relax and unwind.',blurb:'Staycations and hotel packages across the UAE with 2.5% cashback on every booking.'},
   'umrah-packages':{subtitle:'A spiritual journey, thoughtfully arranged.',blurb:'Umrah packages with trusted operators, instant confirmation and 2.5% cashback.'},
   'international-tours':{subtitle:'Explore beyond the UAE.',blurb:'International tour packages with instant confirmation and 2.5% cashback.'},
-  'visa-services':{subtitle:'Fast, hassle-free visa processing.',blurb:'UAE and international visa services with quick turnaround and 2.5% cashback.'},
 }
 
 export const revalidate=3600

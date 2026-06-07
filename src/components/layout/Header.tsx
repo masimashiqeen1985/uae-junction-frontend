@@ -22,7 +22,6 @@ const CATEGORY_NAV: NavItem = {
     { label: 'Staycations & Hotels', href: '/category/staycations-hotels' },
     { label: 'Umrah Packages', href: '/category/umrah-packages' },
     { label: 'International Tours', href: '/category/international-tours' },
-    { label: 'Visa Services', href: '/category/visa-services' },
   ],
 }
 

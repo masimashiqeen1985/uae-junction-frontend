@@ -21,7 +21,6 @@ const CATEGORIES:{slug:string;name:string;blurb:string}[]=[
   {slug:'staycations-hotels',name:'Staycations & Hotels',blurb:'Stay, relax and unwind.'},
   {slug:'umrah-packages',name:'Umrah Packages',blurb:'A spiritual journey, thoughtfully arranged.'},
   {slug:'international-tours',name:'International Tours',blurb:'Explore beyond the UAE.'},
-  {slug:'visa-services',name:'Visa Services',blurb:'Fast, hassle-free visa processing.'},
 ]
 
 export const metadata:Metadata={
