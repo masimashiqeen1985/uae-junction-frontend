@@ -1,4 +1,4 @@
-/* Vibrant Junction homepage styles — ported verbatim from approved homepage-EDITS.html, scoped under .vibrant-home. Watermark badge removed. Do not globalize. */
+/* Vibrant Junction homepage styles â ported verbatim from approved homepage-EDITS.html, scoped under .vibrant-home. Watermark badge removed. Do not globalize. */
 :root{
   --ink:#0d1b2a; --muted:#5a6b7b; --line:#e8edf2; --bg:#f4f7fb; --card:#fff;
   --teal:#0bb8a6; --teal-d:#089b8c; --coral:#ff5a5f; --amber:#ffb020; --blue:#1390e0; --indigo:#5b6cff;
@@ -61,7 +61,7 @@ html{scroll-behavior:smooth}
 .vibrant-home .hero-trust{display:flex;gap:26px;flex-wrap:wrap;margin-top:22px;font-weight:600;font-size:.92rem;opacity:.96}
 .vibrant-home .hero-trust span{display:flex;gap:8px;align-items:center}
 .vibrant-home .stars{color:var(--amber)}
-.vibrant-home .cats{position:relative;margin-top:-72px;z-index:5}
+.vibrant-home .cats{position:relative;margin-top:-72px;z-index:7}
 .vibrant-home .cat-scroll-wrap{position:relative}
 .vibrant-home .cat-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;padding:2px}
 .vibrant-home .cat{position:relative;border-radius:var(--r);padding:2px;overflow:hidden;isolation:isolate;box-shadow:var(--e1);transition:transform .3s var(--ease),box-shadow .3s;outline:none;text-decoration:none;display:block}
@@ -232,7 +232,7 @@ html{scroll-behavior:smooth}
 html{scroll-behavior:auto}}
 .vibrant-home .badge{position:fixed;right:14px;bottom:14px;background:var(--ink);color:#fff;font-size:.72rem;letter-spacing:.06em;padding:7px 13px;border-radius:999px;z-index:60;opacity:.88}
 
-/* ============ Hero search — WHERE combobox + WHEN calendar ============ */
+/* ============ Hero search â WHERE combobox + WHEN calendar ============ */
 .vibrant-home .searchbar .sb-anchor{cursor:pointer}
 .vibrant-home .searchbar .sb-hint{box-shadow:0 0 0 2px #e0832b inset;border-radius:16px}
 .vibrant-home .searchbar .sb-when{display:flex;flex-direction:column;align-items:flex-start;gap:0;background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;width:100%;text-align:left}
@@ -269,4 +269,6 @@ html{scroll-behavior:auto}}
 
 /* Hero popovers must not be clipped: blobs get their own clipping layer, hero stacks above .cats (z 5) */
 .vibrant-home header.hero{overflow:visible;z-index:6}
+/* While the search is in use, hero (and its popovers) stack above the cards (z 7) */
+.vibrant-home header.hero:focus-within{z-index:8}
 .vibrant-home .hero .hero-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
