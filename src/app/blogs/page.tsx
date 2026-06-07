@@ -1,5 +1,4 @@
 import type{Metadata}from'next'
-import Link from'next/link'
 import{fetchGraphQL}from'@/lib/graphql-client'
 import{GET_POSTS}from'@/lib/queries/posts'
 import type{WPPost}from'@/types/wordpress'
@@ -22,23 +21,29 @@ export default async function BlogIndexPage(){
   const posts=await getPosts()
   return(
     <div>
-      <section className="relative overflow-hidden bg-gradient-to-br from-secondary-dark via-secondary to-neutral-900 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,rgba(11,184,166,0.28),transparent_45%)]"/>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_70%,rgba(255,255,255,0.10),transparent_40%)]"/>
-        <div className="container-xl relative z-10 py-16 sm:py-20 max-w-3xl">
-          <span className="inline-block pill bg-white/15 text-white mb-4">The UAE Junction Blog</span>
-          <h1 className="font-display font-extrabold text-4xl sm:text-5xl mb-4 leading-tight">Stories, guides &amp; inspiration</h1>
-          <p className="text-neutral-100 text-lg leading-relaxed">Plan an unforgettable trip across the Emirates with insider tips, destination guides and the latest from our team.</p>
+      {/* Hero — heroSky gradient + brand glow, matches homepage vibe */}
+      <section className="relative overflow-hidden text-white" style={{background:'var(--g-heroSky)'}}>
+        <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(11,184,166,0.35),transparent_45%)] animate-glow"/>
+        <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_85%_70%,rgba(91,108,255,0.25),transparent_40%)]"/>
+        <div aria-hidden className="absolute -top-10 right-[12%] w-40 h-40 rounded-full bg-white/10 blur-2xl animate-float"/>
+        <div className="container-xl relative z-10 py-16 sm:py-24 max-w-3xl">
+          <span className="pill glass text-white mb-5">✈️ The UAE Junction Blog</span>
+          <h1 className="font-display font-extrabold text-4xl sm:text-5xl leading-[1.1] mb-4">
+            Stories, guides &amp; <span className="text-gradient-sunset">inspiration</span>
+          </h1>
+          <p className="text-white/85 text-lg leading-relaxed max-w-2xl">
+            Plan an unforgettable trip across the Emirates with insider tips, destination guides and the latest from our team.
+          </p>
         </div>
       </section>
 
-      <section className="py-16 bg-neutral-50 min-h-[40vh]">
+      <section className="py-16 bg-[var(--c-bg)] min-h-[40vh]">
         <div className="container-xl">
           {posts.length===0?(
             <div className="text-center py-16">
               <p className="text-5xl mb-4">📝</p>
-              <h2 className="font-display font-semibold text-xl text-neutral-800 mb-2">Stories are on the way</h2>
-              <p className="text-neutral-500">We&rsquo;re putting together travel guides and tips. Check back soon — or <Link href="/contact-us" className="text-primary font-semibold hover:text-primary-dark">ask us anything</Link> in the meantime.</p>
+              <h2 className="font-display font-semibold text-xl text-ink mb-2">Stories are on the way</h2>
+              <p className="text-neutral-500">We&rsquo;re writing fresh travel guides right now — check back soon.</p>
             </div>
           ):(
             <BlogIndex posts={posts}/>
