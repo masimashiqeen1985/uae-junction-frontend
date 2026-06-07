@@ -2,7 +2,7 @@ import type{Metadata}from'next'
 import{fetchGraphQL}from'@/lib/graphql-client'
 import{GET_CATEGORY_PRODUCTS}from'@/lib/queries/products'
 import type{WPProduct}from'@/types/wordpress'
-import{ProductCard}from'@/components/ui/ProductCard'
+import{FilterableProductGrid}from'@/components/ui/FilterableProductGrid'
 import{PageHero}from'@/components/layout/PageHero'
 import{QuoteForm}from'@/components/home/QuoteForm'
 
@@ -50,12 +50,7 @@ export default async function Page(){
       />
 
       {products.length>0?(
-        <div className="container-xl py-10 sm:py-12">
-          <p className="text-sm text-neutral-500 mb-6" aria-live="polite">{products.length} desert safari package{products.length===1?'':'s'}</p>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-            {products.map(pr=><ProductCard key={pr.id} product={pr}/>)}
-          </div>
-        </div>
+        <FilterableProductGrid products={products} noun="desert safari package"/>
       ):(
         <div className="container-xl py-16 text-center">
           <p className="text-neutral-500">Desert safari packages are coming soon — check back shortly, or get a free quote below.</p>
