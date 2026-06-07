@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react'
 import './vibrant-home.css'
 import { SocialIcons } from '@/components/layout/SocialIcons'
+import { HeroSearch, type HeroCountry } from '@/components/home/HeroSearch'
 
 /**
  * Vibrant Junction — full homepage.
@@ -11,7 +12,7 @@ import { SocialIcons } from '@/components/layout/SocialIcons'
  * effect below. Product/listing data is currently static and structured so each
  * card array can be swapped for a WPGraphQL source in the CMS-binding phase.
  */
-export function VibrantHome() {
+export function VibrantHome({ destinations = [] }: { destinations?: HeroCountry[] }) {
   const root = useRef<HTMLDivElement>(null)
   const catRowRef = useRef<HTMLDivElement>(null)
 
@@ -56,31 +57,6 @@ export function VibrantHome() {
       clearTimeout(tTimer)
       tTimer = setTimeout(() => { if (tEl) { tEl.style.opacity = '0'; tEl.style.transform = 'translateX(-50%) translateY(20px)' } }, 2600)
     }
-
-    // search category tabs -> swap active + placeholder
-    const ph: Record<string, string[]> = {
-      Experiences: ['Desert safari, Aquaventure…', 'Dubai', 'This weekend'],
-      Staycations: ['Resort, beach hotel, spa…', 'Dubai', 'Choose your dates'],
-      Packages: ['Umrah, holiday, city break…', 'Any destination', 'Flexible dates'],
-    }
-    const tabs = Array.from(r.querySelectorAll<HTMLButtonElement>('.search-tabs button'))
-    const inputs = Array.from(r.querySelectorAll<HTMLInputElement>('.searchbar .field input'))
-    tabs.forEach((b) => b.addEventListener('click', () => {
-      tabs.forEach((x) => { x.classList.remove('active'); x.setAttribute('aria-selected', 'false') })
-      b.classList.add('active'); b.setAttribute('aria-selected', 'true')
-      const p = ph[(b.textContent || '').trim()]
-      if (p && inputs.length >= 3) { inputs[0].placeholder = p[0]; inputs[1].placeholder = p[1]; inputs[2].placeholder = p[2] }
-    }))
-
-    // search button -> demo search
-    const go = r.querySelector<HTMLButtonElement>('.search-go')
-    const onGo = (e: Event) => {
-      e.preventDefault()
-      const query = inputs[0] ? inputs[0].value.trim() : ''
-      window.location.href = '/experiences' + (query ? '?q=' + encodeURIComponent(query) : '')
-    }
-    if (go) go.addEventListener('click', onGo)
-    inputs.forEach((i) => i.addEventListener('keydown', (e) => { if ((e as KeyboardEvent).key === 'Enter' && go) go.click() }))
 
     // wishlist hearts
     let saved = 0
@@ -130,19 +106,7 @@ export function VibrantHome() {
       </div>
       <h1>Every UAE experience, in one place.</h1>
       <p className="sub">From theme parks and desert safaris to dhow cruises, city tours and far beyond — book in seconds, get instant tickets, cancel free if plans change, and earn a flat <b>2.5% cashback on every single booking</b>.</p>
-      <div className="searchwrap">
-      <div className="search-tabs" role="tablist">
-      <button className="active" role="tab" aria-selected="true">Experiences</button>
-      <button role="tab" aria-selected="false">Staycations</button>
-      <button role="tab" aria-selected="false">Packages</button>
-      </div>
-      <div className="searchbar">
-      <label className="field"><span className="ic">🔍</span><span style={{minWidth:'0',flex:'1'}}><small>What to do</small><input type="text" placeholder="Desert safari, Aquaventure…" aria-label="Search experiences" /></span></label>
-      <label className="field"><span className="ic">📍</span><span style={{minWidth:'0',flex:'1'}}><small>Where</small><input type="text" placeholder="Dubai" aria-label="City" /></span></label>
-      <label className="field"><span className="ic">📅</span><span style={{minWidth:'0',flex:'1'}}><small>When</small><input type="text" placeholder="This weekend" aria-label="Date" /></span></label>
-      <button className="btn btn-grad search-go" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Search</button>
-      </div>
-      </div>
+      <HeroSearch destinations={destinations} />
       <div className="hero-trust">
       <span><span className="stars">★★★★★</span> 4.9 / 5 · 12,400 reviews</span>
       <span>✅ Instant confirmation</span>
