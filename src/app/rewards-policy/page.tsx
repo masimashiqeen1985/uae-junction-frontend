@@ -10,8 +10,8 @@ const earn: [string, string][] = [
   ['Create your account', '50,000'],
   ['Complete your profile', '50,000'],
   ['Log in each day', '5,000 / day'],
-  ['Refer a friend (they sign up)', '50,000'],
-  ['Your referred friend makes their first booking', '150,000'],
+  ['Refer a friend (they sign up) — credited instantly', '50,000'],
+  ['Your referred friend makes their first booking', '200,000'],
   ['Your birthday', '100,000'],
   ['Write a review on a product you bought', '25,000'],
   ['Every AED you spend on a booking', '250 points'],
@@ -54,7 +54,7 @@ export default function Page() {
         <p className="text-neutral-700 mt-4">
           <strong>Welcome &amp; activity bonuses unlock after your first purchase.</strong> Points
           from registration, profile completion, daily logins and friend sign-ups are credited right
-          away and become available to redeem once you complete your first booking. A successful referral — your friend signs up and completes their first booking — earns you a total of 200,000 points, worth AED 20.
+          away and become available to redeem once you complete your first booking. Referrals pay you AED 5 (50,000 points) instantly when your friend signs up — instant credit applies to your first 10 unconverted referrals each rolling year — plus AED 20 (200,000 points) when they complete their first booking. That is AED 25 per successful referral.
         </p>
         <p className="text-neutral-600 text-sm mt-3">
           Limits that keep things fair: daily login points are awarded once per calendar day, up to
