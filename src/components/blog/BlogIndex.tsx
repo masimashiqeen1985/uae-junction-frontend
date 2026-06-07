@@ -23,7 +23,7 @@ function strip(html?:string){return decodeEntities((html??'').replace(/<[^>]+>/g
 
 function readMins(p:WPPost){
   const words=strip(p.excerpt).split(/\s+/).filter(Boolean).length
-  return Math.max(3,Math.round(words/40))// excerpt-based estimate; full posts avg 4-7 min
+  return Math.min(8,Math.max(3,Math.round(words/45)))// excerpt-based estimate, clamped 3-8 min
 }
 
 const clamp3:React.CSSProperties={display:'-webkit-box',WebkitLineClamp:3,WebkitBoxOrient:'vertical',overflow:'hidden'}
