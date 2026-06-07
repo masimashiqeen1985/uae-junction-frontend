@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Minus, Plus, Trash2, Loader2, ShoppingBag } from 'lucide-react'
 import { useCart } from './CartProvider'
 import { OrderSummary } from '@/components/commerce/OrderSummary'
-import { formatPrice } from '@/lib/utils'
+import { formatPrice, formatBookingDate } from '@/lib/utils'
 import type { CartItem } from '@/lib/queries/cart'
 
 function QtyStepper({ item }: { item: CartItem }) {
@@ -28,8 +28,9 @@ function QtyStepper({ item }: { item: CartItem }) {
 }
 
 function LineItem({ item }: { item: CartItem }) {
-  const { removeItem, status } = useCart()
+  const { removeItem, status, bookingDates } = useCart()
   const p = item.product.node
+  const travelDate = bookingDates[p.databaseId]
   return (
     <div className="flex gap-4 py-5">
       <Link href={`/product/${p.slug}`} className="relative h-20 w-24 flex-shrink-0 overflow-hidden rounded-btn bg-neutral-100">
@@ -40,6 +41,7 @@ function LineItem({ item }: { item: CartItem }) {
       <div className="min-w-0 flex-1">
         <Link href={`/product/${p.slug}`} className="font-display font-semibold text-sm text-secondary hover:text-primary line-clamp-2">{p.name}</Link>
         <p className="mt-1 text-sm text-neutral-500">AED {formatPrice(item.subtotal)}</p>
+        {travelDate && <p className="mt-0.5 text-xs font-medium text-primary-dark">Travel date: {formatBookingDate(travelDate)}</p>}
         <div className="mt-3 flex items-center gap-4">
           <QtyStepper item={item} />
           <button type="button" onClick={() => removeItem(item.key)} disabled={status === 'mutating'}

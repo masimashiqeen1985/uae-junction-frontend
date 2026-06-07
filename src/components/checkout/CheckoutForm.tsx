@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useCart } from '@/components/cart/CartProvider'
+import { formatBookingDate } from '@/lib/utils'
 import { OrderSummary } from '@/components/commerce/OrderSummary'
 import { PaymentMethods } from '@/components/checkout/PaymentMethods'
 import { ORDER_SNAPSHOT_KEY, type OrderSnapshot } from '@/components/checkout/OrderConfirmation'
@@ -75,7 +76,7 @@ function Field({
 }
 
 export function CheckoutForm() {
-  const { cart, status, refresh } = useCart()
+  const { cart, status, refresh, bookingDates } = useCart()
   const router = useRouter()
   const reduceMotion = useReducedMotion()
   const [fields, setFields] = useState<Fields>({
@@ -145,11 +146,18 @@ export function CheckoutForm() {
     }
     setSubmitting(true)
     setFormError(null)
+    // Fold per-line travel dates into the order's customer note (frontend-only;
+    // no Woo cart item-meta). Shows in Woo admin + the confirmation snapshot.
+    const dateLines = (cart?.contents?.nodes ?? [])
+      .map((n) => { const d = bookingDates[n.product.node.databaseId]; return d ? `• ${n.product.node.name}${n.quantity > 1 ? ` ×${n.quantity}` : ''} — ${formatBookingDate(d)}` : null })
+      .filter(Boolean)
+    const noteWithDates = [fields.note?.trim(), dateLines.length ? `Travel dates:\n${dateLines.join('\n')}` : '']
+      .filter(Boolean).join('\n\n')
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...fields, website: '' }),
+        body: JSON.stringify({ ...fields, note: noteWithDates, website: '' }),
       })
       const data = (await res.json().catch(() => ({}))) as Partial<CheckoutResult> & { error?: string }
       if (!res.ok || !data.order?.orderNumber) {
@@ -170,6 +178,7 @@ export function CheckoutForm() {
           subtotal: cart?.subtotal,
           items: cart?.contents?.nodes?.map((n) => ({
             name: n.product.node.name, qty: n.quantity, total: n.total,
+            date: bookingDates[n.product.node.databaseId] || undefined,
           })),
           placedAt: Date.now(),
         }
@@ -181,7 +190,7 @@ export function CheckoutForm() {
       setFormError(ERROR_COPY['checkout-unavailable'])
       setSubmitting(false)
     }
-  }, [fields, submitting, refresh, router, cart])
+  }, [fields, submitting, refresh, router, cart, bookingDates])
 
   // ---- Empty cart guard ----
   if (status === 'loading' && !cart) {

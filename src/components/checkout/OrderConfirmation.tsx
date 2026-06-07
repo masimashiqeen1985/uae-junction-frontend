@@ -9,7 +9,7 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useCart } from '@/components/cart/CartProvider'
-import { formatPrice } from '@/lib/utils'
+import { formatPrice, formatBookingDate } from '@/lib/utils'
 
 export const ORDER_SNAPSHOT_KEY = 'uaej:last-order'
 
@@ -19,7 +19,7 @@ export interface OrderSnapshot {
   status: string
   firstName?: string
   subtotal?: string
-  items?: { name: string; qty: number; total: string }[]
+  items?: { name: string; qty: number; total: string; date?: string }[]
   placedAt?: number
 }
 
@@ -330,6 +330,7 @@ export function OrderConfirmation() {
                 <span className="text-neutral-600">
                   {it.name}
                   {it.qty > 1 && <span className="ml-1.5 text-neutral-400">× {it.qty}</span>}
+                  {it.date && <span className="mt-0.5 block text-xs font-medium text-primary-dark">Travel date: {formatBookingDate(it.date)}</span>}
                 </span>
                 <span className="shrink-0 font-semibold text-secondary">{money(it.total) || '—'}</span>
               </li>

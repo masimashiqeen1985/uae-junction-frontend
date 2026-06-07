@@ -6,7 +6,7 @@ import type{WPProduct}from'@/types/wordpress'
 import{WPImage}from'@/components/ui/WPImage'
 import{Badge}from'@/components/ui/Badge'
 import{formatPrice}from'@/lib/utils'
-import{AddToCartButton}from'@/components/cart/AddToCartButton'
+import{BookingControls}from'@/components/cart/BookingControls'
 import{WishlistButton}from'@/components/wishlist/WishlistButton'
 import{ShareButtons}from'@/components/wishlist/ShareButtons'
 
@@ -87,7 +87,7 @@ export default async function ProductPage({params}:Props){
 
           {product.shortDescription&&<div className="prose prose-neutral text-neutral-600 mb-6" dangerouslySetInnerHTML={{__html:product.shortDescription}}/>}
 
-          <div className="mb-6"><AddToCartButton productId={product.databaseId} /></div>
+          <div className="mb-6"><BookingControls productId={product.databaseId} productName={product.name} /></div>
 
           <p className="text-sm text-neutral-500">Instant confirmation · Flat 2.5% cashback on every booking.</p>
 

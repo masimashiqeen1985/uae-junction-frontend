@@ -13,6 +13,8 @@ interface CartCtx {
   updateQty: (key: string, quantity: number) => Promise<void>
   removeItem: (key: string) => Promise<void>
   clearCart: () => Promise<void>
+  bookingDates: Record<number, string>
+  setBookingDate: (productId: number, isoDate: string) => void
 }
 
 const Ctx = createContext<CartCtx | null>(null)
@@ -31,6 +33,25 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<Cart | null>(null)
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState<string | null>(null)
+  const [bookingDates, setBookingDates] = useState<Record<number, string>>({})
+
+  // Travel dates are a frontend-only concern (no Woo cart item-meta change):
+  // persisted per productId in localStorage and folded into the order's
+  // customer note at checkout. Survives guest sessions and reloads.
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('uaej:booking-dates')
+      if (raw) setBookingDates(JSON.parse(raw) as Record<number, string>)
+    } catch { /* ignore corrupt/unavailable storage */ }
+  }, [])
+
+  const setBookingDate = useCallback((productId: number, isoDate: string) => {
+    setBookingDates((prev) => {
+      const next = { ...prev, [productId]: isoDate }
+      try { localStorage.setItem('uaej:booking-dates', JSON.stringify(next)) } catch { /* non-fatal */ }
+      return next
+    })
+  }, [])
 
   const refresh = useCallback(async () => {
     setStatus('loading')
@@ -70,7 +91,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const itemCount = cart?.contents?.itemCount ?? 0
 
   return (
-    <Ctx.Provider value={{ cart, itemCount, status, error, refresh, addToCart, updateQty, removeItem, clearCart }}>
+    <Ctx.Provider value={{ cart, itemCount, status, error, refresh, addToCart, updateQty, removeItem, clearCart, bookingDates, setBookingDate }}>
       {children}
     </Ctx.Provider>
   )
