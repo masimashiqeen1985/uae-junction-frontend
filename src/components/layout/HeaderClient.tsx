@@ -1,11 +1,12 @@
 'use client'
 import Link from 'next/link'
 import { CartBadge } from '@/components/cart/CartBadge'
+import { WishlistBadge } from '@/components/wishlist/WishlistBadge'
 import { usePathname } from 'next/navigation'
 import { useState, type MouseEvent } from 'react'
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from 'framer-motion'
 import {
-  ShoppingCart, Search, Menu, ChevronDown, Wallet,
+  ShoppingCart, Search, Menu, ChevronDown, Wallet, Heart,
   Ticket, Waves, Tent, Ship, Sparkles, Building2, Plane, MapPin, Compass, Moon, Star,
 } from 'lucide-react'
 import { AuthDropdown } from '@/components/auth/AuthDropdown'
@@ -148,6 +149,10 @@ export function HeaderClient({ nav, providers, authConfigured }: Props) {
               <button type="button" aria-label="Search" aria-haspopup="dialog" onClick={() => setSearchOpen(true)} className={`focus-ring rounded-full p-2 transition-colors hover:text-[var(--c-primary)] ${textColor}`}>
                 <Search className="h-5 w-5" />
               </button>
+              <Link href="/my-account/wishlist" aria-label="Wishlist" className={`focus-ring relative rounded-full p-2 transition-colors hover:text-[var(--c-primary)] ${textColor}`}>
+                <Heart className="h-5 w-5" />
+                <WishlistBadge />
+              </Link>
               <Link href="/cart" aria-label="Cart" className={`focus-ring relative rounded-full p-2 transition-colors hover:text-[var(--c-primary)] ${textColor}`}>
                 <ShoppingCart className="h-5 w-5" />
                 <CartBadge />

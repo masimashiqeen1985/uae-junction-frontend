@@ -7,6 +7,7 @@ import { GroupCorporateTab } from '@/components/layout/GroupCorporateTab'
 import { SiteChrome } from '@/components/layout/SiteChrome'
 import { SessionWrapper } from '@/components/providers/SessionWrapper'
 import { CartProvider } from '@/components/cart/CartProvider'
+import { WishlistProvider } from '@/components/wishlist/WishlistProvider'
 import { authProviderFlags } from '@/auth'
 
 const SITE_URL = 'https://www.theuaejunction.cloud'
@@ -67,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         {/* SessionProvider only mounts when auth is configured (AUTH_SECRET present),
             so the live site never polls /api/auth/session before secrets exist. */}
-        <CartProvider>{authProviderFlags.configured ? <SessionWrapper>{body}</SessionWrapper> : body}</CartProvider>
+        <CartProvider><WishlistProvider>{authProviderFlags.configured ? <SessionWrapper>{body}</SessionWrapper> : body}</WishlistProvider></CartProvider>
       </body>
     </html>
   )

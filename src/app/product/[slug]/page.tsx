@@ -7,6 +7,8 @@ import{WPImage}from'@/components/ui/WPImage'
 import{Badge}from'@/components/ui/Badge'
 import{formatPrice}from'@/lib/utils'
 import{AddToCartButton}from'@/components/cart/AddToCartButton'
+import{WishlistButton}from'@/components/wishlist/WishlistButton'
+import{ShareButtons}from'@/components/wishlist/ShareButtons'
 
 // Self-contained, schema-verified single-product query. Pricing fields live on
 // SimpleProduct (inline fragment); no ACF/SEO fields (not registered on this CMS).
@@ -73,7 +75,10 @@ export default async function ProductPage({params}:Props){
         </div>
 
         <div>
-          <h1 className="font-display font-bold text-2xl sm:text-3xl text-neutral-900 mb-4">{product.name}</h1>
+          <div className="mb-4 flex items-start justify-between gap-3">
+            <h1 className="font-display font-bold text-2xl sm:text-3xl text-neutral-900">{product.name}</h1>
+            <WishlistButton productId={product.databaseId} productName={product.name} className="shrink-0"/>
+          </div>
 
           <div className="flex items-baseline gap-3 mb-6">
             {struck&&<span className="text-neutral-400 text-lg line-through">AED {struck}</span>}
@@ -85,6 +90,8 @@ export default async function ProductPage({params}:Props){
           <div className="mb-6"><AddToCartButton productId={product.databaseId} /></div>
 
           <p className="text-sm text-neutral-500">Instant confirmation · Flat 2.5% cashback on every booking.</p>
+
+          <ShareButtons title={`${product.name} | The UAE Junction`} url={`https://www.theuaejunction.cloud/product/${product.slug}`} className="mt-6"/>
         </div>
       </div>
 

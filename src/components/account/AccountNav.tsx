@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 import {
-  LayoutDashboard, CalendarCheck, UserRound, Wallet, LogOut,
+  LayoutDashboard, CalendarCheck, UserRound, Wallet, LogOut, Heart,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -15,6 +15,7 @@ const ITEMS = [
   { href: '/my-account/orders', label: 'My bookings', icon: CalendarCheck },
   { href: '/my-account/profile', label: 'Profile', icon: UserRound },
   { href: '/my-account/rewards', label: 'Rewards', icon: Wallet },
+  { href: '/my-account/wishlist', label: 'Wishlist', icon: Heart },
 ] as const
 
 export function AccountNav({ name, email }: { name: string | null; email: string | null }) {

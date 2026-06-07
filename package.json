@@ -13,7 +13,7 @@
     "next": "15.3.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "framer-motion": "^12.18.1",
+    "framer-motion": "12.18.1",
     "gsap": "^3.13.0",
     "@gsap/react": "^2.1.2",
     "clsx": "^2.1.1",
@@ -39,5 +39,9 @@
     "eslint-plugin-react-hooks": "5.2.0",
     "tailwindcss": "^4.1.8",
     "typescript": "^5"
+  },
+  "overrides": {
+    "motion-dom": "12.18.1",
+    "motion-utils": "12.18.1"
   }
 }
