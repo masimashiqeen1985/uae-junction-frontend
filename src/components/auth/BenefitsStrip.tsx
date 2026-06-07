@@ -8,7 +8,7 @@ import { Wallet, Gift, Users2, Zap } from 'lucide-react'
 const BENEFITS = [
   { icon: Wallet, label: '2.5% cashback on every booking' },
   { icon: Gift, label: 'Joining bonus on your first booking' },
-  { icon: Users2, label: 'Referral bonus — you & your friend both earn' },
+  { icon: Users2, label: 'AED 20 referral bonus for every friend who books' },
   { icon: Zap, label: 'Faster checkout & order tracking' },
 ] as const
 
