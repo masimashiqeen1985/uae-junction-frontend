@@ -158,7 +158,7 @@ export function RewardsView({
         <section aria-label="Refer a friend" className="rounded-card bg-white p-5 shadow-card sm:p-6">
           <h2 className="font-display mb-1 text-lg font-bold text-secondary">Refer a friend, earn together</h2>
           <p className="text-sm text-neutral-500">
-            Share your code — earn AED 20 in reward points when your friend signs up and completes their first booking.
+            Share your code — earn AED 5 instantly when your friend signs up, plus AED 20 more when they complete their first booking.
             {typeof loyalty.totalReferrals === 'number' && loyalty.totalReferrals > 0 && (
               <> You’ve referred <strong className="text-secondary">{loyalty.totalReferrals}</strong> so far.</>
             )}
