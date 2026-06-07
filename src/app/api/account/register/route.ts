@@ -34,6 +34,11 @@ export async function POST(req: NextRequest) {
   const password = typeof body?.password === 'string' ? body.password : ''
   const firstName = typeof body?.firstName === 'string' ? body.firstName.trim().slice(0, 60) : ''
   const lastName = typeof body?.lastName === 'string' ? body.lastName.trim().slice(0, 60) : ''
+  const rawRef =
+    (typeof body?.referralCode === 'string' ? body.referralCode : '') ||
+    req.cookies.get('uaej_ref')?.value ||
+    ''
+  const referralCode = /^[A-Za-z0-9-]{4,24}$/.test(rawRef.trim()) ? rawRef.trim().toUpperCase() : ''
 
   if (!EMAIL_RE.test(email) || password.length < 8 || !firstName) {
     return NextResponse.json({ ok: false, message: GENERIC_FAIL }, { status: 400 })
@@ -56,8 +61,54 @@ export async function POST(req: NextRequest) {
       // Sanitised: do not forward Woo's error text (user enumeration risk).
       return NextResponse.json({ ok: false, message: GENERIC_FAIL }, { status: 400 })
     }
-    return NextResponse.json({ ok: true })
+    // Best-effort referral credit (uaej-loyalty). Never blocks registration.
+    let referralApplied = false
+    if (referralCode) referralApplied = await applyReferral(email, password, referralCode)
+    const out = NextResponse.json({ ok: true, referralApplied })
+    if (referralApplied) out.cookies.delete('uaej_ref')
+    return out
   } catch {
     return NextResponse.json({ ok: false, message: GENERIC_FAIL }, { status: 502 })
+  }
+}
+
+const LOGIN_FOR_REFERRAL = `mutation LoginForReferral($username: String!, $password: String!) {
+  login(input: {clientMutationId: "register-referral", username: $username, password: $password}) {
+    authToken
+  }
+}`
+
+const APPLY_REFERRAL = `mutation ApplyReferral($code: String!) {
+  applyReferralCode(input: {code: $code}) {
+    success
+    message
+  }
+}`
+
+// The CMS only links a referral for an authenticated user, and the JWT plugin
+// does not issue tokens on register — so we log the brand-new user in
+// server-side and apply the code with their token. Any failure is swallowed:
+// the referral is a bonus, never a registration blocker.
+async function applyReferral(email: string, password: string, code: string): Promise<boolean> {
+  try {
+    const loginRes = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: LOGIN_FOR_REFERRAL, variables: { username: email, password } }),
+      cache: 'no-store',
+    })
+    const loginJson = await loginRes.json().catch(() => ({}))
+    const token = loginJson?.data?.login?.authToken
+    if (!token) return false
+    const res = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ query: APPLY_REFERRAL, variables: { code } }),
+      cache: 'no-store',
+    })
+    const json = await res.json().catch(() => ({}))
+    return Boolean(json?.data?.applyReferralCode?.success)
+  } catch {
+    return false
   }
 }
