@@ -3,8 +3,8 @@
 // Deliberately minimal (name, email, password) — extended traveller details
 // (nationality, residency, gender, WhatsApp) are collected progressively on
 // /my-account/profile (optional) and at checkout (mandatory).
-import { type FormEvent, type RefObject } from 'react'
-import { Mail, Lock, User, Loader2, ShieldCheck } from 'lucide-react'
+import { useEffect, useState, type FormEvent, type RefObject } from 'react'
+import { Mail, Lock, User, Loader2, ShieldCheck, Ticket } from 'lucide-react'
 import { BenefitsStrip } from './BenefitsStrip'
 
 type Props = {
@@ -16,6 +16,13 @@ type Props = {
 }
 
 export function RegisterPanel({ busy, error, firstFieldRef, onRegister, onSwitchToSignIn }: Props) {
+  // Prefill from the uaej_ref cookie set by middleware when a visitor lands
+  // on a referral link; editable so codes can also be typed manually.
+  const [refCode, setRefCode] = useState('')
+  useEffect(() => {
+    const m = document.cookie.match(/(?:^|;\s*)uaej_ref=([^;]+)/)
+    if (m) setRefCode(decodeURIComponent(m[1]))
+  }, [])
   return (
     <div className="px-5 pb-5 pt-4">
       <BenefitsStrip />
@@ -46,6 +53,14 @@ export function RegisterPanel({ busy, error, firstFieldRef, onRegister, onSwitch
           <span className="relative block">
             <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
             <input name="password" type="password" required minLength={8} autoComplete="new-password" placeholder="Password (8+ characters)" className="focus-ring w-full rounded-[10px] border border-neutral-200 py-2.5 pl-9 pr-3 text-sm outline-none focus:border-[var(--c-primary)]" />
+          </span>
+        </label>
+
+        <label className="block">
+          <span className="sr-only">Referral code (optional)</span>
+          <span className="relative block">
+            <Ticket className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
+            <input name="referralCode" type="text" value={refCode} onChange={(e) => setRefCode(e.target.value)} autoComplete="off" placeholder="Referral code (optional)" className="focus-ring w-full rounded-[10px] border border-neutral-200 py-2.5 pl-9 pr-3 text-sm outline-none focus:border-[var(--c-primary)]" />
           </span>
         </label>
 
