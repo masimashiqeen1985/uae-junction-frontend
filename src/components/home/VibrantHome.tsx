@@ -190,12 +190,12 @@ export function VibrantHome({ destinations = [] }: { destinations?: HeroCountry[
       </div>
       </div></section>
       <section><div className="wrap">
-      <div className="sec-head reveal"><div><span className="eyebrow">Where to next</span><h2>Top destinations across the Emirates</h2><p>Seven emirates, one platform — pick a city and we&apos;ll do the rest.</p></div><a href="#">All destinations →</a></div>
+      <div className="sec-head reveal"><div><span className="eyebrow">Where to next</span><h2>Top destinations across the Emirates</h2><p>Seven emirates, one platform — pick a city and we&apos;ll do the rest.</p></div><a href="https://www.theuaejunction.cloud/destinations" aria-label="View all destinations">All destinations →</a></div>
       <div className="dest-grid">
-      <a className="dest reveal" href="#"><img alt="Dubai skyline with Burj Khalifa" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/portrait-friends-visiting-luxurious-city-dubai.jpg?w=800&ssl=1" /><div className="b"><h3>Dubai</h3><div className="c">840+ things to do</div></div></a>
-      <a className="dest reveal" href="#"><img alt="Sheikh Zayed Grand Mosque in Abu Dhabi" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/06/SEA-FERRARI-YAS-WARNER-BROS.jpg?w=800&ssl=1" /><div className="b"><h3>Abu Dhabi</h3><div className="c">320+ things to do</div></div></a>
-      <a className="dest reveal" href="#"><img alt="Mountains and beaches of Ras Al Khaimah" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/high-angle-view-off-road-vehicle-desert.jpg?w=800&ssl=1" /><div className="b"><h3>Ras Al Khaimah</h3><div className="c">110+ things to do</div></div></a>
-      <a className="dest reveal" href="#"><img alt="Sharjah heritage architecture" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/Dubai-Fountain-1.jpg?w=800&ssl=1" /><div className="b"><h3>Sharjah</h3><div className="c">90+ things to do</div></div></a>
+      <a className="dest reveal" href="https://www.theuaejunction.cloud/destinations/dubai"><img alt="Dubai skyline with Burj Khalifa" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/portrait-friends-visiting-luxurious-city-dubai.jpg?w=800&ssl=1" /><div className="b"><h3>Dubai</h3><div className="c">840+ things to do</div></div></a>
+      <a className="dest reveal" href="https://www.theuaejunction.cloud/destinations/abu-dhabi"><img alt="Sheikh Zayed Grand Mosque in Abu Dhabi" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/06/SEA-FERRARI-YAS-WARNER-BROS.jpg?w=800&ssl=1" /><div className="b"><h3>Abu Dhabi</h3><div className="c">320+ things to do</div></div></a>
+      <a className="dest reveal" href="https://www.theuaejunction.cloud/destinations/ras-al-khaimah"><img alt="Mountains and beaches of Ras Al Khaimah" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/high-angle-view-off-road-vehicle-desert.jpg?w=800&ssl=1" /><div className="b"><h3>Ras Al Khaimah</h3><div className="c">110+ things to do</div></div></a>
+      <a className="dest reveal" href="https://www.theuaejunction.cloud/destinations/sharjah"><img alt="Sharjah heritage architecture" src="https://i0.wp.com/theuaejunction.com/wp-content/uploads/2025/04/Dubai-Fountain-1.jpg?w=800&ssl=1" /><div className="b"><h3>Sharjah</h3><div className="c">90+ things to do</div></div></a>
       </div>
       </div></section>
       <section id="countries"><div className="wrap">
