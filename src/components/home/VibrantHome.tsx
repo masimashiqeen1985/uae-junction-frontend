@@ -99,7 +99,7 @@ export function VibrantHome({ destinations = [] }: { destinations?: HeroCountry[
     <div className="vibrant-home" ref={root}>
       {/* Navigation is provided by the global SiteChrome header on every route */}
       <header className="hero">
-      <div className="blob b1"></div><div className="blob b2"></div>
+      <div className="hero-bg" aria-hidden="true"><div className="blob b1"></div><div className="blob b2"></div></div>
       <div className="wrap">
       <div className="hero-top">
       <span className="pill">💸 Flat 2.5% cashback — every booking, no exceptions</span>
