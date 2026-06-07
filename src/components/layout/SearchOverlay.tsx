@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { useEffect, useRef, useState, useCallback, type KeyboardEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { Search, X, Loader2, ArrowRight, SearchX } from 'lucide-react'
-import type { SearchResult } from '@/app/api/search/route'
+import { Search, X, Loader2, ArrowRight, SearchX, MapPin } from 'lucide-react'
+import type { SearchResult, DestinationResult } from '@/app/api/search/route'
 
 type Props = {
   open: boolean
@@ -18,6 +18,7 @@ export function SearchOverlay({ open, onClose }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [term, setTerm] = useState('')
   const [results, setResults] = useState<SearchResult[]>([])
+  const [dests, setDests] = useState<DestinationResult[]>([])
   const [loading, setLoading] = useState(false)
   const [touched, setTouched] = useState(false)
   const [active, setActive] = useState(-1)
@@ -27,6 +28,7 @@ export function SearchOverlay({ open, onClose }: Props) {
     if (!open) return
     setTerm('')
     setResults([])
+    setDests([])
     setTouched(false)
     setActive(-1)
     const id = window.setTimeout(() => inputRef.current?.focus(), 60)
@@ -49,6 +51,7 @@ export function SearchOverlay({ open, onClose }: Props) {
     const q = term.trim()
     if (q.length < 2) {
       setResults([])
+      setDests([])
       setLoading(false)
       setTouched(q.length > 0)
       return
@@ -59,11 +62,12 @@ export function SearchOverlay({ open, onClose }: Props) {
     const id = window.setTimeout(async () => {
       try {
         const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`, { signal: ctrl.signal })
-        const json = (await res.json()) as { results?: SearchResult[] }
+        const json = (await res.json()) as { results?: SearchResult[]; destinations?: DestinationResult[] }
         setResults(Array.isArray(json.results) ? json.results : [])
+        setDests(Array.isArray(json.destinations) ? json.destinations : [])
         setActive(-1)
       } catch (err) {
-        if ((err as Error).name !== 'AbortError') setResults([])
+        if ((err as Error).name !== 'AbortError') { setResults([]); setDests([]) }
       } finally {
         setLoading(false)
       }
@@ -75,12 +79,18 @@ export function SearchOverlay({ open, onClose }: Props) {
   }, [term, open])
 
   const go = useCallback(
-    (slug: string) => {
+    (href: string) => {
       onClose()
-      router.push(`/product/${slug}`)
+      router.push(href)
     },
     [onClose, router],
   )
+
+  // Unified keyboard order: destinations first, then products.
+  const navItems: Array<{ href: string }> = [
+    ...dests.map((d) => ({ href: `/destinations/${d.slug}` })),
+    ...results.map((r) => ({ href: `/product/${r.slug}` })),
+  ]
 
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -88,20 +98,20 @@ export function SearchOverlay({ open, onClose }: Props) {
       onClose()
       return
     }
-    if (!results.length) return
+    if (!navItems.length) return
     if (e.key === 'ArrowDown') {
       e.preventDefault()
-      setActive((i) => (i + 1) % results.length)
+      setActive((i) => (i + 1) % navItems.length)
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
-      setActive((i) => (i <= 0 ? results.length - 1 : i - 1))
+      setActive((i) => (i <= 0 ? navItems.length - 1 : i - 1))
     } else if (e.key === 'Enter' && active >= 0) {
       e.preventDefault()
-      go(results[active].slug)
+      go(navItems[active].href)
     }
   }
 
-  const showEmpty = touched && !loading && term.trim().length >= 2 && results.length === 0
+  const showEmpty = touched && !loading && term.trim().length >= 2 && results.length === 0 && dests.length === 0
 
   return (
     <AnimatePresence>
@@ -161,16 +171,47 @@ export function SearchOverlay({ open, onClose }: Props) {
 
             {/* Results */}
             <div id="search-results" role="listbox" aria-label="Search results" className="max-h-[60vh] overflow-y-auto">
-              {results.map((r, i) => (
+              {dests.map((d, i) => (
                 <Link
-                  key={r.id}
-                  href={`/product/${r.slug}`}
+                  key={`dest-${d.slug}`}
+                  href={`/destinations/${d.slug}`}
                   role="option"
                   aria-selected={active === i}
                   onClick={onClose}
                   onMouseEnter={() => setActive(i)}
                   className={`flex items-center gap-3 px-4 py-3 transition-colors sm:px-5 ${
                     active === i ? 'bg-[#e7faf7]' : 'hover:bg-neutral-50'
+                  }`}
+                >
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#0bf0c8]/20 to-[#5b6cff]/20 text-[var(--c-primary-dark)]">
+                    <MapPin className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-sm font-semibold text-neutral-800">
+                      Discover {d.name}
+                      {d.country && <span className="ml-1.5 font-normal text-neutral-400">{d.country}</span>}
+                    </span>
+                    <span className="mt-0.5 block text-xs text-[var(--c-primary-dark)] font-semibold">
+                      {d.count} experience{d.count === 1 ? '' : 's'} — see everything to do
+                    </span>
+                  </span>
+                  <span className="shrink-0 rounded-full bg-[#e7faf7] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[var(--c-primary-dark)]">
+                    Destination
+                  </span>
+                  <ArrowRight className="h-4 w-4 shrink-0 text-neutral-300" aria-hidden="true" />
+                </Link>
+              ))}
+
+              {results.map((r, i) => (
+                <Link
+                  key={r.id}
+                  href={`/product/${r.slug}`}
+                  role="option"
+                  aria-selected={active === i + dests.length}
+                  onClick={onClose}
+                  onMouseEnter={() => setActive(i + dests.length)}
+                  className={`flex items-center gap-3 px-4 py-3 transition-colors sm:px-5 ${
+                    active === i + dests.length ? 'bg-[#e7faf7]' : 'hover:bg-neutral-50'
                   }`}
                 >
                   <span className="flex h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-neutral-100">
