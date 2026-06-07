@@ -268,5 +268,5 @@ html{scroll-behavior:auto}}
 }
 
 /* Hero popovers must not be clipped: blobs get their own clipping layer, hero stacks above .cats (z 5) */
-.vibrant-home .hero{overflow:visible;z-index:6}
+.vibrant-home header.hero{overflow:visible;z-index:6}
 .vibrant-home .hero .hero-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
