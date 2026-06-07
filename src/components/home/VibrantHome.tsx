@@ -105,12 +105,11 @@ export function VibrantHome({ destinations = [] }: { destinations?: HeroCountry[
       <span className="pill">💸 Flat 2.5% cashback — every booking, no exceptions</span>
       </div>
       <h1>Every UAE experience, in one place.</h1>
-      <p className="sub">From theme parks and desert safaris to dhow cruises, city tours and far beyond — book in seconds, get instant tickets, cancel free if plans change, and earn a flat <b>2.5% cashback on every single booking</b>.</p>
+      <p className="sub">From theme parks and desert safaris to dhow cruises, city tours and far beyond — book in seconds, get instant tickets, and earn a flat <b>2.5% cashback on every single booking</b>.</p>
       <HeroSearch destinations={destinations} />
       <div className="hero-trust">
       <span><span className="stars">★★★★★</span> 4.9 / 5 · 12,400 reviews</span>
       <span>✅ Instant confirmation</span>
-      <span>🔁 Free cancellation</span>
       </div>
       </div>
       </header>
@@ -279,7 +278,7 @@ export function VibrantHome({ destinations = [] }: { destinations?: HeroCountry[
       <div className="reviews">
       <div className="review reveal"><div className="stars">★★★★★</div><p>“Booked the desert safari and a dhow dinner in two minutes. Cashback hit my wallet instantly — used it on the kids&apos; Aquaventure tickets.”</p><div className="who"><div className="av">SA</div><div><b>Sara A.</b><small>Riyadh → Dubai</small></div></div></div>
       <div className="review reveal"><div className="stars">★★★★★</div><p>“Finally one place for all the tickets and tours. The 2.5% back is real money, not points — and the joining bonus paid for our coffee on day one.”</p><div className="who"><div className="av">JM</div><div><b>James M.</b><small>London → Abu Dhabi</small></div></div></div>
-      <div className="review reveal"><div className="stars">★★★★★</div><p>“Free cancellation saved me when plans changed. Re-booked a city tour same day and still got cashback. This is now my default for the UAE.”</p><div className="who"><div className="av">PR</div><div><b>Priya R.</b><small>Mumbai → Sharjah</small></div></div></div>
+      <div className="review reveal"><div className="stars">★★★★★</div><p>“Booking was instant and the cashback landed exactly as promised. Re-booked a city tour same day with zero hassle. This is now my default for the UAE.”</p><div className="who"><div className="av">PR</div><div><b>Priya R.</b><small>Mumbai → Sharjah</small></div></div></div>
       </div>
       </div></section>
       <section><div className="wrap"><div className="news reveal">
