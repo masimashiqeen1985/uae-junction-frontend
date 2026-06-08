@@ -5,6 +5,7 @@
 //                     Graceful empty/loading states — never an error dump.
 // • WalletTeaser    : logged-out. Sells the three program advantages with an
 //                     illustrative (clearly-labelled) balance + CTAs.
+//                     variant 'below' = stacked under form; 'side' = left column.
 // No new deps. On-brand tokens only. Mobile-first, reduced-motion safe, WCAG AA.
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
@@ -174,9 +175,16 @@ export function WalletCardLive() {
 }
 
 // ---------- LOGGED-OUT ----------
-export function WalletTeaser({ onCreateAccount }: { onCreateAccount?: () => void }) {
+export function WalletTeaser({
+  onCreateAccount,
+  variant = 'below',
+}: {
+  onCreateAccount?: () => void
+  variant?: 'below' | 'side'
+}) {
+  const wrapClass = variant === 'side' ? 'p-3' : 'mt-3 border-t border-black/5 pt-3'
   return (
-    <div className="mt-3 border-t border-black/5 pt-3">
+    <div className={wrapClass}>
       <WalletShell>
         <p className="text-[11px] font-semibold uppercase tracking-wide text-white/80">When you’re signed in</p>
         <p className="mt-0.5 flex items-center gap-1.5 text-base font-bold">
