@@ -1,4 +1,4 @@
-/* Vibrant Junction homepage styles ÃÂ¢ÃÂÃÂ ported verbatim from approved homepage-EDITS.html, scoped under .vibrant-home. Watermark badge removed. Do not globalize. */
+/* Vibrant Junction homepage styles — ported verbatim from approved homepage-EDITS.html, scoped under .vibrant-home. Watermark badge removed. Do not globalize. */
 :root{
   --ink:#0d1b2a; --muted:#5a6b7b; --line:#e8edf2; --bg:#f4f7fb; --card:#fff;
   --teal:#0bb8a6; --teal-d:#089b8c; --coral:#ff5a5f; --amber:#ffb020; --blue:#1390e0; --indigo:#5b6cff;
@@ -242,7 +242,7 @@ html{scroll-behavior:smooth}
 html{scroll-behavior:auto}}
 .vibrant-home .badge{position:fixed;right:14px;bottom:14px;background:var(--ink);color:#fff;font-size:.72rem;letter-spacing:.06em;padding:7px 13px;border-radius:999px;z-index:60;opacity:.88}
 
-/* ============ Hero search ÃÂ¢ÃÂÃÂ WHERE combobox + WHEN calendar ============ */
+/* ============ Hero search — WHERE combobox + WHEN calendar ============ */
 .vibrant-home .searchbar .sb-anchor{cursor:pointer}
 .vibrant-home .searchbar .sb-hint{box-shadow:0 0 0 2px #e0832b inset;border-radius:16px}
 .vibrant-home .searchbar .sb-when{display:flex;flex-direction:column;align-items:flex-start;gap:0;background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;width:100%;text-align:left}
