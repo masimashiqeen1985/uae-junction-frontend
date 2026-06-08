@@ -76,14 +76,14 @@ function Trigger({ open, onClick, label, image }: { open: boolean; onClick: () =
   )
 }
 
-function Panel({ children, label }: { children: React.ReactNode; label: string }) {
+function Panel({ children, label, wide = false }: { children: React.ReactNode; label: string; wide?: boolean }) {
   const reduce = useReducedMotion()
   return (
     <motion.div
       role="dialog"
       aria-label={label}
       {...(reduce ? {} : panelMotion)}
-      className="absolute right-0 top-[calc(100%+12px)] z-[60] w-[22rem] origin-top-right overflow-hidden rounded-2xl border border-black/5 bg-white shadow-2xl"
+      className={`absolute right-0 top-[calc(100%+12px)] z-[60] ${wide ? 'w-[22rem] lg:w-[42rem]' : 'w-[22rem]'} origin-top-right overflow-hidden rounded-2xl border border-black/5 bg-white shadow-2xl`}
     >
       {children}
     </motion.div>
@@ -250,11 +250,15 @@ function LiveDropdown({ providers }: { providers: Providers }) {
       <Trigger open={open} onClick={() => setOpen((v) => !v)} label={label} image={signedIn ? session.user?.image : null} />
       <AnimatePresence>
         {open && (
-          <Panel label={signedIn ? 'Account menu' : 'Sign in or create account'}>
+          <Panel label={signedIn ? 'Account menu' : 'Sign in or create account'} wide={!signedIn}>
             {signedIn ? (
               <AccountMenu name={session.user?.name} email={session.user?.email} onClose={close} onSignOut={() => void signOut({ callbackUrl: '/' })} />
             ) : (
-              <>
+              <div className="lg:flex">
+                <aside className="hidden border-r border-black/5 bg-neutral-50/40 lg:block lg:w-[19rem] lg:shrink-0">
+                  <WalletTeaser variant="side" onCreateAccount={() => switchTab('register')} />
+                </aside>
+                <div className="lg:min-w-0 lg:flex-1">
                 <TabsHeader tab={tab} onTab={switchTab} onClose={close} />
                 {tab === 'signin' ? (
                   <div id="dd-panel-signin" role="tabpanel" aria-labelledby="dd-tab-signin">
@@ -265,8 +269,11 @@ function LiveDropdown({ providers }: { providers: Providers }) {
                     <RegisterPanel busy={busy === 'register'} error={error} firstFieldRef={firstFieldRef} onRegister={onRegister} onSwitchToSignIn={() => switchTab('signin')} />
                   </div>
                 )}
+                <div className="lg:hidden">
                 <WalletTeaser onCreateAccount={() => switchTab('register')} />
-              </>
+                </div>
+                </div>
+              </div>
             )}
           </Panel>
         )}
@@ -294,7 +301,12 @@ function StaticDropdown({ providers }: { providers: Providers }) {
       <Trigger open={open} onClick={() => setOpen((v) => !v)} label="Sign in" />
       <AnimatePresence>
         {open && (
-          <Panel label="Sign in or create account">
+          <Panel label="Sign in or create account" wide>
+            <div className="lg:flex">
+              <aside className="hidden border-r border-black/5 bg-neutral-50/40 lg:block lg:w-[19rem] lg:shrink-0">
+                <WalletTeaser variant="side" onCreateAccount={() => switchTab('register')} />
+              </aside>
+              <div className="lg:min-w-0 lg:flex-1">
             <TabsHeader tab={tab} onTab={switchTab} onClose={close} />
             {tab === 'signin' ? (
               <div id="dd-panel-signin" role="tabpanel" aria-labelledby="dd-tab-signin">
@@ -305,7 +317,11 @@ function StaticDropdown({ providers }: { providers: Providers }) {
                 <RegisterPanel busy={false} error={error} firstFieldRef={firstFieldRef} onRegister={onSubmit} onSwitchToSignIn={() => switchTab('signin')} />
               </div>
             )}
+                <div className="lg:hidden">
                 <WalletTeaser onCreateAccount={() => switchTab('register')} />
+                </div>
+              </div>
+            </div>
           </Panel>
         )}
       </AnimatePresence>
