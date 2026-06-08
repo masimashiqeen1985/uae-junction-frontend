@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { User, LogOut, ChevronDown, X, CalendarCheck, Wallet } from 'lucide-react'
 import { SignInPanel } from './SignInPanel'
 import { RegisterPanel } from './RegisterPanel'
+import { WalletCardLive, WalletTeaser } from './WalletPanel'
 
 type Providers = { google: boolean; facebook: boolean }
 type Tab = 'signin' | 'register'
@@ -137,6 +138,7 @@ function TabsHeader({ tab, onTab, onClose }: { tab: Tab; onTab: (t: Tab) => void
 function AccountMenu({ name, email, onSignOut, onClose }: { name?: string | null; email?: string | null; onSignOut: () => void; onClose: () => void }) {
   return (
     <div className="p-2">
+      <WalletCardLive />
       <div className="flex items-center gap-3 rounded-xl bg-neutral-50 px-3 py-3">
         <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--c-primary)] text-white"><User className="h-5 w-5" /></span>
         <span className="min-w-0">
@@ -263,6 +265,7 @@ function LiveDropdown({ providers }: { providers: Providers }) {
                     <RegisterPanel busy={busy === 'register'} error={error} firstFieldRef={firstFieldRef} onRegister={onRegister} onSwitchToSignIn={() => switchTab('signin')} />
                   </div>
                 )}
+                <WalletTeaser onCreateAccount={() => switchTab('register')} />
               </>
             )}
           </Panel>
@@ -302,6 +305,7 @@ function StaticDropdown({ providers }: { providers: Providers }) {
                 <RegisterPanel busy={false} error={error} firstFieldRef={firstFieldRef} onRegister={onSubmit} onSwitchToSignIn={() => switchTab('signin')} />
               </div>
             )}
+                <WalletTeaser onCreateAccount={() => switchTab('register')} />
           </Panel>
         )}
       </AnimatePresence>
