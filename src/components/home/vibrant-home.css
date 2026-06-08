@@ -1,4 +1,4 @@
-/* Vibrant Junction homepage styles â ported verbatim from approved homepage-EDITS.html, scoped under .vibrant-home. Watermark badge removed. Do not globalize. */
+/* Vibrant Junction homepage styles Ã¢ÂÂ ported verbatim from approved homepage-EDITS.html, scoped under .vibrant-home. Watermark badge removed. Do not globalize. */
 :root{
   --ink:#0d1b2a; --muted:#5a6b7b; --line:#e8edf2; --bg:#f4f7fb; --card:#fff;
   --teal:#0bb8a6; --teal-d:#089b8c; --coral:#ff5a5f; --amber:#ffb020; --blue:#1390e0; --indigo:#5b6cff;
@@ -218,8 +218,9 @@ html{scroll-behavior:smooth}
 .vibrant-home footer a:hover{color:#fff}
 .vibrant-home .foot-brand b{color:var(--teal)}
 .vibrant-home .foot-brand .brand{color:#fff;font-size:1.3rem;font-weight:800}
-.vibrant-home .foot-pay{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-.vibrant-home .foot-pay span{background:rgba(255,255,255,.08);border-radius:8px;padding:6px 12px;font-size:.78rem;font-weight:700}
+.vibrant-home .foot-pay{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;align-items:center}
+.vibrant-home .foot-pay .pay-chip{background:#fff;border-radius:8px;padding:6px 12px;display:inline-flex;align-items:center;justify-content:center;height:30px;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.vibrant-home .foot-pay .pay-chip svg{display:block}
 .vibrant-home .foot-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-top:22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.84rem}
 .vibrant-home .walletcard{background:linear-gradient(135deg,#0bb8a6,#1390e0 55%,#5b6cff);border-radius:22px;padding:24px;color:#fff;box-shadow:0 20px 50px rgba(11,144,224,.35);position:relative;overflow:hidden}
 .vibrant-home .walletcard::after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.14);top:-90px;right:-60px}
@@ -242,7 +243,7 @@ html{scroll-behavior:smooth}
 html{scroll-behavior:auto}}
 .vibrant-home .badge{position:fixed;right:14px;bottom:14px;background:var(--ink);color:#fff;font-size:.72rem;letter-spacing:.06em;padding:7px 13px;border-radius:999px;z-index:60;opacity:.88}
 
-/* ============ Hero search â WHERE combobox + WHEN calendar ============ */
+/* ============ Hero search Ã¢ÂÂ WHERE combobox + WHEN calendar ============ */
 .vibrant-home .searchbar .sb-anchor{cursor:pointer}
 .vibrant-home .searchbar .sb-hint{box-shadow:0 0 0 2px #e0832b inset;border-radius:16px}
 .vibrant-home .searchbar .sb-when{display:flex;flex-direction:column;align-items:flex-start;gap:0;background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;width:100%;text-align:left}
