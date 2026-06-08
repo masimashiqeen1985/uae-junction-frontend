@@ -69,9 +69,61 @@ export function VibrantHome({ destinations = [] }: { destinations?: HeroCountry[
     }))
 
     // enquiry tabs
-    q('.enq-tab').forEach((t) => t.addEventListener('click', () => {
-      q('.enq-tab').forEach((x) => x.classList.remove('active')); t.classList.add('active')
+    // Hotels & Flights enquiry: functional tabs + real submit (WhatsApp / sales email)
+    const SALES_EMAIL = 'sales@theuaejunction.com'
+    const WHATSAPP = '971585898221'
+    const enqForm = r.querySelector<HTMLFormElement>('.enq-form')
+    const enqTabs = Array.from(r.querySelectorAll<HTMLButtonElement>('.enq-tab'))
+    let enqType = 'Hotel'
+    const todayISO = new Date().toISOString().slice(0, 10)
+    enqForm?.querySelectorAll<HTMLInputElement>('input[type="date"]').forEach((d) => { d.min = todayISO })
+    enqTabs.forEach((t) => t.addEventListener('click', () => {
+      enqTabs.forEach((x) => { x.classList.remove('active'); x.setAttribute('aria-pressed', 'false') })
+      t.classList.add('active'); t.setAttribute('aria-pressed', 'true')
+      enqType = (t.dataset.type || (t.textContent || 'Hotel').replace(/[^A-Za-z]/g, '')).trim() || 'Hotel'
+      const di = enqForm?.querySelector<HTMLInputElement>('input[name="destination"]')
+      if (di) di.placeholder = enqType === 'Flight' ? 'Dubai → Istanbul' : 'Dubai, Istanbul…'
     }))
+    if (enqForm) enqForm.addEventListener('submit', (ev) => {
+      ev.preventDefault()
+      const fq = (n: string) => enqForm.querySelector<HTMLInputElement | HTMLSelectElement>('[name="' + n + '"]')
+      const destEl = fq('destination') as HTMLInputElement | null
+      const travEl = fq('travellers') as HTMLSelectElement | null
+      const inEl = fq('checkin') as HTMLInputElement | null
+      const outEl = fq('checkout') as HTMLInputElement | null
+      const contactEl = fq('contact') as HTMLInputElement | null
+      const destination = destEl?.value.trim() || ''
+      const contact = contactEl?.value.trim() || ''
+      if (!destination) { toast('Please tell us your destination.'); destEl?.focus(); return }
+      if (!contact) { toast('Add a WhatsApp number or email so we can send your quote.'); contactEl?.focus(); return }
+      const fmt = (v?: string) => v ? new Date(v + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'
+      const isFlight = enqType === 'Flight'
+      const lines = [
+        'Hello UAE Junction — I’d like a quote.',
+        'Type: ' + enqType,
+        (isFlight ? 'Route: ' : 'Destination: ') + destination,
+        'Travellers: ' + (travEl?.value || '—'),
+        (isFlight ? 'Depart: ' : 'Check-in: ') + fmt(inEl?.value),
+        (isFlight ? 'Return: ' : 'Check-out: ') + fmt(outEl?.value),
+        'Contact: ' + contact,
+        '',
+        '(I understand hotels & flights are hand-priced, and I’ll earn 2.5% cashback once booked.)',
+      ]
+      const body = lines.join('\n')
+      const isEmail = /^[^\s\u0040]+\u0040[^\s\u0040]+\.[^\s\u0040]+$/.test(contact)
+      if (isEmail) {
+        const subject = encodeURIComponent('Quote request — ' + enqType + ' — ' + destination)
+        window.open('mailto:' + SALES_EMAIL + '?subject=' + subject + '&body=' + encodeURIComponent(body), '_blank', 'noopener')
+      } else {
+        window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(body), '_blank', 'noopener')
+      }
+      toast('✅ Opening your pre-filled enquiry — just hit send!')
+      enqForm.reset()
+      enqType = 'Hotel'
+      enqTabs.forEach((x, i) => { x.classList.toggle('active', i === 0); x.setAttribute('aria-pressed', i === 0 ? 'true' : 'false') })
+      const di2 = enqForm.querySelector<HTMLInputElement>('input[name="destination"]')
+      if (di2) di2.placeholder = 'Dubai, Istanbul…'
+    })
 
     // placeholder links -> demo toast
     q('a.cat[href="#"], a.card[href="#"], a.show-card[href="#"], a.dest[href="#"], a.country[href="#"]').forEach((a) =>
@@ -88,7 +140,7 @@ export function VibrantHome({ destinations = [] }: { destinations?: HeroCountry[
     )
 
     // forms -> prevent submit + toast
-    Array.from(r.querySelectorAll<HTMLFormElement>('form')).forEach((fm) =>
+    Array.from(r.querySelectorAll<HTMLFormElement>('form:not(.enq-form)')).forEach((fm) =>
       fm.addEventListener('submit', (e) => { e.preventDefault(); toast('ÃÂ¢ÃÂÃÂ Thanks! We will be in touch shortly. (demo)'); if (fm.reset) fm.reset() })
     )
 
@@ -209,7 +261,7 @@ export function VibrantHome({ destinations = [] }: { destinations?: HeroCountry[
       <div className="enquiry reveal">
       <div>
       <span className="pill pill-cash">Tailored for you</span>
-      <h2>Hotels &amp; Flights ÃÂ¢ÃÂÃÂ get a quote in minutes</h2>
+      <h2>Hotels &amp; Flights, Hand-Priced by Our UAE Travel Desk</h2>
       <p>Tell us where and when. Our UAE travel desk sends a hand-priced quote ÃÂ¢ÃÂÃÂ and you still earn 2.5% cashback once booked.</p>
       <ul className="enq-points">
       <li>ÃÂ¢ÃÂÃÂ Best regional &amp; international fares</li>
@@ -217,13 +269,32 @@ export function VibrantHome({ destinations = [] }: { destinations?: HeroCountry[
       <li>ÃÂ¢ÃÂÃÂ One desk for the whole itinerary</li>
       </ul>
       </div>
-      <form className="enq-form">
-      <div className="enq-tabs"><button type="button" className="enq-tab active">ÃÂ°ÃÂÃÂÃÂ¨ Hotel</button><button type="button" className="enq-tab">ÃÂ¢ÃÂÃÂÃÂ¯ÃÂ¸ÃÂ Flight</button><button type="button" className="enq-tab">ÃÂ°ÃÂÃÂ§ÃÂ³ Both</button></div>
-      <div className="enq-row"><label>Destination<input placeholder="Dubai, IstanbulÃÂ¢ÃÂÃÂ¦" /></label><label>Travellers<input placeholder="2 adults" /></label></div>
-      <div className="enq-row"><label>Check-in / Depart<input placeholder="12 Jun 2026" /></label><label>Check-out / Return<input placeholder="16 Jun 2026" /></label></div>
-      <label className="enq-full">Your WhatsApp or email<input placeholder="+971 50ÃÂ¢ÃÂÃÂ¦ or you@email.com" /></label>
-      <button className="btn btn-grad enq-submit">Request my quote ÃÂ¢ÃÂÃÂ</button>
-      <small className="enq-note">No payment now ÃÂÃÂ· typical reply within 2 hours</small>
+      <form className="enq-form" noValidate aria-label="Hotels and flights quote request">
+      <div className="enq-tabs" role="group" aria-label="What would you like a quote for?">
+      <button type="button" className="enq-tab active" data-type="Hotel" aria-pressed="true">🏨 Hotel</button>
+      <button type="button" className="enq-tab" data-type="Flight" aria-pressed="false">✈️ Flight</button>
+      <button type="button" className="enq-tab" data-type="Both" aria-pressed="false">🧳 Both</button>
+      </div>
+      <div className="enq-row">
+      <label>Destination<input name="destination" type="text" placeholder="Dubai, Istanbul…" required /></label>
+      <label>Travellers
+      <select name="travellers" defaultValue="2 adults">
+      <option>1 adult</option>
+      <option>2 adults</option>
+      <option>3 adults</option>
+      <option>4 adults</option>
+      <option>2 adults + children</option>
+      <option>Family / group</option>
+      </select>
+      </label>
+      </div>
+      <div className="enq-row">
+      <label>Check-in / Depart<input name="checkin" type="date" /></label>
+      <label>Check-out / Return<input name="checkout" type="date" /></label>
+      </div>
+      <label className="enq-full">Your WhatsApp or email<input name="contact" type="text" inputMode="email" placeholder="+971 50… or you@email.com" required /></label>
+      <button type="submit" className="btn btn-grad enq-submit">Request my quote →</button>
+      <small className="enq-note">No payment now · typical reply within 2 hours</small>
       </form>
       </div>
       </div></section>
