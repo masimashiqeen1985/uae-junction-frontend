@@ -268,6 +268,7 @@ export function VibrantHome({ destinations = [] }: { destinations?: HeroCountry[
       <li>✓ 2,100+ hotels, negotiated rates</li>
       <li>✓ One desk for the whole itinerary</li>
       </ul>
+              <a href="https://www.theuaejunction.cloud/enquiry" className="enq-fullcta" style={{ display: 'inline-block', marginTop: 16, padding: '13px 24px', borderRadius: 999, background: '#6c5ce7', color: '#fff', fontWeight: 700, textDecoration: 'none' }}>Prefer a step-by-step form? Get a detailed hand-priced quote →</a>
       </div>
       <form className="enq-form" noValidate aria-label="Hotels and flights quote request">
       <div className="enq-tabs" role="group" aria-label="What would you like a quote for?">
