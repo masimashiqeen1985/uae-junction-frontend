@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import Link from 'next/link'
 import { COUNTRIES } from '@/lib/countries'
 import type {
   Board,
@@ -714,9 +715,9 @@ export default function EnquiryWizard() {
                     <input type="checkbox" style={{ width: 'auto', minHeight: 0, marginTop: 3 }} checked={!!form.contactConsent} onChange={(e) => set('contactConsent', e.target.checked)} />
                     <span>
                       I agree to be contacted about this enquiry. <span className="req">*</span>{' '}
-                      <a href="/privacy-policy" target="_blank" rel="noopener" style={{ color: '#b9b1ff' }}>
+                      <Link href="/privacy-policy" target="_blank" rel="noopener" style={{ color: '#b9b1ff' }}>
                         Privacy Policy
-                      </a>
+                      </Link>
                     </span>
                   </label>
                   <label style={{ display: 'flex', gap: 10, alignItems: 'center', fontWeight: 500, marginTop: 8 }}>
