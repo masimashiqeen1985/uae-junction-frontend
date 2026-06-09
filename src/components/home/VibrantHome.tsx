@@ -241,7 +241,7 @@ export function VibrantHome({ destinations = [] }: { destinations?: HeroCountry[
       </div>
       </div></section>
       <section id="countries"><div className="wrap">
-      <div className="sec-head reveal"><div><span className="eyebrow">Beyond the UAE</span><h2>Explore 12 countries 🌍</h2><p>Each destination opens its own hub — Things to do, Theme Parks, and Taxi &amp; Train bookings, just like the UAE.</p></div><a href="#">View all destinations →</a></div>
+      <div className="sec-head reveal"><div><span className="eyebrow">Beyond the UAE</span><h2>Explore the World 🌍</h2><p>12 destinations and counting — each opens its own hub for Things to do, Theme Parks, and Taxi &amp; Train bookings, just like the UAE.</p></div><a href="#">View all destinations →</a></div>
       <div className="country-grid">
       <a className="country reveal" href="#"><img alt="Saudi Arabia" src="https://images.unsplash.com/photo-1578895101408-1a36b834405b?q=80&w=600&auto=format&fit=crop" /><div className="b"><h3>Saudi Arabia</h3><div className="links">Things to do · Theme Parks · Taxi &amp; Train</div></div></a>
       <a className="country reveal" href="#"><img alt="Qatar" src="https://images.unsplash.com/photo-1539020140153-e479b8c22e70?q=80&w=600&auto=format&fit=crop" /><div className="b"><h3>Qatar</h3><div className="links">Things to do · Theme Parks · Taxi &amp; Train</div></div></a>
