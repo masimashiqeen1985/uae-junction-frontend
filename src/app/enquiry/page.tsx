@@ -31,7 +31,7 @@ export default function EnquiryPage() {
           sends a tailored quote — no callback needed unless you ask.
         </p>
       </header>
-      <div className="uj-card" style={{ maxWidth: 760, margin: '0 auto', padding: 'clamp(18px,4vw,32px)' }}>
+      <div style={{ maxWidth: 760, margin: '0 auto', padding: 'clamp(18px,4vw,32px)', background: 'linear-gradient(180deg,#141a33,#0e1120)', borderRadius: 20, border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 20px 60px rgba(0,0,0,0.28)' }}>
         <EnquiryWizard />
       </div>
     </main>
