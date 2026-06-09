@@ -235,7 +235,7 @@ html{scroll-behavior:smooth}
 .vibrant-home .wc-foot{display:flex;justify-content:space-between;align-items:center;font-size:.86rem;position:relative;z-index:1}
 .vibrant-home .wc-foot span{opacity:.9}
 .vibrant-home .wc-foot a{font-weight:700;color:#fff}
-.vibrant-home .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.vibrant-home .reveal{opacity:1;transform:translateY(22px);transition:transform .8s var(--ease)}
 .vibrant-home .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.vibrant-home *{animation:none!important;transition:none!important}
 .vibrant-home .reveal{opacity:1;transform:none}
