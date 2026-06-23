@@ -36,6 +36,33 @@ function readMins(content?:string){
   return Math.max(1,Math.round(words/200))
 }
 
+function faqFromContent(html?:string):{q:string,a:string}[]{
+  if(!html)return[]
+  const h2re=/<h2\b[^>]*>([\s\S]*?)<\/h2>/gi
+  const marks:{start:number,end:number,text:string}[]=[]
+  let m:RegExpExecArray|null
+  while((m=h2re.exec(html)))marks.push({start:m.index,end:h2re.lastIndex,text:strip(m[1]).toLowerCase()})
+  let start=-1,end=html.length
+  for(let i=0;i<marks.length;i++){
+    if(/frequently asked questions|^faqs?$|^faq\b|common questions/.test(marks[i].text)){
+      start=marks[i].end;end=i+1<marks.length?marks[i+1].start:html.length;break
+    }
+  }
+  if(start<0)return[]
+  const section=html.slice(start,end)
+  const h3re=/<h3\b[^>]*>([\s\S]*?)<\/h3>/gi
+  const items:{q:string,start:number,end:number}[]=[]
+  let h:RegExpExecArray|null
+  while((h=h3re.exec(section)))items.push({q:strip(h[1]),start:h.index,end:h3re.lastIndex})
+  const out:{q:string,a:string}[]=[]
+  for(let i=0;i<items.length;i++){
+    const aEnd=i+1<items.length?items[i+1].start:section.length
+    const a=strip(section.slice(items[i].end,aEnd).replace(/<\/(p|div|li|h[1-6])>/gi,' ').replace(/<br\s*\/?>/gi,' '))
+    if(items[i].q&&a)out.push({q:items[i].q,a})
+  }
+  return out
+}
+
 async function getPost(slug:string):Promise<WPPost|null>{
   try{
     const d=await fetchGraphQL<{post?:WPPost}>(GET_POST,{slug},3600)
@@ -114,10 +141,18 @@ export default async function BlogPostPage({params}:Props){
     ],
   }
 
+  const faqs=faqFromContent(post.content)
+  const faqLd=faqs.length>0?{
+    '@context':'https://schema.org',
+    '@type':'FAQPage',
+    mainEntity:faqs.map(f=>({'@type':'Question',name:f.q,acceptedAnswer:{'@type':'Answer',text:f.a}})),
+  }:null
+
   return(
     <article className="bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd)}}/>
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(breadcrumbLd)}}/>
+      {faqLd&&<script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(faqLd)}}/>}
       <ReadingProgress/>
 
       {/* Hero — heroSky gradient + brand glow, on-vibe with the rest of the site */}
