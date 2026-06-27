@@ -5,7 +5,7 @@ import { MEDIA_FIELDS } from '@/lib/queries/fragments'
 // Always run on request — search is user-driven and must not be cached per build.
 export const dynamic = 'force-dynamic'
 
-const SEARCH_ALL = `query SearchAll($term:String!,$first:Int=8){destinations(first:3,where:{search:$term,hideEmpty:true}){nodes{name slug count parent{node{name}}}}products(first:$first,where:{search:$term,status:"publish"}){nodes{databaseId slug name onSale image{${MEDIA_FIELDS}} ... on SimpleProduct{regularPrice salePrice price}}}}`
+const SEARCH_ALL = `query SearchAll($term:String!,$first:Int=8){destinations(first:3,where:{search:$term,hideEmpty:true}){nodes{name slug count parent{node{name}}}}products(first:$first,where:{search:$term,status:"publish",visibility:VISIBLE}){nodes{databaseId slug name onSale image{${MEDIA_FIELDS}} ... on SimpleProduct{regularPrice salePrice price}}}}`
 
 type ProductNode = {
   databaseId: number
